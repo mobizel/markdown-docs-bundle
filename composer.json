@@ -1,0 +1,35 @@
+{
+    "name": "mobizel/markdown-docs-bundle",
+    "description": "Explore your markdown documentation files via html web pages",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mobizel\\Bundle\\MarkdownDocsBundle\\": "src/Bundle/",
+            "Mobizel\\Component\\MarkdownDocs\\": "src/Component/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mobizel\\Bundle\\MarkdownDocsBundle\\spec\\": "src/Bundle/spec/",
+            "Mobizel\\Component\\MarkdownDocs\\spec\\": "src/Component/spec/"
+        }
+    },
+    "require": {
+        "php": ">=7.3",
+        "twig/twig": "^2.12|^3.0",
+        "twig/markdown-extra": "^3.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^6.2",
+        "phpstan/phpstan": "^0.12.42",
+        "symplify/easy-coding-standard": "^7.3 || ^8.1"
+    },
+    "scripts": {
+        "analyse": [
+            "@php vendor/bin/ecs check src"
+        ],
+        "fix": [
+            "@php vendor/bin/ecs check src --fix"
+        ]
+    }
+}
