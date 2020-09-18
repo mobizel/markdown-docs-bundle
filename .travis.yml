@@ -1,0 +1,37 @@
+language: php
+
+dist: trusty
+
+php:
+    - '7.3'
+    - '7.4'
+
+cache:
+    yarn: true
+    directories:
+        - ~/.composer/cache/files
+        - $MARKDOWN_DOCS_CACHE_DIR
+
+env:
+    global:
+        - MARKDOWN_DOCS_CACHE_DIR=$HOME/.monofony-cache
+        - MARKDOWN_DOCS_BUILD_DIR=etc/build
+
+before_install:
+    - phpenv config-rm xdebug.ini
+    - echo "memory_limit=4096M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+    - mkdir -p "${MARKDOWN_DOCS_CACHE_DIR}"
+
+install:
+    - composer install --no-interaction --prefer-dist
+
+before_script:
+
+script:
+    - composer validate --strict
+    - vendor/bin/ecs check src
+    - phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
+    - vendor/bin/phpstan analyse src --level=max
+
+notifications:
+    email: false

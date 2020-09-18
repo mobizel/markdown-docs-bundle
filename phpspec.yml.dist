@@ -1,0 +1,11 @@
+suites:
+    Bundle:
+        namespace: Mobizel\Bundle\MarkdownDocsBundle
+        psr4_prefix: Mobizel\Bundle\MarkdownDocsBundle
+        src_path: src/Bundle
+        spec_path: src/Bundle
+    Component:
+        namespace: Mobizel\Component\MarkdownDocs
+        psr4_prefix: Mobizel\Component\MarkdownDocs
+        src_path: src/Component
+        spec_path: src/Component

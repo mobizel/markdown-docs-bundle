@@ -1,0 +1,5 @@
+parameters:
+    excludes_analyse:
+        - %currentWorkingDirectory%/src/Bundle/spec/*
+        - %currentWorkingDirectory%/src/Component/spec/*
+        - %currentWorkingDirectory%/src/Component/vendor/*
