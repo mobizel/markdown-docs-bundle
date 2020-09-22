@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Mobizel\Component\MarkdownDocs\Template;
+namespace Mobizel\Bundle\MarkdownDocsBundle\Template;
 
 final class TemplateHandler implements TemplateHandlerInterface
 {

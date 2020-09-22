@@ -11,11 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Mobizel\Component\MarkdownDocs\Template;
+namespace Mobizel\Bundle\MarkdownDocsBundle;
 
-interface TemplateHandlerInterface
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+final class MobizelMarkdownDocsBundle extends Bundle
 {
-    public function getTemplatePath(string $slug): string;
-
-    public function getTemplateAbsolutePath(string $slug): string;
 }

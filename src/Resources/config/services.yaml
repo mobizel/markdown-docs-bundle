@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        bind:
+            $projectDir: '%kernel.project_dir%'
+
+    mobizel_markdown_docs.template.template_handler:
+        class: Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandler
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+
+    Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface: '@mobizel_markdown_docs.template.template_handler'
+
+    mobizel_markdown_docs.twig.extension.page_title:
+        class: Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtension
+        arguments:
+            $templateHandler: '@mobizel_markdown_docs.template.template_handler'
+        tags: ['twig.extension']

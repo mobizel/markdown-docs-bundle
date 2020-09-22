@@ -1,0 +1,29 @@
+{% extends '@MObizelMarkdownDocs/page/layout.html.twig' %}
+
+{% import _self as self %}
+
+{% macro breadcrumb(items) %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/doc">Homepage</a>
+            </li>
+
+            {% for title in items %}
+                <li class="breadcrumb-item{% if loop.last %} active{% endif %}" {% if loop.last %}aria-current="page"{% endif %}>
+                    {% set itemSlug = items|slice(0, loop.index)|join('/') %}
+                    {% if not loop.last %}
+                        <a href="/doc/{{ itemSlug }}">{{ page_title(itemSlug) }}</a>
+                    {% else %}
+                        {{ page_title(itemSlug) }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+{% endmacro %}
+
+{% block page_content %}
+    {% include '@MobizelMarkdownDocs/page/show/_breadcrumb.html.twig' %}
+    {% include '@MobizelMarkdownDocs/page/show/_content.html.twig' %}
+{% endblock %}

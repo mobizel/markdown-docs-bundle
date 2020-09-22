@@ -1,28 +1,36 @@
 {
     "name": "mobizel/markdown-docs-bundle",
     "description": "Explore your markdown documentation files via html web pages",
+    "type": "symfony-bundle",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Mobizel\\Bundle\\MarkdownDocsBundle\\": "src/Bundle/",
-            "Mobizel\\Component\\MarkdownDocs\\": "src/Component/"
+            "Mobizel\\Bundle\\MarkdownDocsBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mobizel\\Bundle\\MarkdownDocsBundle\\spec\\": "src/Bundle/spec/",
-            "Mobizel\\Component\\MarkdownDocs\\spec\\": "src/Component/spec/"
+            "spec\\Mobizel\\Bundle\\MarkdownDocsBundle\\": "spec/"
         }
     },
     "require": {
-        "php": ">=7.3",
-        "twig/twig": "^2.12|^3.0",
-        "twig/markdown-extra": "^3.0"
+        "php": "^7.2.9",
+        "symfony/framework-bundle": "^4.4|^5.1",
+        "symfony/http-kernel": "^4.4|^5.1",
+        "symfony/routing": "^4.4|^5.1",
+        "symfony/twig-bundle": "^4.4|^5.1",
+        "twig/markdown-extra": "^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
         "phpspec/phpspec": "^6.2",
         "phpstan/phpstan": "^0.12.42",
-        "symplify/easy-coding-standard": "^7.3 || ^8.1"
+        "symplify/easy-coding-standard": "^7.3 || ^8.1",
+        "symfony/phpunit-bridge": "^4.4|^5.1"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "scripts": {
         "analyse": [

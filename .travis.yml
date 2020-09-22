@@ -1,37 +1,49 @@
 language: php
-
-dist: trusty
-
-php:
-    - '7.3'
-    - '7.4'
-
+sudo: false
 cache:
-    yarn: true
     directories:
-        - ~/.composer/cache/files
-        - $MARKDOWN_DOCS_CACHE_DIR
+        - $HOME/.composer/cache/files
+        - $HOME/symfony-bridge/.phpunit
+        - SYMFONY_REQUIRE='>=3.4'
 
 env:
     global:
-        - MARKDOWN_DOCS_CACHE_DIR=$HOME/.monofony-cache
-        - MARKDOWN_DOCS_BUILD_DIR=etc/build
+        - PHPUNIT_FLAGS="-v"
+        - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+
+matrix:
+    fast_finish: true
+    include:
+        - php: 7.2.9
+          env: MAKER_TEST_VERSION=stable
+        - php: 7.3
+          env: MAKER_TEST_VERSION=stable
+          # too unstable - sometimes we need other dev deps
+          # for things to pass, sometimes dev deps of other libraries
+          # are unstable and cause things to fail.
+#        - php: 7.3
+#          env: MAKER_TEST_VERSION=stable-dev
+        - php: 7.3
+          env: MAKER_TEST_VERSION=dev
+    allow_failures:
+        - php: 7.3
+          env: MAKER_TEST_VERSION=dev
 
 before_install:
-    - phpenv config-rm xdebug.ini
-    - echo "memory_limit=4096M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-    - mkdir -p "${MARKDOWN_DOCS_CACHE_DIR}"
+    - find ~/.phpenv -name xdebug.ini -delete
+    - composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-master
+    - composer update
 
 install:
-    - composer install --no-interaction --prefer-dist
-
-before_script:
+    - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
+    - ./vendor/bin/simple-phpunit install
 
 script:
-    - composer validate --strict
+    - composer validate --strict --no-check-lock
     - vendor/bin/ecs check src
     - phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
     - vendor/bin/phpstan analyse src --level=max
+    - vendor/bin/simple-phpunit $PHPUNIT_FLAGS
 
 notifications:
     email: false

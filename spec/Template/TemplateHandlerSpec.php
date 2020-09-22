@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace spec\Mobizel\Component\MarkdownDocs\Template;
+namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Template;
 
-use Mobizel\Component\MarkdownDocs\Template\TemplateHandler;
+use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandler;
 use PhpSpec\ObjectBehavior;
 
 class TemplateHandlerSpec extends ObjectBehavior
