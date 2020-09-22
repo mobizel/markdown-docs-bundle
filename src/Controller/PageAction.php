@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of markdown-docs.
+ * This file is part of the Mobizel package.
  *
  * (c) Mobizel
  *
