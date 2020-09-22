@@ -1,5 +1,5 @@
 language: php
-
+sudo: false
 cache:
     directories:
         - $HOME/.composer/cache/files
@@ -14,25 +14,25 @@ env:
 matrix:
     fast_finish: true
     include:
-        -   php: 7.2.9
-            env: MARKDOWN_DOCS_TEST_VERSION=stable
-        -   php: 7.3
-            env: MARKDOWN_DOCS_TEST_VERSION=stable
-            # too unstable - sometimes we need other dev deps
-            # for things to pass, sometimes dev deps of other libraries
-            # are unstable and cause things to fail.
+        - php: 7.2.9
+          env: MAKER_TEST_VERSION=stable
+        - php: 7.3
+          env: MAKER_TEST_VERSION=stable
+          # too unstable - sometimes we need other dev deps
+          # for things to pass, sometimes dev deps of other libraries
+          # are unstable and cause things to fail.
 #        - php: 7.3
-#          env: MARKDOWN_DOCS_TEST_VERSION=stable-dev
-        -   php: 7.3
-            env: MARKDOWN_DOCS_TEST_VERSION=dev
-        allow_failures:
-            -   php: 7.3
-                env: MARKDOWN_DOCS_TEST_VERSION=dev
+#          env: MAKER_TEST_VERSION=stable-dev
+        - php: 7.3
+          env: MAKER_TEST_VERSION=dev
+    allow_failures:
+        - php: 7.3
+          env: MAKER_TEST_VERSION=dev
 
 before_install:
-        - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi
-        - composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-master
-        - composer update
+    - find ~/.phpenv -name xdebug.ini -delete
+    - composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-master
+    - composer update
 
 install:
     - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
