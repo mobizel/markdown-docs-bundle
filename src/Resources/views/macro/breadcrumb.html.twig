@@ -1,0 +1,26 @@
+{% macro render(slug) %}
+    {% set items = slug|split('/') %}
+
+    {% if items|length > 0 and slug != 'index' %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/">Homepage</a>
+                </li>
+
+                {% for title in items %}
+                    {% if not loop.first %}
+                    <li class="breadcrumb-item{% if loop.last %} active{% endif %}" {% if loop.last %}aria-current="page"{% endif %}>
+                        {% set itemSlug = items|slice(0, loop.index)|join('/') %}
+                        {% if not loop.last %}
+                            <a href="/{{ itemSlug }}">{{ page_title(itemSlug) }}</a>
+                        {% else %}
+                            {{ page_title(itemSlug) }}
+                        {% endif %}
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+    {% endif %}
+{% endmacro %}

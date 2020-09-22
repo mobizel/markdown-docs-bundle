@@ -1,0 +1,8 @@
+{% macro nav_item(title, path) %}
+    {% set current = (path in app.request.requestUri) %}
+    <li class="nav-item">
+        <a class="nav-link {% if current %}active{% endif %}" href="{{ path }}">
+            {{ title }} {% if current %}<span class="sr-only">(current)</span>{% endif %}
+        </a>
+    </li>
+{% endmacro %}

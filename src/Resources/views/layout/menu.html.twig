@@ -1,0 +1,7 @@
+{% import '@MobizelMarkdownDocs/macro/menu.html.twig' as menu %}
+
+<ul class="nav flex-column">
+    {% for item in menu_items %}
+        {{ menu.nav_item(page_title(item.slug), item.path) }}
+    {% endfor %}
+</ul>
