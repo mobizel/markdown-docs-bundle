@@ -1,4 +1,6 @@
 parameters:
+    checkMissingIterableValueType: false
+
     excludes_analyse:
         - %currentWorkingDirectory%/src/Bundle/spec/*
         - %currentWorkingDirectory%/src/Component/spec/*
