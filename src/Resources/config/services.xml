@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="true" public="true"/>
+
+        <service id="mobizel_markdown_docs.template.template_handler" class="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandler">
+            <argument key="$projectDir">%kernel.project_dir%</argument>
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface" alias="mobizel_markdown_docs.template.template_handler"/>
+
+        <service id="mobizel_markdown_docs.twig.extension.page_title" class="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtension">
+            <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtensionInterface" alias="mobizel_markdown_docs.twig.extension.page_title"/>
+
+        <service id="mobizel_markdown_docs.controller.page_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\PageAction">
+            <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
+        </service>
+    </services>
+</container>
