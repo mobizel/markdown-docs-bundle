@@ -11,4 +11,6 @@
     <route id="mobizel_markdown_docs_search" path="search" controller="mobizel_markdown_docs.controller.search_action">
         <requirement key="query">.+</requirement>
     </route>
+
+    <route id="mobizel_markdown_docs_menu" path="menu" controller="mobizel_markdown_docs.controller.menu_action"/>
 </routes>

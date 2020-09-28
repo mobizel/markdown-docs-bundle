@@ -32,5 +32,13 @@
             <tag name="container.service_subscriber"/>
             <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
         </service>
+
+        <service id="mobizel_markdown_docs.controller.menu_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\MenuAction">
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface"/>
+            </call>
+            <tag name="container.service_subscriber"/>
+            <argument key="$docsDir">%kernel.project_dir%/docs</argument>
+        </service>
     </services>
 </container>
