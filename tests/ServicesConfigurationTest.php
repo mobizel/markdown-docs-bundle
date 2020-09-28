@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Tests;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Controller\MenuAction;
 use Mobizel\Bundle\MarkdownDocsBundle\Controller\PageAction;
+use Mobizel\Bundle\MarkdownDocsBundle\Controller\SearchAction;
 use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandler;
 use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtensionInterface;
@@ -43,7 +45,7 @@ final class ServicesConfigurationTest extends KernelTestCase
         $this->assertTrue($container->has(PageTitleExtensionInterface::class));
     }
 
-    public function testPageActionControllerWiringWithConfiguration()
+    public function testPageActionWiringWithConfiguration()
     {
         self::bootKernel();
 
@@ -51,5 +53,25 @@ final class ServicesConfigurationTest extends KernelTestCase
 
         $pageAction = $container->get('mobizel_markdown_docs.controller.page_action');
         $this->assertInstanceOf(PageAction::class, $pageAction);
+    }
+
+    public function testSearchActionWiringWithConfiguration()
+    {
+        self::bootKernel();
+
+        $container = self::$container;
+
+        $searchAction = $container->get('mobizel_markdown_docs.controller.search_action');
+        $this->assertInstanceOf(SearchAction::class, $searchAction);
+    }
+
+    public function testMenuActionWiringWithConfiguration()
+    {
+        self::bootKernel();
+
+        $container = self::$container;
+
+        $menuAction = $container->get('mobizel_markdown_docs.controller.menu_action');
+        $this->assertInstanceOf(MenuAction::class, $menuAction);
     }
 }

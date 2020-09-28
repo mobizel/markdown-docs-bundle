@@ -1,0 +1,5 @@
+framework:
+    test: true
+    router:
+        resource: "%kernel.project_dir%/src/Resources/config/routes.xml"
+        utf8: true
