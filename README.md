@@ -1,22 +1,23 @@
 # mobizel/markdown-docs-bundle
 
-## Setup
-```bash
-composer require mobizel/markdown-docs-bundle
-```
+Documentation
+-------------
 
-```yaml
-# config/routes/mobizel_markdown_docs.yaml
+[Documentation is available in the *docs* folder.](docs/index.md)
 
-_mobizel_markdowns:
-    resource: '@MobizelMarkdownDocsBundle/Resources/config/routes.xml'
+Bug tracking
+------------
 
-```
+Mobizel uses [GitHub issues](https://github.com/mobizel/markdown-docs-bundle/issues).
+If you have found bug, please create an issue.
 
-## Write your own doc 
-Markdown templates are on `docs` directory.
+MIT License
+-----------
 
-Your files are already available on your server.
+License can be found [here](https://github.com/mobizel/markdown-docs-bundle/blob/master/LICENSE).
 
-Example:
-`docs/dummy/foo.md` is available at [/docs/dummy/foo](http://localhost:8000/docs/dummy/foo)
+Authors
+-------
+
+The bundle was originally created by [Loïc Frémont](https://github.com/loic425).
+See the list of [contributors](https://github.com/mobizel/markdown-docs-bundle/contributors).
