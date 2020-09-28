@@ -1,5 +1,9 @@
 # mobizel/markdown-docs-bundle [![Build status...](https://secure.travis-ci.org/mobizel/markdown-docs-bundle.png?branch=master)](http://travis-ci.com/mobizel/markdown-docs-bundle)
 
+Explore your markdown documentation files via html web pages. 
+Your documentation can be browse easily and be pleasant to read.
+Moreover you can make a full-text search. 
+
 Documentation
 -------------
 
