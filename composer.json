@@ -10,7 +10,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "spec\\Mobizel\\Bundle\\MarkdownDocsBundle\\": "spec/"
+            "spec\\Mobizel\\Bundle\\MarkdownDocsBundle\\": "spec/",
+            "Mobizel\\Bundle\\MarkdownDocsBundle\\Tests\\": "tests/"
         }
     },
     "require": {
