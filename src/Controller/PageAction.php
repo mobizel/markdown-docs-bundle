@@ -38,6 +38,10 @@ final class PageAction extends AbstractController
         try {
             $templatePath = $this->templateHandler->getTemplateAbsolutePath($slug);
 
+            if (!is_file($templatePath)) {
+                throw new NotFoundHttpException(sprintf('Template %s does not exist', $templatePath));
+            }
+
             return $this->render('@MobizelMarkdownDocs/page/show.html.twig', [
                 'slug' => $slug,
                 'template' => $this->templateHandler->getTemplatePath($slug),
