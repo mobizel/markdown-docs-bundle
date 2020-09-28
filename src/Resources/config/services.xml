@@ -17,7 +17,19 @@
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtensionInterface" alias="mobizel_markdown_docs.twig.extension.page_title"/>
 
+        <service id="mobizel_markdown_docs.controller.search_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\SearchAction">
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface"/>
+            </call>
+            <tag name="container.service_subscriber"/>
+            <argument key="$docsDir">%kernel.project_dir%/docs</argument>
+        </service>
+
         <service id="mobizel_markdown_docs.controller.page_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\PageAction">
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface"/>
+            </call>
+            <tag name="container.service_subscriber"/>
             <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
         </service>
     </services>

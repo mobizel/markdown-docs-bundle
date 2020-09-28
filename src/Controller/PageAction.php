@@ -17,7 +17,6 @@ use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
 use Twig\Error\LoaderError;
 
 final class PageAction extends AbstractController
@@ -30,9 +29,6 @@ final class PageAction extends AbstractController
         $this->templateHandler = $templateHandler;
     }
 
-    /**
-     * @Route("{slug}", name="mobizel_markdown_docs_page_show", requirements={"slug"="docs/.+"}, priority=-999)
-     */
     public function __invoke(string $slug): Response
     {
         if (false !== strpos($slug, '.md')) {
@@ -42,7 +38,7 @@ final class PageAction extends AbstractController
         try {
             $templatePath = $this->templateHandler->getTemplateAbsolutePath($slug);
 
-            return $this->render('page/show.html.twig', [
+            return $this->render('@MobizelMarkdownDocs/page/show.html.twig', [
                 'slug' => $slug,
                 'template' => $this->templateHandler->getTemplatePath($slug),
                 'content' => file_get_contents($templatePath),
