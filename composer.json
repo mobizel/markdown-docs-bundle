@@ -44,5 +44,10 @@
         "fix": [
             "@php vendor/bin/ecs check src --fix"
         ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
     }
 }
