@@ -16,7 +16,6 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 final class MenuAction extends AbstractController
 {
@@ -28,9 +27,6 @@ final class MenuAction extends AbstractController
         $this->docsDir = $docsDir;
     }
 
-    /**
-     * @Route(path="/menu", name="menu")
-     */
     public function __invoke(): Response
     {
         $finder = new Finder();
