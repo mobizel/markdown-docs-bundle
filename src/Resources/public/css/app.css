@@ -1,9 +1,10 @@
 body {
     font-size: .875rem;
+    background-color: #F2F7F8;
 }
 
 h1 {
-    border-bottom: 1px solid rgb(222, 226, 230);
+    font-size: 28px;
 }
 
 h1, h2 {
@@ -25,6 +26,17 @@ h3 {
     padding: 0;
 }
 
+.breadcrumb-item.active, .breadcrumb-item a {
+    color: #9A9A9A;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    display: inline-block;
+    padding-right: .5rem;
+    color: #9A9A9A;
+    content: ">";
+}
+
 blockquote {
     background: lightcyan;
     padding: 10px;
@@ -44,7 +56,7 @@ blockquote {
     left: 0;
     z-index: 100; /* Behind the navbar */
     padding: 48px 0 0; /* Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: #133E56;
 }
 
 @media (max-width: 767.98px) {
@@ -71,7 +83,7 @@ blockquote {
 
 .sidebar .nav-link {
     font-weight: 500;
-    color: #333;
+    color: hsla(0,0%,100%,.5);
 }
 
 .sidebar .nav-link .feather {
@@ -80,7 +92,9 @@ blockquote {
 }
 
 .sidebar .nav-link.active {
-    color: #007bff;
+    background-color: rgb(75, 174, 180) !important;
+    border-radius: 0 99px 99px 0!important;
+    color: white;
 }
 
 .sidebar .nav-link:hover .feather,
@@ -101,8 +115,8 @@ blockquote {
     padding-top: .75rem;
     padding-bottom: .75rem;
     font-size: 1rem;
-    background-color: rgba(0, 0, 0, .25);
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+    background-color: #133E56;
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
 }
 
 .navbar .navbar-toggler {
@@ -126,7 +140,6 @@ blockquote {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
-
 
 img {
     max-width: 100%;
