@@ -114,9 +114,10 @@ blockquote {
 .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     background-color: #133E56;
     box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    text-align: center;
 }
 
 .navbar .navbar-toggler {
