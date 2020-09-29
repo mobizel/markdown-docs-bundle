@@ -15,6 +15,7 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class MenuAction extends AbstractController
@@ -27,7 +28,7 @@ final class MenuAction extends AbstractController
         $this->docsDir = $docsDir;
     }
 
-    public function __invoke(): Response
+    public function __invoke(Request $request): Response
     {
         $finder = new Finder();
         $finder->files()->in($this->docsDir)->depth(0)->notName('index.md');
@@ -43,6 +44,9 @@ final class MenuAction extends AbstractController
             ];
         }
 
-        return $this->render('@MobizelMarkdownDocs/layout/menu.html.twig', ['menu_items' => $menuItems]);
+        return $this->render('@MobizelMarkdownDocs/layout/menu.html.twig', [
+            'menu_items' => $menuItems,
+            'current_item' => $request->query->get('current_item'),
+        ]);
     }
 }
