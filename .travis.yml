@@ -9,6 +9,7 @@ env:
     global:
         - PHPUNIT_FLAGS="-v"
         - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+        # check Symfony versions here https://symfony.com/versions.json
         - SYMFONY_LTS=4.4.*
         - SYMFONY_LATEST=5.1.*
         - SYMFONY_DEV=5.2.*
@@ -33,7 +34,6 @@ before_install:
     - composer update
 
 install:
-    - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
     - ./vendor/bin/simple-phpunit install
 
 script:
