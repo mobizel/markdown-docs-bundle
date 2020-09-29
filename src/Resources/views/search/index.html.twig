@@ -4,9 +4,11 @@
     <h1>Search results</h1>
     <ul>
         {% for file in files %}
-            {% set slug = '/docs/' ~ file.relativePathname|trim('.md', 'right') %}
+            {% set slug = file.relativePathname|trim('.md', 'right') %}
             <li>
-                <a href="{{ slug }}">{{ page_title(slug) }} [{{ slug }}]</a>
+                <a href="{{ path('mobizel_markdown_docs_page_show', { 'slug': slug }) }}">
+                    {{ page_title(slug) }} [{{ slug }}]
+                </a>
             </li>
         {% endfor %}
     </ul>
