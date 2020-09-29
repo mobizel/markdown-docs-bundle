@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 
 final class MenuAction extends AbstractController
 {
@@ -34,13 +35,15 @@ final class MenuAction extends AbstractController
         $finder->files()->in($this->docsDir)->depth(0)->notName('index.md');
 
         $menuItems = [];
-        $docs = basename($this->docsDir);
+
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
 
         foreach($finder as $file) {
-            $slug = $docs.'/'.rtrim($file->getRelativePathName(),'.md');
+            $slug = rtrim($file->getRelativePathName(),'.md');
             $menuItems[] = [
                 'slug' => $slug,
-                'path' => '/'.$slug,
+                'path' => $router->generate('mobizel_markdown_docs_page_show', ['slug' => $slug]),
             ];
         }
 

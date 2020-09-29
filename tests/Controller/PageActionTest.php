@@ -22,7 +22,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/docs/index.md');
+        $client->request('GET', 'index.md');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
@@ -31,7 +31,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/docs/index');
+        $client->request('GET', 'index');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('html h1', 'Documentation');
@@ -41,7 +41,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/docs/not-found');
+        $client->request('GET', 'not-found');
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
