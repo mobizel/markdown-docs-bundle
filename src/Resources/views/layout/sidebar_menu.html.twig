@@ -1,5 +1,5 @@
 {% import '@MobizelMarkdownDocs/macro/menu.html.twig' as menu %}
 
 <ul class="nav flex-column">
-    {{ render(path('mobizel_markdown_docs_menu', {'current_item': app.request.requestUri})) }}
+    {{ render(path('mobizel_markdown_docs_menu', {'current_item': app.request.get('slug')})) }}
 </ul>
