@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of test-bundle.
+ * This file is part of the Mobizel package.
  *
  * (c) Mobizel
  *
