@@ -1,7 +1,7 @@
 {% extends '@MobizelMarkdownDocs/page/layout.html.twig' %}
 
 {% block page_content %}
-    <h1>Search results</h1>
+    <h1>Search results for terms "<em>{{ app.request.get('query') }}</em>"</h1>
     <ul>
         {% for file in files %}
             {% set slug = file.relativePathname|trim('.md', 'right') %}

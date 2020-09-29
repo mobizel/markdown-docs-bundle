@@ -25,6 +25,6 @@ final class SearchActionTest extends WebTestCase
         $client->request('GET', 'search?query=dummy');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertSelectorTextContains('html h1', 'Search results');
+        $this->assertSelectorTextSame('html h1', 'Search results for terms "dummy"');
     }
 }
