@@ -2,6 +2,7 @@ parameters:
     checkMissingIterableValueType: false
 
     excludes_analyse:
+        - %currentWorkingDirectory%/src/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/src/Bundle/spec/*
         - %currentWorkingDirectory%/src/Component/spec/*
         - %currentWorkingDirectory%/src/Component/vendor/*
