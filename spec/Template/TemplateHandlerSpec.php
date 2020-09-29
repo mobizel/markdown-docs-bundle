@@ -30,11 +30,11 @@ class TemplateHandlerSpec extends ObjectBehavior
 
     function it_can_get_template_path(): void
     {
-        $this->getTemplatePath('docs/foo')->shouldReturn('docs/foo.md');
+        $this->getTemplatePath('foo/bar')->shouldReturn('foo/bar.md');
     }
 
     function it_can_get_template_absolute_path(): void
     {
-        $this->getTemplateAbsolutePath('docs/foo')->shouldReturn('/path/to/docs/foo.md');
+        $this->getTemplateAbsolutePath('foo/bar')->shouldReturn('/path/to/docs/foo/bar.md');
     }
 }

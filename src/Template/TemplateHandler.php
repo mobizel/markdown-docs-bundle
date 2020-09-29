@@ -30,8 +30,6 @@ final class TemplateHandler implements TemplateHandlerInterface
 
     public function getTemplateAbsolutePath(string $slug): string
     {
-        $pathName = ltrim($this->getTemplatePath($slug), 'docs');
-
-        return $this->docsDir.$pathName;
+        return $this->docsDir.'/'.$this->getTemplatePath($slug);
     }
 }

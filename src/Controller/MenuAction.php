@@ -34,13 +34,12 @@ final class MenuAction extends AbstractController
         $finder->files()->in($this->docsDir)->depth(0)->notName('index.md');
 
         $menuItems = [];
-        $docs = basename($this->docsDir);
 
         foreach($finder as $file) {
-            $slug = $docs.'/'.rtrim($file->getRelativePathName(),'.md');
+            $slug = rtrim($file->getRelativePathName(),'.md');
             $menuItems[] = [
                 'slug' => $slug,
-                'path' => '/'.$slug,
+                'path' => $this->generateUrl('mobizel_markdown_docs_page_show', ['slug' => $slug]),
             ];
         }
 
