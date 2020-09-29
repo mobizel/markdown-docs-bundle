@@ -2,6 +2,6 @@
 
 <ul class="nav flex-column">
     {% for item in menu_items %}
-        {{ menu.nav_item(page_title(item.slug), item.path, current_item) }}
+        {{ menu.nav_item(item.slug, item.path, current_item) }}
     {% endfor %}
 </ul>

@@ -1,8 +1,9 @@
-{% macro nav_item(title, path, current_item) %}
-    {% set current = (path in current_item) %}
+{% macro nav_item(slug, path, current_item) %}
+    {% set root = current_item|split('/')|first %}
+    {% set current = (slug == root) %}
     <li class="nav-item">
         <a class="nav-link {% if current %}active{% endif %}" href="{{ path }}">
-            {{ title }} {% if current %}<span class="sr-only">(current)</span>{% endif %}
+            {{ page_title(slug) }} {% if current %}<span class="sr-only">(current)</span>{% endif %}
         </a>
     </li>
 {% endmacro %}
