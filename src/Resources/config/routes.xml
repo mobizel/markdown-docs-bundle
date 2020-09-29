@@ -4,9 +4,7 @@
     xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="mobizel_markdown_docs_index" path="/" controller="Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction">
-        <default key="path">/docs/index</default>
-    </route>
+    <route id="mobizel_markdown_docs_index" path="/" controller="mobizel_markdown_docs.controller.index_action"/>
 
     <route id="mobizel_markdown_docs_search" path="search" controller="mobizel_markdown_docs.controller.search_action">
         <requirement key="query">.+</requirement>
