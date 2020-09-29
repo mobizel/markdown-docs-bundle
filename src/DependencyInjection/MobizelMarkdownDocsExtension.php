@@ -27,5 +27,10 @@ final class MobizelMarkdownDocsExtension extends Extension
             new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.xml');
+
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('mobizel.markdown_docs.docs_dir', $config['docs_dir']);
     }
 }

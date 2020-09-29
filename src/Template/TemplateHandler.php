@@ -16,11 +16,11 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Template;
 final class TemplateHandler implements TemplateHandlerInterface
 {
     /** @var string */
-    private $projectDir;
+    private $docsDir;
 
-    public function __construct(string $projectDir)
+    public function __construct(string $docsDir)
     {
-        $this->projectDir = $projectDir;
+        $this->docsDir = $docsDir;
     }
 
     public function getTemplatePath(string $slug): string
@@ -30,6 +30,8 @@ final class TemplateHandler implements TemplateHandlerInterface
 
     public function getTemplateAbsolutePath(string $slug): string
     {
-        return $this->projectDir.'/'.$this->getTemplatePath($slug);
+        $pathName = ltrim($this->getTemplatePath($slug), 'docs');
+
+        return $this->docsDir.$pathName;
     }
 }
