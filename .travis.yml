@@ -4,38 +4,38 @@ cache:
     directories:
         - $HOME/.composer/cache/files
         - $HOME/symfony-bridge/.phpunit
-        - SYMFONY_REQUIRE='>=3.4'
 
 env:
     global:
         - PHPUNIT_FLAGS="-v"
         - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+        # check Symfony versions here https://symfony.com/versions.json
+        - SYMFONY_LTS=4.4.*
+        - SYMFONY_LATEST=5.1.*
+        - SYMFONY_DEV=5.2.*
 
 matrix:
     fast_finish: true
     include:
         - php: 7.2.9
-          env: MAKER_TEST_VERSION=stable
+          env: SYMFONY_VERSION=${SYMFONY_LTS}
         - php: 7.3
-          env: MAKER_TEST_VERSION=stable
-          # too unstable - sometimes we need other dev deps
-          # for things to pass, sometimes dev deps of other libraries
-          # are unstable and cause things to fail.
-#        - php: 7.3
-#          env: MAKER_TEST_VERSION=stable-dev
+          env: SYMFONY_VERSION=${SYMFONY_LATEST}
         - php: 7.3
-          env: MAKER_TEST_VERSION=dev
+          env: SYMFONY_VERSION=${SYMFONY_DEV}
     allow_failures:
         - php: 7.3
-          env: MAKER_TEST_VERSION=dev
+          env: SYMFONY_VERSION=${SYMFONY_DEV}
 
 before_install:
     - find ~/.phpenv -name xdebug.ini -delete
     - composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-master
+    - composer config extra.symfony.require "${SYMFONY_VERSION}"
+    - composer config minimum-stability "dev"
+    - composer config prefer-stable true
     - composer update
 
 install:
-    - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
     - ./vendor/bin/simple-phpunit install
 
 script:
