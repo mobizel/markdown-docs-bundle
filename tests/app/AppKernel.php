@@ -12,8 +12,6 @@ use Twig\Extra\TwigExtraBundle\TwigExtraBundle;
 
 class AppKernel extends Kernel
 {
-    use MicroKernelTrait;
-
     public function registerBundles()
     {
         return [
