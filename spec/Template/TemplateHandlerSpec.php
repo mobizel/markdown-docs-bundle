@@ -20,7 +20,7 @@ class TemplateHandlerSpec extends ObjectBehavior
 {
     function let(): void
     {
-        $this->beConstructedWith('/path/to/project');
+        $this->beConstructedWith('/path/to/docs');
     }
 
     function it_is_initializable(): void
@@ -30,11 +30,11 @@ class TemplateHandlerSpec extends ObjectBehavior
 
     function it_can_get_template_path(): void
     {
-        $this->getTemplatePath('foo')->shouldReturn('foo.md');
+        $this->getTemplatePath('docs/foo')->shouldReturn('docs/foo.md');
     }
 
     function it_can_get_template_absolute_path(): void
     {
-        $this->getTemplateAbsolutePath('foo')->shouldReturn('/path/to/project/foo.md');
+        $this->getTemplateAbsolutePath('docs/foo')->shouldReturn('/path/to/docs/foo.md');
     }
 }
