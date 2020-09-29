@@ -51,4 +51,11 @@ class PageTitleExtensionSpec extends ObjectBehavior
 
         $this->pageTitle('bar')->shouldReturn('Bar');
     }
+
+    function it_return_default_title_when_file_is_empty(TemplateHandlerInterface $templateHandler): void
+    {
+        $templateHandler->getTemplateAbsolutePath('bar')->willReturn(__DIR__.'/dummy/empty.md');
+
+        $this->pageTitle('bar')->shouldReturn('Bar');
+    }
 }

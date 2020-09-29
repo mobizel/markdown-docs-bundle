@@ -56,13 +56,11 @@ final class PageTitleExtension extends AbstractExtension implements PageTitleExt
         $resource = fopen($path, 'r');
         Assert::notFalse($resource);
 
-        /** @var string $line */
         $line = fgets($resource);
-        Assert::notFalse($line);
 
         fclose($resource);
 
-        return $line;
+        return $line ? $line : '';
     }
 
     private function getDefaultTitle(string $slug): string
