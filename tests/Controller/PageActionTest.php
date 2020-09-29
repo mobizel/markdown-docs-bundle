@@ -34,7 +34,7 @@ final class PageActionTest extends WebTestCase
         $client->request('GET', 'index');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertSelectorTextContains('html h1', 'Documentation');
+        $this->assertSelectorTextSame('html h1', 'Documentation');
     }
 
     public function testNotFoundPage()
