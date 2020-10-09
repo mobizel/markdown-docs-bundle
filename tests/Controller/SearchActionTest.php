@@ -22,9 +22,10 @@ final class SearchActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'search?query=dummy');
+        $client->request('GET', 'search?query=foo+fighters');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertSelectorTextSame('html h1', 'Search results for terms "dummy"');
+        $this->assertSelectorTextContains('html h1', 'foo fighters');
+        $this->assertSelectorTextContains('main ul', 'Foo fighters');
     }
 }

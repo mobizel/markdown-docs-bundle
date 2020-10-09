@@ -33,7 +33,7 @@ final class SearchAction extends AbstractController
         $query = $request->get('query', '');
 
         $finder = new Finder();
-        $finder->files()->in($this->docsDir)->contains($query);
+        $finder->files()->in($this->docsDir)->contains('/'.$query.'/i');
 
         return $this->render('@MobizelMarkdownDocs/search/index.html.twig', [
             'files' => $finder,

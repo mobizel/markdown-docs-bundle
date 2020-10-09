@@ -3,3 +3,6 @@ framework:
     router:
         resource: "%kernel.project_dir%/src/Resources/config/routes.xml"
         utf8: true
+
+mobizel_markdown_docs:
+    docs_dir: "%kernel.project_dir%/tests/docs"

@@ -40,21 +40,21 @@ class PageTitleExtensionSpec extends ObjectBehavior
 
     function it_can_get_page_title(TemplateHandlerInterface $templateHandler): void
     {
-        $templateHandler->getTemplateAbsolutePath('foo')->willReturn(__DIR__.'/dummy/foo.md');
+        $templateHandler->getTemplateAbsolutePath('foo')->willReturn('tests/docs/foo.md');
 
         $this->pageTitle('foo')->shouldReturn('Foo fighters');
     }
 
     function it_return_default_title_when_no_title_has_been_found(TemplateHandlerInterface $templateHandler): void
     {
-        $templateHandler->getTemplateAbsolutePath('bar')->willReturn(__DIR__.'/dummy/bar.md');
+        $templateHandler->getTemplateAbsolutePath('bar')->willReturn('tests/docs/bar.md');
 
         $this->pageTitle('bar')->shouldReturn('Bar');
     }
 
     function it_return_default_title_when_file_is_empty(TemplateHandlerInterface $templateHandler): void
     {
-        $templateHandler->getTemplateAbsolutePath('bar')->willReturn(__DIR__.'/dummy/empty.md');
+        $templateHandler->getTemplateAbsolutePath('bar')->willReturn('tests/docs/empty.md');
 
         $this->pageTitle('bar')->shouldReturn('Bar');
     }
