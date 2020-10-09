@@ -24,6 +24,14 @@ h3 {
     font-size: 16px;
     font-style: italic;
 }
+main a {
+    color: var(--secondary-color);
+}
+main a:hover{
+    color: #47cdd4;
+    transition: all ease-in-out .25s;
+    text-decoration: none;
+}
 
 .breadcrumb {
     background: none;
@@ -74,7 +82,7 @@ blockquote {
     position: relative;
     top: 0;
     height: calc(100vh - 48px);
-    padding-top: .5rem;
+    padding: .5rem .8rem 0 0;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -87,10 +95,12 @@ blockquote {
 }
 
 .sidebar .nav-link {
-    font-weight: 500;
-    color: hsla(0,0%,100%,.5);
+    font-weight: 400;
+    font-size: .8rem;
+    color: rgba(255,255,255,.5);
+    border-radius: 0 99px 99px 0;
+    padding: 0.6rem 1rem;
 }
-
 .sidebar .nav-link .feather {
     margin-right: 4px;
     color: #999;
@@ -98,10 +108,12 @@ blockquote {
 
 .sidebar .nav-link.active {
     background-color: var(--secondary-color);
-    border-radius: 0 99px 99px 0;
-    color: white;
+    color: #fff;
 }
-
+.sidebar .nav-link:hover{
+    color: #fff;
+    transition: all ease-in-out .25s;
+}
 .sidebar .nav-link:hover .feather,
 .sidebar .nav-link.active .feather {
     color: inherit;
