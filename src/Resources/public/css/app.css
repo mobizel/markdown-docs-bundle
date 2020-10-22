@@ -310,8 +310,9 @@ main .content blockquote {
 }
 
 .navbar .navbar-toggler {
-  top: 0.25rem;
-  right: 1rem;
+  top: 0.4rem;
+  right: 0;
+  border: none;
 }
 
 .navbar .searchform {
