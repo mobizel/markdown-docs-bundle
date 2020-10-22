@@ -3,7 +3,7 @@
 
     {% if items|length > 0 and slug != 'index' %}
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+            <ul class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ path('mobizel_markdown_docs_index') }}">Homepage</a>
                 </li>
@@ -20,7 +20,7 @@
                     </li>
                     {% endif %}
                 {% endfor %}
-            </ol>
+            </ul>
         </nav>
     {% endif %}
 {% endmacro %}

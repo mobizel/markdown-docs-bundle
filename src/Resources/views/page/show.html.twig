@@ -4,7 +4,7 @@
 
 {% macro breadcrumb(items) %}
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ul class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/doc">Homepage</a>
             </li>
@@ -19,7 +19,7 @@
                     {% endif %}
                 </li>
             {% endfor %}
-        </ol>
+        </ul>
     </nav>
 {% endmacro %}
 
