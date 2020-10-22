@@ -122,8 +122,8 @@ main .content a:hover {
 /*
  * Lists
  */
-main .content ul,
-main .content ol {
+main .content ol,
+main .content ul {
   list-style: none;
   padding: 0;
 }
@@ -132,18 +132,22 @@ main .content ol {
   counter-reset: my-counter;
 }
 
-main .content ul li,
-main .content ol li {
-  position: relative;
-  padding-left: 1.25rem;
-}
-
 main .content ol li {
   counter-increment: my-counter;
 }
 
-main .content ul li::before,
+main .content ol li,
+main .content ul:not(.breadcrumb) li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
 main .content ol li::before {
+  content: counter(my-counter) ". ";
+}
+
+main .content ol li::before,
+main .content ul:not(.breadcrumb) li::before {
   position: absolute;
   left: 0;
   padding-right: 0.5rem;
@@ -153,16 +157,12 @@ main .content ol li::before {
   font-weight: 700;
 }
 
-main .content ul li::before {
+main .content ul:not(.breadcrumb) li::before {
   content: "•";
 }
 
-main .content ol li::before {
-  content: counter(my-counter) ". ";
-}
-
-main .content ul > * + *,
-main .content ol:not(.breadcrumb) > * + * {
+main .content ol > * + *,
+main .content ul:not(.breadcrumb) > * + * {
   margin-top: 1rem;
 }
 
@@ -203,6 +203,7 @@ main .content .breadcrumb-item a {
 
 main .content .breadcrumb-item.active {
   color: #9ca0a2;
+  margin-top: 0;
 }
 
 main .content .breadcrumb-item + .breadcrumb-item::before {
