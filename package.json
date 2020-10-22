@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "libnpx": "^10.2.4",
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0"
   },
@@ -9,5 +10,8 @@
     "lint": "yarn lint:css",
     "fix": "npx stylelint \"src/**/*.css\" --fix",
     "lint:css": "npx stylelint \"src/**/*.css\""
+  },
+  "dependencies": {
+    "lint": "^0.7.0"
   }
 }
