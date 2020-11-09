@@ -13,11 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension;
 
-use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
-use Twig\Extension\AbstractExtension;
 use Twig\Extension\ExtensionInterface;
-use Twig\TwigFunction;
-use Webmozart\Assert\Assert;
 
 interface PageTitleExtensionInterface extends ExtensionInterface
 {

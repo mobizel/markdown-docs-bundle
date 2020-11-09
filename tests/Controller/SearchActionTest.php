@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of markdown-docs-bundle.
+ * This file is part of the Mobizel package.
  *
  * (c) Mobizel
  *
@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class SearchActionTest extends WebTestCase
 {
