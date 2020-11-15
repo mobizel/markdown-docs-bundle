@@ -1,10 +1,11 @@
 # Setup
 
 ```bash
+composer config extra.symfony.allow-contrib true
 composer require mobizel/markdown-docs-bundle
 ```
 
-Add the required routes on `config/routes.yaml`: 
+If you don't use Symfony Flex, add the required routes on `config/routes.yaml`: 
 
 ```yaml
 _mobizel_markdowns:
