@@ -4,7 +4,7 @@
     <h1>Search results for terms "<em>{{ app.request.get('query') }}</em>"</h1>
     <ul>
         {% for file in files %}
-            {% set slug = file.relativePathname|trim('.md', 'right') %}
+            {% set slug = file.relativePathname|split('.md')[0] %}
             <li>
                 <a href="{{ path('mobizel_markdown_docs_page_show', { 'slug': slug }) }}">
                     {{ page_title(slug) }} [{{ slug }}]

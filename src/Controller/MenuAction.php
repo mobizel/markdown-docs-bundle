@@ -36,7 +36,7 @@ final class MenuAction extends AbstractController
         $menuItems = [];
 
         foreach ($finder as $file) {
-            $slug = rtrim($file->getRelativePathName(), '.md');
+            $slug = preg_replace('/\.md$/', '', $file->getRelativePathName());
             $menuItems[] = [
                 'slug' => $slug,
                 'path' => $this->generateUrl('mobizel_markdown_docs_page_show', ['slug' => $slug]),
