@@ -32,7 +32,9 @@ final class PageAction extends AbstractController
     public function __invoke(string $slug): Response
     {
         if (false !== strpos($slug, '.md')) {
-            return $this->redirectToRoute('mobizel_markdown_docs_page_show', ['slug' => rtrim($slug, '.md')]);
+            $slug = preg_replace('/\.md$/', '', $slug);
+
+            return $this->redirectToRoute('mobizel_markdown_docs_page_show', ['slug' => $slug]);
         }
 
         try {

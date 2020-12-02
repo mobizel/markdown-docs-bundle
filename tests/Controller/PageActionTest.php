@@ -21,9 +21,10 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'index.md');
+        $client->request('GET', 'bdd.md');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $this->assertEquals('/bdd', $client->getResponse()->getTargetUrl());
     }
 
     public function testShowPage()

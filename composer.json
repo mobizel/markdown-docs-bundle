@@ -41,10 +41,10 @@
     },
     "scripts": {
         "analyse": [
-            "@php vendor/bin/ecs check src"
+            "@php vendor/bin/ecs check src tests --set symfony"
         ],
         "fix": [
-            "@php vendor/bin/ecs check src --fix"
+            "@php vendor/bin/ecs check src tests --set symfony --fix"
         ]
     },
     "extra": {
