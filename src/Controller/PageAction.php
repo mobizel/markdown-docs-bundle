@@ -33,6 +33,7 @@ final class PageAction extends AbstractController
     {
         if (false !== strpos($slug, '.md')) {
             $slug = preg_replace('/\.md$/', '', $slug);
+
             return $this->redirectToRoute('mobizel_markdown_docs_page_show', ['slug' => $slug]);
         }
 
