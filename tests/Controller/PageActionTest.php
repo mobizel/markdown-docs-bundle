@@ -45,4 +45,16 @@ final class PageActionTest extends WebTestCase
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
+
+    public function testBreadcrumb()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', 'cookbook/bdd/phpspec');
+
+        $client->clickLink('BDD - Behaviour-driven development');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('html h1', 'BDD - Behaviour-driven development');
+    }
 }
