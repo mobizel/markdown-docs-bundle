@@ -383,6 +383,7 @@ pre[class*="language-warning"] code[class*="language-warning"],
 pre[class*="language-note"] code[class*="language-note"] {
   font-family: "Inter", Helvetica, sans-serif;
   white-space: normal;
+  -webkit-font-smoothing: antialiased;
 }
 pre[class*="language-warning"]::before,
 pre[class*="language-note"]::before {
@@ -405,7 +406,7 @@ pre[class*="language-note"] {
 }
 pre[class*="language-warning"]::before {
   content: "🟠  Warning";
-  background: #ffdca8;
+  background: #ffe4bc;
 }
 pre[class*="language-note"]::before {
   content: "🔵  Note";
