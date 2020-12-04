@@ -363,7 +363,7 @@ pre[class*=language-] {
   margin-top: 1.5rem;
 }
 
-code {
+*:not([class*=language-])code {
   color: #9565d4;
   background: var(--medium-gray);
   padding: 3px 5px;
