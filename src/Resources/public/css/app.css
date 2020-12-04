@@ -162,7 +162,8 @@ main .content ul:not(.breadcrumb) li::before {
 }
 
 main .content ol > * + *,
-main .content ul:not(.breadcrumb) > * + * {
+main .content ul:not(.breadcrumb) > * + *,
+main .content ul:not(.breadcrumb) > li > ul{
   margin-top: 1rem;
 }
 
