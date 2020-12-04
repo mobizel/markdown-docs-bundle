@@ -24,7 +24,7 @@
 body {
   font-size: 1rem;
   background-color: var(--light-gray);
-  font-family: 'Inter', Helvetica, sans-serif;
+  font-family: "Inter", Helvetica, sans-serif;
   color: var(--dark-gray);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -110,22 +110,48 @@ main .content > * + h6 {
  */
 main .content a {
   color: var(--secondary-color);
-  text-decoration: underline;
-  font-weight: 500;
+  text-decoration: none;
+  font-weight: 600;
   transition: all ease-in-out 0.25s;
 }
-
 main .content a:hover {
-  color: #277b80;
+  color: var(--primary-color);
 }
+main .content p a,
+main .content ul:not(.breadcrumb) a,
+main .content ol a,
+main .content blockquote a{
+  position: relative;
+  display: inline-block;
+}
+main .content p a::after,
+main .content ul:not(.breadcrumb) a::after,
+main .content ol a::after,
+main .content blockquote a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  transform-origin: bottom right;
+  transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+main .content *:not(.breadcumb) a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
 
 /*
  * Lists
  */
-main .content ol,
-main .content ul {
-  list-style: none;
-  padding: 0;
+main .content ol ::marker,
+main .content ul ::marker {
+  color: var(--secondary-color);
 }
 
 main .content ol {
@@ -136,34 +162,10 @@ main .content ol li {
   counter-increment: my-counter;
 }
 
-main .content ol li,
-main .content ul:not(.breadcrumb) li {
-  position: relative;
-  padding-left: 1.25rem;
-}
-
-main .content ol li::before {
-  content: counter(my-counter) ". ";
-}
-
-main .content ol li::before,
-main .content ul:not(.breadcrumb) li::before {
-  position: absolute;
-  left: 0;
-  padding-right: 0.5rem;
-  color: var(--secondary-color);
-  margin-right: 0.75rem;
-  display: inline-block;
-  font-weight: 700;
-}
-
-main .content ul:not(.breadcrumb) li::before {
-  content: "•";
-}
-
 main .content ol > * + *,
+main .content li ol li,
 main .content ul:not(.breadcrumb) > * + *,
-main .content ul:not(.breadcrumb) > li > ul{
+main .content ul:not(.breadcrumb) > li > ul {
   margin-top: 1rem;
 }
 
@@ -176,7 +178,7 @@ table {
   display: block;
   max-width: -moz-fit-content;
   max-width: fit-content;
-  margin: 1rem auto;
+  margin: 1rem 0;
   overflow-x: auto;
   white-space: nowrap;
 }
@@ -200,10 +202,6 @@ main .content .breadcrumb {
   padding: 0;
   font-weight: 500;
   font-size: 0.875rem;
-}
-
-main .content .breadcrumb-item a {
-  color: var(--secondary-color);
 }
 
 main .content .breadcrumb-item.active {
@@ -340,31 +338,29 @@ main .content blockquote {
 }
 
 .navbar .searchform .form-control:focus {
-  box-shadow:
-    0 0 5px 0 var(--secondary-color),
-    inset 0 -2px var(--secondary-color);
+  box-shadow: 0 0 5px 0 var(--secondary-color), inset 0 -2px var(--secondary-color);
 }
 
 /*
  * Code
  */
-pre[class*=language-],
+pre[class*="language-"],
 code {
   -webkit-font-smoothing: auto;
   font-size: 0.875rem;
 }
 
-pre[class*=language-] {
+pre[class*="language-"] {
   border-radius: 5px;
   margin-bottom: 1rem;
   background: var(--black);
 }
 
-* > pre[class*=language-] {
+* > pre[class*="language-"] {
   margin-top: 1.5rem;
 }
 
-*:not([class*=language-])code {
+*:not([class*="language-"]) > code {
   color: #9565d4;
   background: var(--medium-gray);
   padding: 3px 5px;
