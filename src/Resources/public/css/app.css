@@ -114,9 +114,11 @@ main .content a {
   font-weight: 600;
   transition: all ease-in-out 0.25s;
 }
+
 main .content a:hover {
   color: var(--primary-color);
 }
+
 main .content p a,
 main .content ul:not(.breadcrumb) a,
 main .content ol a,
@@ -124,6 +126,7 @@ main .content blockquote a {
   position: relative;
   display: inline-block;
 }
+
 main .content p a::after,
 main .content ul:not(.breadcrumb) a::after,
 main .content ol a::after,
@@ -369,24 +372,20 @@ pre[class*="language-"] {
 /*
  * Notes
  */
-pre[class*="language-warning"],
-pre[class*="language-note"] {
+.block-warning,
+.block-note {
   position: relative;
   padding: 3rem 1rem 1rem;
   font-family: "Inter", Helvetica, sans-serif;
+  border-radius: 0.25rem;
 }
-code[class*=language-warning], pre[class*=language-warning], code[class*=language-note], pre[class*=language-note]{
+
+.block-note {
   color: rgba(0, 0, 0, 0.7);
 }
 
-pre[class*="language-warning"] code[class*="language-warning"],
-pre[class*="language-note"] code[class*="language-note"] {
-  font-family: "Inter", Helvetica, sans-serif;
-  white-space: normal;
-  -webkit-font-smoothing: antialiased;
-}
-pre[class*="language-warning"]::before,
-pre[class*="language-note"]::before {
+.block-warning::before,
+.block-note::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -396,19 +395,23 @@ pre[class*="language-note"]::before {
   font-size: 0.75rem;
   font-weight: 500;
 }
-pre[class*="language-warning"] {
+
+.block-warning {
   background: #fff4df;
   border: 1px solid #ffdca8;
 }
-pre[class*="language-note"] {
+
+.block-note {
   background: #e0ecf9;
   border: 1px solid #bfdfff;
 }
-pre[class*="language-warning"]::before {
+
+.block-warning::before {
   content: "🟠  Warning";
   background: #ffe4bc;
 }
-pre[class*="language-note"]::before {
+
+.block-note::before {
   content: "🔵  Note";
   background: #c8e2fd;
 }
