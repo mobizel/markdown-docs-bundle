@@ -372,21 +372,20 @@ pre[class*="language-"] {
 /*
  * Notes
  */
-pre[class*="block-warning"],
-pre[class*="block-note"] {
+.block-warning,
+.block-note {
   position: relative;
   padding: 3rem 1rem 1rem;
   font-family: "Inter", Helvetica, sans-serif;
   border-radius: 0.25rem;
 }
 
-code[class*=block-warning],
-pre[class*=block-note] {
+.block-note {
   color: rgba(0, 0, 0, 0.7);
 }
 
-pre[class*="block-warning"]::before,
-pre[class*="block-note"]::before {
+.block-warning::before,
+.block-note::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -397,22 +396,22 @@ pre[class*="block-note"]::before {
   font-weight: 500;
 }
 
-pre[class*="block-warning"] {
+.block-warning {
   background: #fff4df;
   border: 1px solid #ffdca8;
 }
 
-pre[class*="block-note"] {
+.block-note {
   background: #e0ecf9;
   border: 1px solid #bfdfff;
 }
 
-pre[class*="block-warning"]::before {
+.block-warning::before {
   content: "🟠  Warning";
   background: #ffe4bc;
 }
 
-pre[class*="block-note"]::before {
+.block-note::before {
   content: "🔵  Note";
   background: #c8e2fd;
 }
