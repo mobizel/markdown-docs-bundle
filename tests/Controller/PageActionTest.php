@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Controller;
+namespace Mobizel\Bundle\MarkdownDocsBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

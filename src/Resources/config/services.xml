@@ -47,5 +47,7 @@
             <tag name="container.service_subscriber"/>
             <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
         </service>
+
+        <service id="mobizel.markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>
     </services>
 </container>
