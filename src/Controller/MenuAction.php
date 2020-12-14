@@ -64,6 +64,10 @@ final class MenuAction extends AbstractController
         $currentItem = $request->query->get('current_item');
         $currentSubmenuItems = [];
 
+        if (null === $currentItem) {
+            return $currentSubmenuItems;
+        }
+
         $rootSlug = explode('/', $currentItem)[0];
         $finder = new Finder();
         try {
