@@ -42,7 +42,7 @@ install:
 
 script:
     - composer validate --strict --no-check-lock
-    - vendor/bin/ecs check src tests --set symfony
+    - vendor/bin/ecs check src tests
     - phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
     - vendor/bin/phpstan analyse src --level=max
     - vendor/bin/simple-phpunit $PHPUNIT_FLAGS
