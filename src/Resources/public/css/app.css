@@ -248,7 +248,7 @@ main .content blockquote {
   position: relative;
   top: 0;
   height: calc(100vh - 48px);
-  padding: 0.5rem 0.8rem 0 0;
+  padding: 0.5rem 0 0;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -266,12 +266,8 @@ main .content blockquote {
   color: rgba(255, 255, 255, 0.5);
   border-radius: 0 99px 99px 0;
   padding: 0.6rem 1rem;
+  margin-right: 1rem;
   transition: all ease-in-out 0.25s;
-}
-
-.sidebar .nav-link .feather {
-  margin-right: 0.25rem;
-  color: #999;
 }
 
 .sidebar .nav-link.active {
@@ -284,11 +280,15 @@ main .content blockquote {
   transition: all ease-in-out 0.25s;
 }
 
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-  color: inherit;
+.sidebar .nav-item ul {
+    list-style: none;
+    padding-left: 1rem;
 }
-
+.sidebar .nav-item ul .nav-link.active {
+    background: none;
+    color: var(--secondary-color);
+    font-weight: 800;
+}
 .sidebar-heading {
   font-size: 0.75rem;
   text-transform: uppercase;
