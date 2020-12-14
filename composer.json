@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "php": "^7.2.9",
+        "php": "^7.2.9|^8.0",
         "erusev/parsedown": "^1.7",
         "erusev/parsedown-extra": "^0.8.1",
         "symfony/asset": "^4.4|^5.1",
@@ -35,7 +35,7 @@
         "symfony/browser-kit": "^4.4|^5.1",
         "symfony/css-selector": "^4.4|^5.1",
         "symfony/phpunit-bridge": "^4.4|^5.1",
-        "symplify/easy-coding-standard": "^7.3 || ^8.1"
+        "symplify/easy-coding-standard": "^9.0"
     },
     "config": {
         "preferred-install": "dist",
@@ -43,7 +43,7 @@
     },
     "scripts": {
         "analyse": [
-            "@php vendor/bin/ecs check src tests --set symfony"
+            "@php vendor/bin/ecs check src tests"
         ],
         "fix": [
             "@php vendor/bin/ecs check src tests --set symfony --fix"
