@@ -21,13 +21,13 @@ jobs:
         runs-on: ubuntu-latest
 
         name: "PHP ${{ matrix.php }}${{ matrix.symfony != '' && format(', Symfony {0}', matrix.symfony) || '' }}"
-            strategy:
-                fail-fast: false
-                matrix:
-                    include:
-                        -
-                            php: 7.2.9
-                            symfony: 4.4.*
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    -
+                        php: 7.2.9
+                        symfony: 4.4.*
 
 
         steps:
