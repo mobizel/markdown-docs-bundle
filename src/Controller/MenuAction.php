@@ -77,7 +77,7 @@ final class MenuAction extends AbstractController
         $rootSlug = explode('/', $currentItem)[0];
         $finder = new Finder();
         try {
-            $finder->files()->in($this->docsDir.'/'.$rootSlug)->depth(0)->sort($this->sortByTitle());
+            $finder->files()->in($this->docsDir.'/'.$rootSlug)->depth(0)->sort($this->sortByTitle($rootSlug));
         } catch (DirectoryNotFoundException $exception) {
             return [];
         }
@@ -93,13 +93,23 @@ final class MenuAction extends AbstractController
         return $currentSubmenuItems;
     }
 
-    private function sortByTitle(): \Closure
+    private function sortByTitle(string $rootSlug = null): \Closure
     {
-        return function (\SplFileInfo $first, \SplFileInfo $second) {
+        return function (\SplFileInfo $first, \SplFileInfo $second) use ($rootSlug) {
             $firstSlug = preg_replace('/\.md$/', '', $first->getRelativePathName());
+
+            if (null !== $rootSlug) {
+                $firstSlug = $rootSlug.'/'.$firstSlug;
+            }
+
             $firstTitle = $this->pageHelper->getTitle($firstSlug);
 
             $secondSlug = preg_replace('/\.md$/', '', $second->getRelativePathName());
+
+            if (null !== $rootSlug) {
+                $secondSlug = $rootSlug.'/'.$secondSlug;
+            }
+
             $secondTitle = $this->pageHelper->getTitle($secondSlug);
 
             return 1 * strcmp($firstTitle, $secondTitle);
