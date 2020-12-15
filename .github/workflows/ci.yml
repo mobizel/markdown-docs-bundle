@@ -27,8 +27,13 @@ jobs:
                 include:
                     -
                         php: 7.2.9
-                        symfony: 4.4.*
-
+                        symfony: ${SYMFONY_LTS}
+                    -
+                        php: 7.3
+                        symfony: ${SYMFONY_LATEST}
+                    -
+                        php: 8.0
+                        symfony: ${SYMFONY_LATEST}
 
         steps:
             -   uses: actions/checkout@v2
