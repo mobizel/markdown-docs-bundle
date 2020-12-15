@@ -1,3 +1,2 @@
 mobizel_markdown_docs:
-    docs_dir: '%kernel.project_dir%/../tests/docs'
-    # docs_dir: '/Users/loic/www/sylius/sylius-fixtures-bundle/docs'
+    docs_dir: '%env(resolve:DOCS_DIR)%'
