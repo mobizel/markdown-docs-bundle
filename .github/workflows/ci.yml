@@ -20,7 +20,7 @@ jobs:
 
         runs-on: ubuntu-latest
 
-        name: "PHP ${{ matrix.php }}${{ matrix.symfony != '' && format(', Symfony {0}', matrix.symfony) || '' }}${{ matrix.twig != '' && format(', Twig {0}', matrix.twig) || '' }}${{ matrix.winzou != '' && format(', Winzou {0}', matrix.winzou) || '' }}${{ matrix.composer-flags != '' && format(', Composer with {0}', matrix.composer-flags) || '' }}"
+        name: "PHP ${{ matrix.php }}${{ matrix.symfony != '' && format(', Symfony {0}', matrix.symfony) || '' }}"
             strategy:
                 fail-fast: false
                 matrix:
