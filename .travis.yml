@@ -17,7 +17,7 @@ env:
 matrix:
     fast_finish: true
     include:
-        - php: 7.2.9
+        - php: 7.3
           env: SYMFONY_VERSION=${SYMFONY_LTS}
         - php: 7.3
           env: SYMFONY_VERSION=${SYMFONY_LATEST}

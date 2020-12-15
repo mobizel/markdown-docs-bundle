@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "php": "^7.2.9|^8.0",
+        "php": "^7.3|^8.0",
         "erusev/parsedown": "^1.7",
         "erusev/parsedown-extra": "^0.8.1",
         "symfony/asset": "^4.4|^5.1",
