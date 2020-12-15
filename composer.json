@@ -11,7 +11,8 @@
     "autoload-dev": {
         "psr-4": {
             "spec\\Mobizel\\Bundle\\MarkdownDocsBundle\\": "spec/",
-            "Mobizel\\Bundle\\MarkdownDocsBundle\\Tests\\": "tests/"
+            "Mobizel\\Bundle\\MarkdownDocsBundle\\Tests\\": "tests/",
+            "App\\": "test/src/"
         }
     },
     "require": {
@@ -46,7 +47,7 @@
             "@php vendor/bin/ecs check src tests"
         ],
         "fix": [
-            "@php vendor/bin/ecs check src tests --set symfony --fix"
+            "@php vendor/bin/ecs check src tests --fix"
         ]
     },
     "extra": {

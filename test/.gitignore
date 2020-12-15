@@ -1,0 +1,9 @@
+/vendor/
+
+/composer.phar
+/composer.lock
+
+.phpunit.result.cache
+
+/var
+/node_modules
