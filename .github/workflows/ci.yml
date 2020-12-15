@@ -1,40 +1,39 @@
 name: PHP Composer
 
+env:
+    PHPUNIT_FLAGS: "-v"
+    SYMFONY_PHPUNIT_DIR: "$HOME/symfony-bridge/.phpunit"
+    SYMFONY_LTS: 4.4.*
+    SYMFONY_LATEST: 5.2.*
+    SYMFONY_DEV: 5.3.*
+
 on:
     push: ~
     pull_request: ~
     release:
-        types: [created]
+        types: [ created ]
     schedule:
-        -
-            cron: "0 1 * * 6" # Run at 1am every Saturday
+        -   cron: "0 1 * * 6" # Run at 1am every Saturday
 
 jobs:
-  build:
+    build:
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
+        name: "PHP ${{ matrix.php }}${{ matrix.symfony != '' && format(', Symfony {0}', matrix.symfony) || '' }}${{ matrix.twig != '' && format(', Twig {0}', matrix.twig) || '' }}${{ matrix.winzou != '' && format(', Winzou {0}', matrix.winzou) || '' }}${{ matrix.composer-flags != '' && format(', Composer with {0}', matrix.composer-flags) || '' }}"
+            strategy:
+                fail-fast: false
+                matrix:
+                    include:
+                        -
+                            php: 7.2.9
+                            symfony: 4.4.*
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+        steps:
+            -   uses: actions/checkout@v2
 
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    # - name: Run test suite
-    #   run: composer run-script test
+            -
+                name: Validate composer.json and composer.lock
+                run: composer validate --strict
+                if: always() && steps.end-of-setup.outcome == 'success'
