@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Build
 
 env:
     PHPUNIT_FLAGS: "-v"
@@ -62,19 +62,15 @@ jobs:
             -
                 name: Validate composer.json
                 run: composer validate --strict --no-check-lock
-                if: always() && steps.end-of-setup.outcome == 'success'
 
             -
                 name: Validate coding standard
                 run: vendor/bin/ecs check src tests
-                if: always() && steps.end-of-setup.outcome == 'success'
 
             -
                 name: Run phpspec
                 run: phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
-                if: always() && steps.end-of-setup.outcome == 'success'
 
             -
                 name: Run PHPStan
                 run: vendor/bin/phpstan analyse src --level=max
-                if: always() && steps.end-of-setup.outcome == 'success'
