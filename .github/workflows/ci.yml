@@ -34,6 +34,27 @@ jobs:
             -   uses: actions/checkout@v2
 
             -
-                name: Validate composer.json and composer.lock
-                run: composer validate --strict
+                name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: "${{ matrix.php }}"
+                    coverage: none
+
+            -
+                name: Restrict Symfony version
+                if: matrix.symfony != ''
+                run: |
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex"
+                    composer config extra.symfony.require "${{ matrix.symfony }}"
+                    composer config extra.symfony.require "${SYMFONY_VERSION}"
+                    composer config minimum-stability "dev"
+
+            -
+                name: Install dependencies
+                run: |
+                    composer update
+
+            -
+                name: Validate composer.json
+                run: composer validate --strict --no-check-lock
                 if: always() && steps.end-of-setup.outcome == 'success'
