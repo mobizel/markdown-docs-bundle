@@ -56,8 +56,11 @@ jobs:
 
             -
                 name: Install dependencies
-                run: |
-                    composer update
+                run: composer update
+
+            -
+                name: Install PHPUnit
+                run: vendor/bin/simple-phpunit install
 
             -
                 name: Validate composer.json
@@ -74,3 +77,7 @@ jobs:
             -
                 name: Run PHPStan
                 run: vendor/bin/phpstan analyse src --level=max
+
+            -
+                name: Run PHPUnit
+                run: vendor/bin/simple-phpunit $PHPUNIT_FLAGS
