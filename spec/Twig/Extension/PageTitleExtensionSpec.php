@@ -11,16 +11,16 @@
 
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension;
 
-use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelperInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtension;
 use PhpSpec\ObjectBehavior;
 use Twig\Extension\ExtensionInterface;
 
 class PageTitleExtensionSpec extends ObjectBehavior
 {
-    function let(TemplateHandlerInterface $templateHandler): void
+    function let(PageHelperInterface $pageHelper): void
     {
-        $this->beConstructedWith($templateHandler);
+        $this->beConstructedWith($pageHelper);
     }
 
     function it_is_initializable(): void
@@ -38,24 +38,10 @@ class PageTitleExtensionSpec extends ObjectBehavior
         $this->getFunctions()->shouldHaveCount(1);
     }
 
-    function it_can_get_page_title(TemplateHandlerInterface $templateHandler): void
+    function it_can_get_title(PageHelperInterface $pageHelper): void
     {
-        $templateHandler->getTemplateAbsolutePath('foo')->willReturn('tests/docs/foo.md');
+        $pageHelper->getTitle('jimmy-page')->willReturn('Jimmy Page');
 
-        $this->pageTitle('foo')->shouldReturn('Foo fighters');
-    }
-
-    function it_return_default_title_when_no_title_has_been_found(TemplateHandlerInterface $templateHandler): void
-    {
-        $templateHandler->getTemplateAbsolutePath('bar')->willReturn('tests/docs/bar.md');
-
-        $this->pageTitle('bar')->shouldReturn('Bar');
-    }
-
-    function it_return_default_title_when_file_is_empty(TemplateHandlerInterface $templateHandler): void
-    {
-        $templateHandler->getTemplateAbsolutePath('bar')->willReturn('tests/docs/empty.md');
-
-        $this->pageTitle('bar')->shouldReturn('Bar');
+        $this->pageTitle('jimmy-page')->shouldReturn('Jimmy Page');
     }
 }

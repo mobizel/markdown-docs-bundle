@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,9 +26,13 @@ final class MenuAction extends AbstractController
     /** @var string */
     private $docsDir;
 
-    public function __construct(string $docsDir)
+    /** @var PageHelperInterface */
+    private $pageHelper;
+
+    public function __construct(string $docsDir, PageHelperInterface $pageHelper)
     {
         $this->docsDir = $docsDir;
+        $this->pageHelper = $pageHelper;
     }
 
     public function __invoke(Request $request): Response
@@ -44,7 +50,8 @@ final class MenuAction extends AbstractController
     private function getMenuItems(Request $request): array
     {
         $finder = new Finder();
-        $finder->files()->in($this->docsDir)->depth(0)->notName('index.md');
+
+        $finder->files()->in($this->docsDir)->depth(0)->notName('index.md')->sort($this::sortByTitle());
 
         $menuItems = [];
 
@@ -71,7 +78,7 @@ final class MenuAction extends AbstractController
         $rootSlug = explode('/', $currentItem)[0];
         $finder = new Finder();
         try {
-            $finder->files()->in($this->docsDir.'/'.$rootSlug)->depth(0);
+            $finder->files()->in($this->docsDir.'/'.$rootSlug)->depth(0)->sort($this->sortByTitle($rootSlug));
         } catch (DirectoryNotFoundException $exception) {
             return [];
         }
@@ -85,5 +92,30 @@ final class MenuAction extends AbstractController
         }
 
         return $currentSubmenuItems;
+    }
+
+    private function sortByTitle(string $rootSlug = null): \Closure
+    {
+        return function (SplFileInfo $first, SplFileInfo $second) use ($rootSlug) {
+            /** @var string $firstSlug */
+            $firstSlug = preg_replace('/\.md$/', '', $first->getRelativePathName());
+
+            if (null !== $rootSlug) {
+                $firstSlug = $rootSlug.'/'.$firstSlug;
+            }
+
+            $firstTitle = $this->pageHelper->getTitle($firstSlug);
+
+            /** @var string $secondSlug */
+            $secondSlug = preg_replace('/\.md$/', '', $second->getRelativePathName());
+
+            if (null !== $rootSlug) {
+                $secondSlug = $rootSlug.'/'.$secondSlug;
+            }
+
+            $secondTitle = $this->pageHelper->getTitle($secondSlug);
+
+            return 1 * strcmp($firstTitle, $secondTitle);
+        };
     }
 }

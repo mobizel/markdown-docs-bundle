@@ -13,19 +13,18 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension;
 
-use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelperInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Webmozart\Assert\Assert;
 
 final class PageTitleExtension extends AbstractExtension implements PageTitleExtensionInterface
 {
-    /** @var TemplateHandlerInterface */
-    private $templateHandler;
+    /** @var PageHelperInterface */
+    private $pageHelper;
 
-    public function __construct(TemplateHandlerInterface $templateHandler)
+    public function __construct(PageHelperInterface $pageHelper)
     {
-        $this->templateHandler = $templateHandler;
+        $this->pageHelper = $pageHelper;
     }
 
     public function getFunctions()
@@ -40,37 +39,6 @@ final class PageTitleExtension extends AbstractExtension implements PageTitleExt
      */
     public function pageTitle(string $slug): string
     {
-        $path = $this->templateHandler->getTemplateAbsolutePath($slug);
-        $line = $this->getFirstLine($path);
-
-        if (false === strpos($line, '# ')) {
-            return $this->getDefaultTitle($slug);
-        }
-
-        return rtrim(ltrim($line, '# '), "\n");
-    }
-
-    private function getFirstLine(string $path): string
-    {
-        /** @var resource $resource */
-        $resource = fopen($path, 'r');
-        Assert::notFalse($resource);
-
-        $line = fgets($resource);
-
-        fclose($resource);
-
-        return $line ? $line : '';
-    }
-
-    private function getDefaultTitle(string $slug): string
-    {
-        /** @var string[] $parts */
-        $parts = explode('/', $slug);
-
-        /** @var string $title */
-        $title = end($parts);
-
-        return ucfirst($title);
+        return $this->pageHelper->getTitle($slug);
     }
 }
