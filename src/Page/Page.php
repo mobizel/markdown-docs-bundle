@@ -30,7 +30,10 @@ final class Page extends \SplFileInfo implements PageInterface
 
     public function getContent(): string
     {
-        return file_get_contents($this->getPathname());
+        /** @var string $content */
+        $content = file_get_contents($this->getPathname());
+
+        return $content;
     }
 
     public function getContentWithoutTitle(): string
@@ -39,7 +42,10 @@ final class Page extends \SplFileInfo implements PageInterface
         $line = $this->getFirstLine();
 
         if ($this->isLineContainsTitle($line)) {
-            return preg_replace('/^#.+/', '', $content);
+            /** @var string $content */
+            $content = preg_replace('/^#.+/', '', $content);
+
+            return $content;
         }
 
         return $this->getContent();
@@ -63,7 +69,7 @@ final class Page extends \SplFileInfo implements PageInterface
         return ucfirst(pathinfo($this->getFilename(), \PATHINFO_FILENAME));
     }
 
-    private function isLineContainsTitle($line): bool
+    private function isLineContainsTitle(string $line): bool
     {
         return 0 === strpos($line, '#');
     }
