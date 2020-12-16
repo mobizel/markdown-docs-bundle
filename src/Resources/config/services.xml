@@ -50,7 +50,6 @@
             </call>
             <tag name="container.service_subscriber"/>
             <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
-            <argument key="$pageHelper" type="service" id="mobizel_markdown_docs.helper.page_helper"/>
         </service>
 
         <service id="mobizel.markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>

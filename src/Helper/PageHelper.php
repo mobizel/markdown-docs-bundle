@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Helper;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Page\Page;
 use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
-use Webmozart\Assert\Assert;
 
 final class PageHelper implements PageHelperInterface
 {
@@ -29,36 +29,8 @@ final class PageHelper implements PageHelperInterface
     public function getTitle(string $slug): string
     {
         $path = $this->templateHandler->getTemplateAbsolutePath($slug);
-        $line = $this->getFirstLine($path);
+        $page = new Page($path);
 
-        if (false === strpos($line, '# ')) {
-            return $this->getDefaultTitle($slug);
-        }
-
-        return rtrim(ltrim($line, '# '), "\n");
-    }
-
-    private function getFirstLine(string $path): string
-    {
-        /** @var resource $resource */
-        $resource = fopen($path, 'r');
-        Assert::notFalse($resource);
-
-        $line = fgets($resource);
-
-        fclose($resource);
-
-        return $line ? $line : '';
-    }
-
-    private function getDefaultTitle(string $slug): string
-    {
-        /** @var string[] $parts */
-        $parts = explode('/', $slug);
-
-        /** @var string $title */
-        $title = end($parts);
-
-        return ucfirst($title);
+        return $page->getTitle();
     }
 }

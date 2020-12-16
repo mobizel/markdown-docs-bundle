@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Page\Page;
 use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,8 +47,7 @@ final class PageAction extends AbstractController
 
             return $this->render('@MobizelMarkdownDocs/page/show.html.twig', [
                 'slug' => $slug,
-                'template' => $this->templateHandler->getTemplatePath($slug),
-                'content' => file_get_contents($templatePath),
+                'page' => new Page($templatePath),
             ]);
         } catch (LoaderError $exception) {
             throw new NotFoundHttpException($exception->getMessage());
