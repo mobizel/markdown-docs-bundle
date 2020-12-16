@@ -34,8 +34,8 @@ class PageHelperSpec extends ObjectBehavior
 
     function it_return_default_title_when_file_is_empty(TemplateHandlerInterface $templateHandler): void
     {
-        $templateHandler->getTemplateAbsolutePath('bar')->willReturn('tests/docs/empty.md');
+        $templateHandler->getTemplateAbsolutePath('empty')->willReturn('tests/docs/empty.md');
 
-        $this->getTitle('bar')->shouldReturn('Bar');
+        $this->getTitle('empty')->shouldReturn('Empty');
     }
 }
