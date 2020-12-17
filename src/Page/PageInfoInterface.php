@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Page;
 
-interface PageInterface
+interface PageInfoInterface
 {
     public function getTitle(): string;
 

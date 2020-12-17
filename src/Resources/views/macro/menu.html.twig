@@ -1,18 +1,20 @@
-{% macro nav_item(slug, path, current_item, current_sub_menu_items) %}
+{% macro nav_item(item, current_item, current_sub_menu_items) %}
     {% set slugParts = current_item|split('/') %}
     {% set root = slugParts|first %}
-    {% set currentRootMenu = (slug == root) %}
+    {% set currentRootMenu = (item.slug == root) %}
     <li class="nav-item">
-        <a class="nav-link{% if currentRootMenu %} active{% endif %}" href="{{ path }}">
-            {{ page_title(slug) }} {% if currentRootMenu %}<span class="sr-only">(current)</span>{% endif %}
+        <a class="nav-link{% if currentRootMenu %} active{% endif %}"
+           href="{{ path('mobizel_markdown_docs_page_show', { 'slug': item.slug } )  }}">
+            {{ item.title }} {% if currentRootMenu %}<span class="sr-only">(current)</span>{% endif %}
         </a>
     {% if currentRootMenu and current_sub_menu_items|length > 0 %}
         <ul>
             {% for submenu_item in current_sub_menu_items %}
                 {% set currentSubMenu = (submenu_item.slug == root ~ '/' ~ slugParts[1]|default('')) %}
                 <li class="nav-item">
-                    <a class="nav-link{% if currentSubMenu %} active{% endif %}" href="{{ submenu_item.path }}">
-                        {{ page_title(submenu_item.slug) }} {% if currentSubMenu %}<span class="sr-only">(current)</span>{% endif %}
+                    <a class="nav-link{% if currentSubMenu %} active{% endif %}"
+                       href="{{ path('mobizel_markdown_docs_page_show', { 'slug': submenu_item.slug } )  }}">
+                        {{ submenu_item.title }} {% if currentSubMenu %}<span class="sr-only">(current)</span>{% endif %}
                     </a>
                 </li>
             {% endfor %}

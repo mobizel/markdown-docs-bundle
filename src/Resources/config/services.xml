@@ -7,6 +7,10 @@
     <services>
         <defaults autowire="false" autoconfigure="true" public="true"/>
 
+        <!-- Main -->
+
+        <service id="mobizel.markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>
+
         <service id="mobizel_markdown_docs.template.template_handler" class="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandler">
             <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
         </service>
@@ -16,10 +20,27 @@
             <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
         </service>
 
+        <!-- Data Providers -->
+
+        <service id="mobizel_markdown_docs.data_provider.page_collection" class="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProvider">
+            <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProviderInterface" alias="mobizel_markdown_docs.data_provider.page_collection"/>
+
+        <service id="mobizel_markdown_docs.data_provider.page_item" class="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageItemDataProvider">
+            <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageItemDataProviderInterface" alias="mobizel_markdown_docs.data_provider.page_item"/>
+
+        <!-- Twig extensions -->
+
         <service id="mobizel_markdown_docs.twig.extension.page_title" class="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtension">
             <argument key="$pageHelper" type="service" id="mobizel_markdown_docs.helper.page_helper"/>
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtensionInterface" alias="mobizel_markdown_docs.twig.extension.page_title"/>
+
+
+        <!-- Controllers -->
 
         <service id="mobizel_markdown_docs.controller.index_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\IndexAction">
             <call method="setContainer">
@@ -41,7 +62,7 @@
                 <argument type="service" id="Psr\Container\ContainerInterface"/>
             </call>
             <tag name="container.service_subscriber"/>
-            <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
+            <argument key="$pageItemDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_item"/>
         </service>
 
         <service id="mobizel_markdown_docs.controller.menu_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\MenuAction">
@@ -49,9 +70,7 @@
                 <argument type="service" id="Psr\Container\ContainerInterface"/>
             </call>
             <tag name="container.service_subscriber"/>
-            <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
+            <argument key="$pageCollectionDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_collection"/>
         </service>
-
-        <service id="mobizel.markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>
     </services>
 </container>
