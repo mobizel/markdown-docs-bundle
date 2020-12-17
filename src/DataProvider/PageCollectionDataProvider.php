@@ -45,8 +45,11 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         foreach ($finder as $file) {
             $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
 
+            /** @var string $slug */
+            $slug = preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
+
             $pages[] = $this->createPage(
-                preg_replace('/\.md$/', '', $pageInfo->getRelativePathName()),
+                $slug,
                 $pageInfo->getTitle(),
                 $pageInfo->getContentWithoutTitle()
             );
@@ -75,8 +78,10 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         foreach ($finder as $file) {
             $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
 
+            $slug = $parentSlug.'/'.preg_replace('/\.md$/', '', $file->getRelativePathName());
+
             $pages[] = $this->createPage(
-                $parentSlug.'/'.preg_replace('/\.md$/', '', $file->getRelativePathName()),
+                $slug,
                 $pageInfo->getTitle(),
                 $pageInfo->getContentWithoutTitle()
             );
