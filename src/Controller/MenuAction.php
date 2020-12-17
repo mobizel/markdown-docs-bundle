@@ -13,26 +13,24 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
-use Mobizel\Bundle\MarkdownDocsBundle\Page\PageSorter;
+use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProviderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class MenuAction extends AbstractController
 {
-    /** @var string */
-    private $docsDir;
+    /** @var PageCollectionDataProviderInterface */
+    private $pageCollectionDataProvider;
 
-    public function __construct(string $docsDir)
+    public function __construct(PageCollectionDataProviderInterface $pageCollectionDataProvider)
     {
-        $this->docsDir = $docsDir;
+        $this->pageCollectionDataProvider = $pageCollectionDataProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $menuItems = $this->getMenuItems($request);
+        $menuItems = $this->getMenuItems();
         $currentSubmenuItems = $this->getCurrentSubmenuItems($request);
 
         return $this->render('@MobizelMarkdownDocs/layout/menu.html.twig', [
@@ -42,26 +40,12 @@ final class MenuAction extends AbstractController
         ]);
     }
 
-    private function getMenuItems(Request $request): array
+    private function getMenuItems(): iterable
     {
-        $finder = new Finder();
-
-        $finder->files()->in($this->docsDir)->depth(0)->notName('index.md')->sort(PageSorter::sortByTitle());
-
-        $menuItems = [];
-
-        foreach ($finder as $file) {
-            $slug = preg_replace('/\.md$/', '', $file->getRelativePathName());
-            $menuItems[] = [
-                'slug' => $slug,
-                'path' => $this->generateUrl('mobizel_markdown_docs_page_show', ['slug' => $slug]),
-            ];
-        }
-
-        return $menuItems;
+        return $this->pageCollectionDataProvider->getRootPages();
     }
 
-    private function getCurrentSubmenuItems(Request $request): array
+    private function getCurrentSubmenuItems(Request $request): iterable
     {
         $currentItem = $request->query->get('current_item');
         $currentSubmenuItems = [];
@@ -70,22 +54,8 @@ final class MenuAction extends AbstractController
             return $currentSubmenuItems;
         }
 
-        $rootSlug = explode('/', $currentItem)[0];
-        $finder = new Finder();
-        try {
-            $finder->files()->in($this->docsDir.'/'.$rootSlug)->depth(0)->sort(PageSorter::sortByTitle());
-        } catch (DirectoryNotFoundException $exception) {
-            return [];
-        }
+        $parentSlug = explode('/', $currentItem)[0];
 
-        foreach ($finder as $file) {
-            $slug = $rootSlug.'/'.preg_replace('/\.md$/', '', $file->getRelativePathName());
-            $currentSubmenuItems[] = [
-                'slug' => $slug,
-                'path' => $this->generateUrl('mobizel_markdown_docs_page_show', ['slug' => $slug]),
-            ];
-        }
-
-        return $currentSubmenuItems;
+        return $this->pageCollectionDataProvider->getChildrenPages($parentSlug);
     }
 }

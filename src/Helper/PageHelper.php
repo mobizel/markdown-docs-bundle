@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Helper;
 
-use Mobizel\Bundle\MarkdownDocsBundle\Page\Page;
+use Mobizel\Bundle\MarkdownDocsBundle\Page\PageInfo;
 use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
 
 final class PageHelper implements PageHelperInterface
@@ -29,7 +29,7 @@ final class PageHelper implements PageHelperInterface
     public function getTitle(string $slug): string
     {
         $path = $this->templateHandler->getTemplateAbsolutePath($slug);
-        $page = new Page($path);
+        $page = new PageInfo($path, '', '');
 
         return $page->getTitle();
     }

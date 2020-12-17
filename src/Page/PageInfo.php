@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Page;
 
+use Symfony\Component\Finder\SplFileInfo;
 use Webmozart\Assert\Assert;
 
-final class Page extends \SplFileInfo implements PageInterface
+final class PageInfo extends SplFileInfo implements PageInfoInterface
 {
     public function getTitle(): string
     {

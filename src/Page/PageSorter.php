@@ -20,8 +20,8 @@ final class PageSorter
     public static function sortByTitle(): \Closure
     {
         return function (SplFileInfo $a, SplFileInfo $b) {
-            $firstPage = new Page($a->getPathname());
-            $secondPage = new Page($b->getPathname());
+            $firstPage = new PageInfo($a->getPathname(), $a->getRelativePath(), $a->getRelativePathname());
+            $secondPage = new PageInfo($b->getPathname(), $b->getRelativePath(), $b->getRelativePathname());
 
             return 1 * strcmp($firstPage->getTitle(), $secondPage->getTitle());
         };
