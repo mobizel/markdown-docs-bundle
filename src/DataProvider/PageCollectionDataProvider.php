@@ -29,29 +29,6 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $this->docsDir = $docsDir;
     }
 
-    public function getPagesMap(): array
-    {
-        $finder = new Finder();
-
-        $finder
-            ->files()
-            ->in($this->docsDir)
-            //->depth(0)
-            ->sort(PageSorter::sortByTitle());
-        $pages = [];
-
-        foreach ($finder as $file) {
-            $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
-
-            /** @var string $slug */
-            $slug = preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
-
-            $pages[$slug] = $pageInfo->getTitle();
-        }
-
-        return $pages;
-    }
-
     public function getRootPages(): iterable
     {
         $finder = new Finder();
@@ -59,7 +36,6 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $finder
             ->files()
             ->in($this->docsDir)
-            ->notName('index.md')
             ->depth(0)
             ->sort(PageSorter::sortByTitle());
 
@@ -113,6 +89,24 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         return $pages;
     }
 
+    public function getPagesMap(): array
+    {
+        $pages = $this->getRootPagesMap();
+
+        $currentPosition = 0;
+        foreach ($pages as $row) {
+            $pages = $this->getChildrenPagesMap($row, $pages, $currentPosition);
+            ++$currentPosition;
+        }
+
+        $pagesMap = [];
+        foreach ($pages as $row) {
+            $pagesMap[$row['slug']] = $row['title'];
+        }
+
+        return $pagesMap;
+    }
+
     private function createPage(string $slug, string $title, string $content): PageOutput
     {
         $page = new PageOutput();
@@ -121,5 +115,62 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $page->content = $content;
 
         return $page;
+    }
+
+    private function getRootPagesMap(): array
+    {
+        $finder = new Finder();
+
+        // first get Root pages and also homepage
+        $finder
+            ->files()
+            ->in($this->docsDir)
+            ->depth(0)
+            ->sort(PageSorter::sortByTitle())
+        ;
+
+        $pages = [];
+
+        foreach ($finder as $file) {
+            $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
+
+            /** @var string $slug */
+            $slug = preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
+
+            $pages[] = ['slug' => $slug, 'title' => $pageInfo->getTitle()];
+        }
+
+        return $pages;
+    }
+
+    private function getChildrenPagesMap(array $row, array $pages, int &$currentPosition): array
+    {
+        $parentSlug = $row['slug'];
+        $finder = new Finder();
+
+        try {
+            $finder
+                ->files()
+                ->in($this->docsDir.'/'.$parentSlug)
+                ->depth(0)
+                ->sort(PageSorter::sortByTitle())
+            ;
+        } catch (DirectoryNotFoundException $exception) {
+            return $pages;
+        }
+
+        foreach ($finder as $file) {
+            $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
+            $slug = $parentSlug.'/'.preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
+
+            $pageToAdd = ['slug' => $slug, 'title' => $pageInfo->getTitle()];
+
+            array_splice($pages, $currentPosition + 1, 0, [$pageToAdd]);
+            ++$currentPosition;
+
+            $pages = $this->getChildrenPagesMap($pageToAdd, $pages, $currentPosition);
+        }
+
+        return $pages;
     }
 }

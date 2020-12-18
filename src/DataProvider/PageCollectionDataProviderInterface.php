@@ -15,9 +15,9 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\DataProvider;
 
 interface PageCollectionDataProviderInterface
 {
-    public function getPagesMap(): array;
-
     public function getRootPages(): iterable;
 
     public function getChildrenPages(string $parentSlug): iterable;
+
+    public function getPagesMap(): array;
 }
