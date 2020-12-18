@@ -166,8 +166,8 @@ main .content ol li {
 
 main .content ol > * + *,
 main .content li ol li,
-main .content ul:not(.breadcrumb) > * + *,
-main .content ul:not(.breadcrumb) > li > ul {
+main .content ul:not(.breadcrumb):not(.pagination) > * + *,
+main .content ul:not(.breadcrumb):not(.pagination) > li > ul {
   margin-top: 1rem;
 }
 
