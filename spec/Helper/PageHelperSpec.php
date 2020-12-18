@@ -3,14 +3,17 @@
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Helper;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelper;
-use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
 use PhpSpec\ObjectBehavior;
 
 class PageHelperSpec extends ObjectBehavior
 {
-    function let(TemplateHandlerInterface $templateHandler): void
+    function let(): void
     {
-        $this->beConstructedWith($templateHandler);
+        $this->beConstructedWith([
+            'first-page' => 'First page',
+            'foo' => 'Foo fighters',
+            'last-page' => 'Last page',
+        ]);
     }
 
     function it_is_initializable(): void
@@ -18,24 +21,20 @@ class PageHelperSpec extends ObjectBehavior
         $this->shouldHaveType(PageHelper::class);
     }
 
-    function it_can_get_page_title(TemplateHandlerInterface $templateHandler): void
+    function it_can_get_page_title(): void
     {
-        $templateHandler->getTemplateAbsolutePath('foo')->willReturn('tests/docs/foo.md');
-
         $this->getTitle('foo')->shouldReturn('Foo fighters');
     }
 
-    function it_return_default_title_when_no_title_has_been_found(TemplateHandlerInterface $templateHandler): void
+    function it_can_get_previous_page(): void
     {
-        $templateHandler->getTemplateAbsolutePath('bar')->willReturn('tests/docs/bar.md');
-
-        $this->getTitle('bar')->shouldReturn('Bar');
+        $this->getPreviousPage('foo')->shouldReturn('first-page');
+        $this->getPreviousPage('first-page')->shouldReturn(null);
     }
 
-    function it_return_default_title_when_file_is_empty(TemplateHandlerInterface $templateHandler): void
+    function it_can_get_next_page(): void
     {
-        $templateHandler->getTemplateAbsolutePath('empty')->willReturn('tests/docs/empty.md');
-
-        $this->getTitle('empty')->shouldReturn('Empty');
+        $this->getNextPage('foo')->shouldReturn('last-page');
+        $this->getNextPage('last-page')->shouldReturn(null);
     }
 }

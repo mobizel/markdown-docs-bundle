@@ -29,6 +29,29 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $this->docsDir = $docsDir;
     }
 
+    public function getPagesMap(): array
+    {
+        $finder = new Finder();
+
+        $finder
+            ->files()
+            ->in($this->docsDir)
+            //->depth(0)
+            ->sort(PageSorter::sortByTitle());
+        $pages = [];
+
+        foreach ($finder as $file) {
+            $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
+
+            /** @var string $slug */
+            $slug = preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
+
+            $pages[$slug] = $pageInfo->getTitle();
+        }
+
+        return $pages;
+    }
+
     public function getRootPages(): iterable
     {
         $finder = new Finder();
