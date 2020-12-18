@@ -36,6 +36,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $finder
             ->files()
             ->in($this->docsDir)
+            ->notName('index.md')
             ->depth(0)
             ->sort(PageSorter::sortByTitle());
 
