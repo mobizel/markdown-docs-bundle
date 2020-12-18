@@ -3,7 +3,6 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         https://symfony.com/schema/dic/services/services-1.0.xsd">
-
     <services>
         <defaults autowire="false" autoconfigure="true" public="true"/>
 
@@ -17,7 +16,7 @@
         <service id="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface" alias="mobizel_markdown_docs.template.template_handler"/>
 
         <service id="mobizel_markdown_docs.helper.page_helper" class="Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelper">
-            <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
+            <argument key="$pagesMap" type="expression">service('mobizel_markdown_docs.data_provider.page_collection').getPagesMap()</argument>
         </service>
 
         <!-- Data Providers -->
@@ -39,6 +38,10 @@
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtensionInterface" alias="mobizel_markdown_docs.twig.extension.page_title"/>
 
+        <service id="mobizel_markdown_docs.twig.extension.pagination" class="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PaginationExtension">
+            <argument key="$pageHelper" type="service" id="mobizel_markdown_docs.helper.page_helper"/>
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PaginationExtensionInterface" alias="mobizel_markdown_docs.twig.extension.pagination"/>
 
         <!-- Controllers -->
 

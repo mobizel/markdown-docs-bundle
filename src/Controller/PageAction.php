@@ -23,8 +23,9 @@ final class PageAction extends AbstractController
     /** @var PageItemDataProvider */
     private $pageItemDataProvider;
 
-    public function __construct(PageItemDataProvider $pageItemDataProvider)
-    {
+    public function __construct(
+        PageItemDataProvider $pageItemDataProvider
+    ) {
         $this->pageItemDataProvider = $pageItemDataProvider;
     }
 

@@ -16,4 +16,8 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Helper;
 interface PageHelperInterface
 {
     public function getTitle(string $slug): string;
+
+    public function getPreviousPage(string $slug): ?string;
+
+    public function getNextPage(string $slug): ?string;
 }

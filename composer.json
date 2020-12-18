@@ -20,6 +20,7 @@
         "erusev/parsedown": "^1.7",
         "erusev/parsedown-extra": "^0.8.1",
         "symfony/asset": "^4.4|^5.1",
+        "symfony/expression-language": "^4.4|^5.1",
         "symfony/framework-bundle": "^4.4|^5.1",
         "symfony/http-kernel": "^4.4|^5.1",
         "symfony/routing": "^4.4|^5.1",
