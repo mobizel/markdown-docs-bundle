@@ -343,6 +343,12 @@ main .content blockquote {
   box-shadow: 0 0 5px 0 var(--secondary-color), inset 0 -2px var(--secondary-color);
 }
 
+@media (max-width: 767.98px) {
+    .pagination {
+        font-size: 0.85rem;
+    }
+}
+
 /*
  * Code
  */
