@@ -18,6 +18,9 @@ Example:
 
 ## Menu
 Menu items are sorted by titles.
+
+![Menu example](images/menu.png)
+
 Titles are extracted from the content of your markdown files.
 
 Example `foo.md`:
