@@ -4,6 +4,12 @@ Explore your markdown documentation files via html web pages.
 Your documentation can be browse easily and be pleasant to read.
 Moreover you can make a full-text search. 
 
+![Example 1](docs/images/example-1.png) 
+
+![Example 2](docs/images/example-2.png)
+
+![Example 3](docs/images/example-3.png)
+
 Documentation
 -------------
 
