@@ -41,15 +41,17 @@ final class PageItemDataProvider
             $slug,
             $pageInfo->getTitle(),
             $pageInfo->getContentWithoutTitle(),
+            $pageInfo->getTableOfContents()
         );
     }
 
-    private function createPage(string $slug, string $title, string $content): PageOutput
+    private function createPage(string $slug, string $title, string $content, string $tableOfContents = null): PageOutput
     {
         $page = new PageOutput();
         $page->slug = $slug;
         $page->title = $title;
         $page->content = $content;
+        $page->tableOfContents = $tableOfContents;
 
         return $page;
     }

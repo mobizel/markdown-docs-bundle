@@ -20,4 +20,6 @@ interface PageInfoInterface
     public function getContent(): string;
 
     public function getContentWithoutTitle(): string;
+
+    public function getTableOfContents(): ?string;
 }
