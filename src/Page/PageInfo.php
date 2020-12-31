@@ -39,7 +39,6 @@ final class PageInfo extends SplFileInfo implements PageInfoInterface
 
     public function getTableOfContents(): ?string
     {
-
         /** @var string $content */
         $content = file_get_contents($this->getPathname());
 
@@ -52,11 +51,11 @@ final class PageInfo extends SplFileInfo implements PageInfoInterface
         $links = $matches[3];
 
         foreach ($titles as $key => $title) {
-            $level = count(explode('#', ($levels[$key])))-2;
+            $level = count(explode('#', ($levels[$key]))) - 2;
             $link = $links[$key];
 
             $tab = '';
-            for ($i = 1; $i< $level; ++$i) {
+            for ($i = 1; $i < $level; ++$i) {
                 $tab .= '    ';
             }
 
