@@ -1,2 +1,9 @@
-<h1>{{ page.title }}</h1>
 {% include '@MobizelMarkdownDocs/page/show/_breadcrumb.html.twig' %}
+
+{% set table_of_contents = page.tableOfContents %}
+
+<h1>{{ page.title }}</h1>
+{% if table_of_contents is not null %}
+{{ table_of_contents|markdown_to_html }}
+<hr>
+{% endif %}

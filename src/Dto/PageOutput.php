@@ -26,4 +26,7 @@ final class PageOutput
 
     /** @var string */
     public $content;
+
+    /** @var string|null */
+    public $tableOfContents;
 }

@@ -37,6 +37,34 @@ final class PageInfo extends SplFileInfo implements PageInfoInterface
         return $content;
     }
 
+    public function getTableOfContents(): ?string
+    {
+        /** @var string $content */
+        $content = file_get_contents($this->getPathname());
+
+        preg_match_all('/(\#+)[ ]+(.+)[ ]+\{(\#.+)\}/', $content, $matches);
+
+        $tableOfContents = [];
+
+        $levels = $matches[1];
+        $titles = $matches[2];
+        $links = $matches[3];
+
+        foreach ($titles as $key => $title) {
+            $level = count(explode('#', ($levels[$key]))) - 2;
+            $link = $links[$key];
+
+            $tab = '';
+            for ($i = 1; $i < $level; ++$i) {
+                $tab .= '    ';
+            }
+
+            $tableOfContents[] = $tab.'* ['.$title.']('.$link.')';
+        }
+
+        return count($tableOfContents) > 0 ? implode("\n", $tableOfContents) : null;
+    }
+
     public function getContentWithoutTitle(): string
     {
         $content = $this->getContent();
