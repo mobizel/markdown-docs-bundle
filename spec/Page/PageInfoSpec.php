@@ -40,4 +40,20 @@ class PageInfoSpec extends ObjectBehavior
 
         $this->getContentWithoutTitle()->shouldNotContain('# Foo fighters');
     }
+
+    function it_can_get_table_of_contents(): void
+    {
+        $this->beConstructedWith('tests/docs/index.md', '', '');
+
+        $expectedTableOfContents = <<<EOM
+* [Chapter 1](#chapter-1)
+    * [1.1 - Requirements](#1.1)
+    * [1.2 - Setup](#1.2)
+* [Chapter 2](#chapter-2)
+    * [2.1](#2.1)
+    * [2.2](#2.2)
+EOM;
+
+        $this->getTableOfContents()->shouldReturn($expectedTableOfContents);
+    }
 }
