@@ -32,6 +32,10 @@ final class PageItemDataProvider
         $templateAbsolutePath = $this->templateHandler->getTemplateAbsolutePath($slug);
 
         if (!is_file($templateAbsolutePath)) {
+            $templateAbsolutePath = $this->templateHandler->getTemplateAbsolutePath($slug.'/index');
+        }
+
+        if (!is_file($templateAbsolutePath)) {
             return null;
         }
 
