@@ -27,6 +27,16 @@ final class PageActionTest extends WebTestCase
         $this->assertEquals('/bdd', $client->getResponse()->getTargetUrl());
     }
 
+    public function testDirectoryIndexPageRedirection()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', 'book/index');
+
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $this->assertEquals('/book', $client->getResponse()->getTargetUrl());
+    }
+
     public function testShowPage()
     {
         $client = static::createClient();
@@ -35,6 +45,26 @@ final class PageActionTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Documentation');
+    }
+
+    public function testDirectoryIndexPage()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', 'book');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('html h1', 'Book homepage');
+    }
+
+    public function testSubDirectoryIndexPage()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', 'book/stephen-king');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('html h1', 'Stephen King Books');
     }
 
     public function testNotFoundPage()

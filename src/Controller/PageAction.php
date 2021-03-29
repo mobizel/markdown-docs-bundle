@@ -31,8 +31,16 @@ final class PageAction extends AbstractController
 
     public function __invoke(string $slug): Response
     {
+        // redirect a suffixed page ("foo/bar.md" should be redirected to "foo/bar")
         if (false !== strpos($slug, '.md')) {
             $slug = preg_replace('/\.md$/', '', $slug);
+
+            return $this->redirectToRoute('mobizel_markdown_docs_page_show', ['slug' => $slug]);
+        }
+
+        // redirect a directory homepage ("foo/bar/index" should be redirected to "foo/bar")
+        if (false !== strpos($slug, '/index')) {
+            $slug = preg_replace('/\/index$/', '', $slug);
 
             return $this->redirectToRoute('mobizel_markdown_docs_page_show', ['slug' => $slug]);
         }

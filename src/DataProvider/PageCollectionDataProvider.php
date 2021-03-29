@@ -38,6 +38,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             ->in($this->docsDir)
             ->notName('index.md')
             ->depth(0)
+            ->append($this->createDirectoryIndexFinder($this->docsDir))
             ->sort(PageSorter::sortByTitle());
 
         $pages = [];
@@ -47,9 +48,10 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
 
             /** @var string $slug */
             $slug = preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
+            $slug = preg_replace('/\/index$/', '', $slug);
 
             $pages[] = $this->createPage(
-                $slug,
+                (string) $slug,
                 $pageInfo->getTitle(),
                 $pageInfo->getContentWithoutTitle()
             );
@@ -68,6 +70,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
                 ->in($this->docsDir.'/'.$parentSlug)
                 ->notName('index.md')
                 ->depth(0)
+                ->append($this->createDirectoryIndexFinder($this->docsDir.'/'.$parentSlug))
                 ->sort(PageSorter::sortByTitle());
         } catch (DirectoryNotFoundException $exception) {
             return [];
@@ -127,6 +130,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             ->files()
             ->in($this->docsDir)
             ->depth(0)
+            ->append($this->createDirectoryIndexFinder($this->docsDir))
             ->sort(PageSorter::sortByTitle())
         ;
 
@@ -137,6 +141,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
 
             /** @var string $slug */
             $slug = preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
+            $slug = preg_replace('/\/index$/', '', $slug);
 
             $pages[] = ['slug' => $slug, 'title' => $pageInfo->getTitle()];
         }
@@ -153,7 +158,9 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $finder
                 ->files()
                 ->in($this->docsDir.'/'.$parentSlug)
+                ->notName('index.md')
                 ->depth(0)
+                ->append($this->createDirectoryIndexFinder($this->docsDir.'/'.$parentSlug))
                 ->sort(PageSorter::sortByTitle())
             ;
         } catch (DirectoryNotFoundException $exception) {
@@ -163,6 +170,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         foreach ($finder as $file) {
             $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
             $slug = $parentSlug.'/'.preg_replace('/\.md$/', '', $pageInfo->getRelativePathName());
+            $slug = preg_replace('/\/index$/', '', $slug);
 
             $pageToAdd = ['slug' => $slug, 'title' => $pageInfo->getTitle()];
 
@@ -173,5 +181,14 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         }
 
         return $pages;
+    }
+
+    private function createDirectoryIndexFinder(string $dir): Finder
+    {
+        return (new Finder())
+            ->files()
+            ->name('index.md')
+            ->in($dir)
+            ->depth(1);
     }
 }
