@@ -1,5 +1,9 @@
 ## Change Log
 
+### v0.5.1 (2021/03/29 13:13 +00:00)
+
+- [#58](https://github.com/mobizel/markdown-docs-bundle/pull/58) Allow using a directory index page (@loic425)
+
 ### v0.5.0 (2020/12/31 14:02 +00:00)
 
 #### TL;DR
