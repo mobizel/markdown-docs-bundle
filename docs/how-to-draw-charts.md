@@ -2,6 +2,7 @@
 
 You can draw charts using [Mermaid.js](https://mermaid-js.github.io/)
 
+```html
 <div class="mermaid">
 sequenceDiagram
     participant Alice
@@ -15,3 +16,4 @@ sequenceDiagram
     John->>Bob: How about you?
     Bob-->>John: Jolly good!
 </div>
+```
