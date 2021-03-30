@@ -57,6 +57,16 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Book homepage');
     }
 
+    public function testShowPageWithTrailingSlash()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', 'book/');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('html h1', 'Book homepage');
+    }
+
     public function testSubDirectoryIndexPage()
     {
         $client = static::createClient();

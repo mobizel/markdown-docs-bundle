@@ -31,6 +31,9 @@ final class PageAction extends AbstractController
 
     public function __invoke(string $slug): Response
     {
+        /** @var string $slug */
+        $slug = preg_replace('/\/$/', '', $slug);
+
         // redirect a suffixed page ("foo/bar.md" should be redirected to "foo/bar")
         if (false !== strpos($slug, '.md')) {
             $slug = preg_replace('/\.md$/', '', $slug);
