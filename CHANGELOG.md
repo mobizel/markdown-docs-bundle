@@ -1,7 +1,9 @@
 ## Change Log
 
-### v0.5.1 (2021/03/29 13:13 +00:00)
+### v0.6.1 (2021/03/30 07:21 +00:00)
+- [#59](https://github.com/mobizel/markdown-docs-bundle/pull/59) Fix slug with trailing slash (@loic425)
 
+### v0.6.0 (2021/03/29 13:13 +00:00)
 - [#58](https://github.com/mobizel/markdown-docs-bundle/pull/58) Allow using a directory index page (@loic425)
 
 ### v0.5.0 (2020/12/31 14:02 +00:00)
