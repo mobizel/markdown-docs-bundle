@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.7.0 (2021/03/30 08:29 +00:00)
+- [#60](https://github.com/mobizel/markdown-docs-bundle/pull/60) Add support for Mermaid charts (@loic425)
+
 ### v0.6.1 (2021/03/30 07:21 +00:00)
 - [#59](https://github.com/mobizel/markdown-docs-bundle/pull/59) Fix slug with trailing slash (@loic425)
 
