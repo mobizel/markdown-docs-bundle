@@ -85,7 +85,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $slug = preg_replace('/\/index$/', '', $slug);
 
             $pages[] = $this->createPage(
-                $slug,
+                (string) $slug,
                 $pageInfo->getTitle(),
                 $pageInfo->getContentWithoutTitle()
             );
