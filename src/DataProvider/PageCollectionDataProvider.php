@@ -116,7 +116,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     {
         $tree = [];
 
-        foreach($this->getRootPages() as $page) {
+        foreach ($this->getRootPages() as $page) {
             $tree[$page->slug] = [
                 'title' => $page->title,
                 'children' => $this->addChildrenOnTreeNode($page->slug),
