@@ -31,10 +31,10 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'book/index');
+        $client->request('GET', 'products/books/index');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals('/book', $client->getResponse()->getTargetUrl());
+        $this->assertEquals('/products/books', $client->getResponse()->getTargetUrl());
     }
 
     public function testShowPage()
@@ -51,7 +51,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'book');
+        $client->request('GET', 'products/books');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Book homepage');
@@ -61,7 +61,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'book/');
+        $client->request('GET', 'products/books/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Book homepage');
@@ -71,7 +71,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'book/stephen-king');
+        $client->request('GET', 'products/books/stephen-king');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Stephen King Books');
