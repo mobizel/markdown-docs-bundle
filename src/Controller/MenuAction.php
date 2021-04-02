@@ -30,32 +30,9 @@ final class MenuAction extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $menuItems = $this->getMenuItems();
-        $currentSubmenuItems = $this->getCurrentSubmenuItems($request);
-
         return $this->render('@MobizelMarkdownDocs/layout/menu.html.twig', [
-            'menu_items' => $menuItems,
+            'menu_items' => $this->pageCollectionDataProvider->getPagesAsTree(),
             'current_item' => $request->query->get('current_item'),
-            'current_sub_menu_items' => $currentSubmenuItems,
         ]);
-    }
-
-    private function getMenuItems(): iterable
-    {
-        return $this->pageCollectionDataProvider->getRootPages();
-    }
-
-    private function getCurrentSubmenuItems(Request $request): iterable
-    {
-        $currentItem = $request->query->get('current_item');
-        $currentSubmenuItems = [];
-
-        if (null === $currentItem) {
-            return $currentSubmenuItems;
-        }
-
-        $parentSlug = explode('/', $currentItem)[0];
-
-        return $this->pageCollectionDataProvider->getChildrenPages($parentSlug);
     }
 }

@@ -36,7 +36,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $finder
             ->files()
             ->in($this->docsDir)
-            // ->notName('index.md')
+            //->notName('index.md')
             ->depth(0)
             ->append($this->createDirectoryIndexFinder($this->docsDir))
             ->sort(PageSorter::sortByTitle());
@@ -118,6 +118,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
 
         foreach ($this->getRootPages() as $page) {
             $tree[$page->slug] = [
+                'slug' => $page->slug,
                 'title' => $page->title,
                 'children' => $this->addChildrenOnTreeNode($page->slug),
             ];
@@ -132,6 +133,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
 
         foreach ($this->getChildrenPages($parentSlug) as $page) {
             $children[$page->slug] = [
+                'slug' => $page->slug,
                 'title' => $page->title,
                 'children' => $this->addChildrenOnTreeNode($page->slug),
             ];
