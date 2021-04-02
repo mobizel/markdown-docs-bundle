@@ -1,5 +1,11 @@
 ## Change Log
 
+### v0.7.1 (2021/04/02 12:39 +00:00)
+- [#66](https://github.com/mobizel/markdown-docs-bundle/pull/66) Fix meta-title (@loic425)
+- [#65](https://github.com/mobizel/markdown-docs-bundle/pull/65) Improve specs for data provider (@loic425)
+- [#64](https://github.com/mobizel/markdown-docs-bundle/pull/64) Add specs for data provider (@loic425)
+- [#63](https://github.com/mobizel/markdown-docs-bundle/pull/63) Bump y18n from 4.0.0 to 4.0.1 (@dependabot[bot])
+
 ### v0.7.0 (2021/03/30 08:29 +00:00)
 - [#60](https://github.com/mobizel/markdown-docs-bundle/pull/60) Add support for Mermaid charts (@loic425)
 
