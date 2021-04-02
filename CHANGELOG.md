@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.8.0 (2021/04/02 21:31 +00:00)
+- [#67](https://github.com/mobizel/markdown-docs-bundle/pull/67) show more levels on menu (@loic425)
+
 ### v0.7.1 (2021/04/02 12:39 +00:00)
 - [#66](https://github.com/mobizel/markdown-docs-bundle/pull/66) Fix meta-title (@loic425)
 - [#65](https://github.com/mobizel/markdown-docs-bundle/pull/65) Improve specs for data provider (@loic425)
