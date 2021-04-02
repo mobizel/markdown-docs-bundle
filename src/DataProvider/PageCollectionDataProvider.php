@@ -82,6 +82,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
 
             $slug = $parentSlug.'/'.preg_replace('/\.md$/', '', $file->getRelativePathName());
+            $slug = preg_replace('/\/index$/', '', $slug);
 
             $pages[] = $this->createPage(
                 $slug,
