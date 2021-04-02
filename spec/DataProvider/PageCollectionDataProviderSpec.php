@@ -22,9 +22,9 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
     function it_returns_root_pages(): void
     {
         $rootPages = $this->getRootPages();
-        $rootPages->shouldHaveCount(6);
-        $rootPages[0]->slug->shouldReturn('bar');
-        $rootPages[0]->title->shouldReturn('Bar');
+        $rootPages->shouldHaveCount(7);
+        $rootPages[0]->slug->shouldReturn('index');
+        $rootPages[0]->title->shouldReturn('Documentation');
     }
 
     function it_returns_children_pages(): void
@@ -49,6 +49,33 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
             'products' => 'Products',
             'products/books' => 'Book homepage',
             'products/books/stephen-king' => 'Stephen King Books',
+        ]);
+    }
+
+    function it_returns_pases_as_tree(): void
+    {
+        $tree = $this->getPagesAsTree();
+
+        $tree->shouldHaveCount(7);
+
+        $tree['index']->shouldReturn([
+            'title' => 'Documentation',
+            'children' => [],
+        ]);
+
+        $tree['products']->shouldReturn([
+            'title' => 'Products',
+            'children' => [
+                'products/books' => [
+                    'title' => 'Book homepage',
+                    'children' => [
+                        'products/books/stephen-king' => [
+                            'title' => 'Stephen King Books',
+                            'children' => [],
+                        ]
+                    ],
+                ],
+            ],
         ]);
     }
 }
