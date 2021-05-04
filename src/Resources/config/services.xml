@@ -107,6 +107,8 @@
             </call>
             <tag name="container.service_subscriber"/>
             <argument key="$pageItemDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_item"/>
+            <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader" />
+            <argument key="$routeHelper" type="service" id="mobizel_markdown_docs.helper.route_helper" />
         </service>
 
         <service id="mobizel_markdown_docs.controller.menu_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\MenuAction">

@@ -15,6 +15,10 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension;
 
 interface ReaderExtensionInterface
 {
+    public function getPathForIndex(): string;
+
+    public function getPathForMenu(): string;
+
     public function getPathForPage(string $slug): string;
 
     public function getPathForSearch(): string;

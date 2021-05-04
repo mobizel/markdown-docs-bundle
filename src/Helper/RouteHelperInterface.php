@@ -25,6 +25,10 @@ interface RouteHelperInterface
 
     public function getRouteForSearch(ContextInterface $context): string;
 
+    public function getPathForIndex(ContextInterface $context): string;
+
+    public function getPathForMenu(ContextInterface $context): string;
+
     public function getPathForPage(ContextInterface $context, string $slug): string;
 
     public function getPathForSearch(ContextInterface $context): string;

@@ -52,6 +52,27 @@ final class RouteHelper implements RouteHelperInterface
         return sprintf('mobizel_markdown_docs_%s_search', $context->getName());
     }
 
+    public function getPathForIndex(ContextInterface $context): string
+    {
+        $route = $this->getRouteForIndex($context);
+
+        $routeParameters = $this->request->get('_route_params');
+        unset($routeParameters['slug']);
+
+        return $this->router->generate($route, $routeParameters);
+    }
+
+    public function getPathForMenu(ContextInterface $context): string
+    {
+        $route = $this->getRouteForMenu($context);
+
+        $routeParameters = $this->request->get('_route_params');
+        $routeParameters['current_item'] = $routeParameters['slug'] ?? null;
+        unset($routeParameters['slug']);
+
+        return $this->router->generate($route, $routeParameters);
+    }
+
     public function getPathForPage(ContextInterface $context, string $slug): string
     {
         $route = $this->getRouteForPage($context);

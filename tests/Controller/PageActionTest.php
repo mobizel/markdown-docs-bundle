@@ -21,27 +21,27 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'bdd.md');
+        $client->request('GET', '/current/bar.md');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals('/bdd', $client->getResponse()->getTargetUrl());
+        $this->assertEquals('/current/bar', $client->getResponse()->getTargetUrl());
     }
 
     public function testDirectoryIndexPageRedirection()
     {
         $client = static::createClient();
 
-        $client->request('GET', 'products/books/index');
+        $client->request('GET', '/current/products/books/index');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertEquals('/products/books', $client->getResponse()->getTargetUrl());
+        $this->assertEquals('/current/products/books', $client->getResponse()->getTargetUrl());
     }
 
     public function testShowPage()
     {
         $client = static::createClient();
 
-        $client->request('GET', 'index');
+        $client->request('GET', '/current/index');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Documentation');
@@ -51,7 +51,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'products/books');
+        $client->request('GET', '/current/products/books');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Book homepage');
@@ -61,7 +61,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'products/books/');
+        $client->request('GET', '/current/products/books/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Book homepage');
@@ -71,7 +71,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'products/books/stephen-king');
+        $client->request('GET', '/current/products/books/stephen-king');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextSame('html h1', 'Stephen King Books');
@@ -81,7 +81,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'not-found');
+        $client->request('GET', '/current/not-found');
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
@@ -90,7 +90,7 @@ final class PageActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'cookbook/bdd/phpspec');
+        $client->request('GET', '/current/cookbook/bdd/phpspec');
 
         $client->clickLink('BDD - Behaviour-driven development');
 

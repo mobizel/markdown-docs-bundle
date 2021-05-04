@@ -1,8 +1,15 @@
 framework:
     test: true
     router:
-        resource: "%kernel.project_dir%/src/Resources/config/routes.xml"
+        resource: "%kernel.project_dir%/tests/app/config/routes.yaml"
         utf8: true
 
 mobizel_markdown_docs:
-    docs_dir: "%kernel.project_dir%/tests/docs"
+    contexts:
+        current:
+            path: /current
+            docs_dir: '%kernel.project_dir%/tests/docs'
+#        lecacy:
+#            path: /{version}
+#            pattern: (\d+)\.(\d+)
+#            docs_dir: '%kernel.project_dir%/../tests/legacy_docs/{version}'

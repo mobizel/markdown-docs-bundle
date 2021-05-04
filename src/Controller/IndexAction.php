@@ -17,6 +17,7 @@ use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class IndexAction extends AbstractController
 {
@@ -34,7 +35,12 @@ final class IndexAction extends AbstractController
 
     public function __invoke(): Response
     {
-        $context = $this->readerContext->getContext();
+        try {
+            $context = $this->readerContext->getContext();
+        }
+        catch (\InvalidArgumentException $exception) {
+            throw new NotFoundHttpException($exception->getMessage());
+        }
 
         return $this->redirect($this->routeHelper->getPathForPage($context, 'index'));
     }

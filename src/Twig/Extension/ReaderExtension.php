@@ -38,9 +38,21 @@ final class ReaderExtension extends AbstractExtension implements ReaderExtension
     public function getFunctions(): array
     {
         return [
+            new TwigFunction('path_for_index', [$this, 'getPathForIndex']),
+            new TwigFunction('path_for_menu', [$this, 'getPathForMenu']),
             new TwigFunction('path_for_page', [$this, 'getPathForPage']),
             new TwigFunction('path_for_search', [$this, 'getPathForSearch']),
         ];
+    }
+
+    public function getPathForIndex(): string
+    {
+        return $this->routeHelper->getPathForIndex($this->readerContext->getContext());
+    }
+
+    public function getPathForMenu(): string
+    {
+        return $this->routeHelper->getPathForMenu($this->readerContext->getContext());
     }
 
     public function getPathForPage(string $slug): string
