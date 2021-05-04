@@ -33,6 +33,6 @@ final class MobizelMarkdownDocsExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('mobizel.markdown_docs.docs_dir', $config['docs_dir']);
+        $container->setParameter('mobizel.markdown_docs.contexts', $config['contexts']);
     }
 }

@@ -15,6 +15,7 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
 use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageItemDataProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -29,7 +30,7 @@ final class PageAction extends AbstractController
         $this->pageItemDataProvider = $pageItemDataProvider;
     }
 
-    public function __invoke(string $slug): Response
+    public function __invoke(Request $request, string $slug): Response
     {
         /** @var string $slug */
         $slug = preg_replace('/\/$/', '', $slug);
@@ -48,7 +49,7 @@ final class PageAction extends AbstractController
             return $this->redirectToRoute('mobizel_markdown_docs_page_show', ['slug' => $slug]);
         }
 
-        $page = $this->pageItemDataProvider->getPage($slug);
+        $page = $this->pageItemDataProvider->getPage($request);
 
         if (null === $page) {
             throw new NotFoundHttpException(sprintf('Page "%s" was not found', $slug));

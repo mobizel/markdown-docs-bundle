@@ -15,31 +15,29 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\DataProvider;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Dto\PageOutput;
 use Mobizel\Bundle\MarkdownDocsBundle\Page\PageInfo;
-use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateResolverInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 final class PageItemDataProvider
 {
-    /** @var TemplateHandlerInterface */
-    private $templateHandler;
+    /** @var TemplateResolverInterface */
+    private $templateResolver;
 
-    public function __construct(TemplateHandlerInterface $templateHandler)
+    public function __construct(TemplateResolverInterface $templateResolver)
     {
-        $this->templateHandler = $templateHandler;
+        $this->templateResolver = $templateResolver;
     }
 
-    public function getPage(string $slug): ?PageOutput
+    public function getPage(Request $request): ?PageOutput
     {
-        $templateAbsolutePath = $this->templateHandler->getTemplateAbsolutePath($slug);
+        $slug = $request->get('slug', '');
+        $templatePath = $this->templateResolver->resolve($request);
 
-        if (!is_file($templateAbsolutePath)) {
-            $templateAbsolutePath = $this->templateHandler->getTemplateAbsolutePath($slug.'/index');
-        }
-
-        if (!is_file($templateAbsolutePath)) {
+        if (null === $templatePath) {
             return null;
         }
 
-        $pageInfo = new PageInfo($templateAbsolutePath, dirname($slug), $this->templateHandler->getTemplatePath($slug));
+        $pageInfo = new PageInfo($templatePath, dirname($slug), $slug.'.md');
 
         return $this->createPage(
             $slug,

@@ -13,32 +13,41 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\DataProvider;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Dto\PageOutput;
 use Mobizel\Bundle\MarkdownDocsBundle\Page\PageInfo;
 use Mobizel\Bundle\MarkdownDocsBundle\Page\PageSorter;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 final class PageCollectionDataProvider implements PageCollectionDataProviderInterface
 {
-    /** @var string */
-    private $docsDir;
+    /** @var ReaderContextInterface */
+    private $readerContext;
 
-    public function __construct(string $docsDir)
+    /** @var Request */
+    private $request;
+
+    public function __construct(ReaderContextInterface $readerContext, RequestStack $requestStack)
     {
-        $this->docsDir = $docsDir;
+        $this->readerContext = $readerContext;
+        $this->request = $requestStack->getCurrentRequest() ?? new Request();
     }
 
     public function getRootPages(): iterable
     {
+        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
         $finder = new Finder();
 
         $finder
             ->files()
-            ->in($this->docsDir)
+            ->in($docsDir)
             //->notName('index.md')
             ->depth(0)
-            ->append($this->createDirectoryIndexFinder($this->docsDir))
+            ->append($this->createDirectoryIndexFinder($docsDir))
             ->sort(PageSorter::sortByTitle());
 
         $pages = [];
@@ -62,15 +71,16 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
 
     public function getChildrenPages(string $parentSlug): iterable
     {
+        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
         $finder = new Finder();
 
         try {
             $finder
                 ->files()
-                ->in($this->docsDir.'/'.$parentSlug)
+                ->in($docsDir.'/'.$parentSlug)
                 ->notName('index.md')
                 ->depth(0)
-                ->append($this->createDirectoryIndexFinder($this->docsDir.'/'.$parentSlug))
+                ->append($this->createDirectoryIndexFinder($docsDir.'/'.$parentSlug))
                 ->sort(PageSorter::sortByTitle());
         } catch (DirectoryNotFoundException $exception) {
             return [];
@@ -155,13 +165,14 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     private function getRootPagesMap(): array
     {
         $finder = new Finder();
+        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
 
         // first get Root pages and also homepage
         $finder
             ->files()
-            ->in($this->docsDir)
+            ->in($docsDir)
             ->depth(0)
-            ->append($this->createDirectoryIndexFinder($this->docsDir))
+            ->append($this->createDirectoryIndexFinder($docsDir))
             ->sort(PageSorter::sortByTitle())
         ;
 
@@ -183,15 +194,16 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     private function getChildrenPagesMap(array $row, array $pages, int &$currentPosition): array
     {
         $parentSlug = $row['slug'];
+        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
         $finder = new Finder();
 
         try {
             $finder
                 ->files()
-                ->in($this->docsDir.'/'.$parentSlug)
+                ->in($docsDir.'/'.$parentSlug)
                 ->notName('index.md')
                 ->depth(0)
-                ->append($this->createDirectoryIndexFinder($this->docsDir.'/'.$parentSlug))
+                ->append($this->createDirectoryIndexFinder($docsDir.'/'.$parentSlug))
                 ->sort(PageSorter::sortByTitle())
             ;
         } catch (DirectoryNotFoundException $exception) {
@@ -212,6 +224,11 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         }
 
         return $pages;
+    }
+
+    private function getCurrentContext(): ContextInterface
+    {
+        return $this->readerContext->getContext();
     }
 
     private function createDirectoryIndexFinder(string $dir): Finder

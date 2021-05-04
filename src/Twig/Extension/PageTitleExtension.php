@@ -27,7 +27,7 @@ final class PageTitleExtension extends AbstractExtension implements PageTitleExt
         $this->pageHelper = $pageHelper;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('page_title', [$this, 'pageTitle']),

@@ -1,2 +1,9 @@
 mobizel_markdown_docs:
-    docs_dir: '%env(resolve:DOCS_DIR)%'
+    contexts:
+        current:
+            path: /current
+            docs_dir: '%kernel.project_dir%/../tests/docs'
+        lecacy:
+            path: /{version}
+            pattern: (\d+)\.(\d+)
+            docs_dir: '%kernel.project_dir%/../tests/legacy_docs/{version}'

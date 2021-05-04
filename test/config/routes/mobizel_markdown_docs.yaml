@@ -1,3 +1,7 @@
 _mobizel_markdowns:
     resource: '@MobizelMarkdownDocsBundle/Resources/config/routes.xml'
-    prefix: "docs"
+    prefix: docs
+
+_mobizel_markdowns_routes:
+    resource: 'mobizel_markdown_docs.routing.context_loader'
+    type: service

@@ -1,0 +1,55 @@
+<?php
+
+/*
+ * This file is part of the markdown-docs-bundle project.
+ *
+ * (c) Mobizel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension;
+
+use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
+final class ReaderExtension extends AbstractExtension implements ReaderExtensionInterface
+{
+    /** @var ReaderContextInterface */
+    private $readerContext;
+
+    /** @var RouteHelperInterface */
+    private $routeHelper;
+
+    public function __construct(
+        ReaderContextInterface $readerContext,
+        RouteHelperInterface $routeHelper
+    ) {
+        $this->readerContext = $readerContext;
+        $this->routeHelper = $routeHelper;
+    }
+
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('path_for_page', [$this, 'getPathForPage']),
+            new TwigFunction('path_for_search', [$this, 'getPathForSearch']),
+        ];
+    }
+
+    public function getPathForPage(string $slug): string
+    {
+        return $this->routeHelper->getPathForPage($this->readerContext->getContext(), $slug);
+    }
+
+    public function getPathForSearch(): string
+    {
+        return $this->routeHelper->getPathForSearch($this->readerContext->getContext());
+    }
+}

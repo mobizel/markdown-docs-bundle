@@ -3,7 +3,7 @@
 <ul class="nav flex-column">
     {% for item in menu_items %}
         {% if item.slug != 'index' %}
-            {{ menu.nav_item(item, current_item) }}
+            {{ menu.nav_item(item, current_item, current_route) }}
         {% endif %}
     {% endfor %}
 </ul>

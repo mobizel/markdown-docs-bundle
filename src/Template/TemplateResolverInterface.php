@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Template;
 
-interface TemplateHandlerInterface
-{
-    public function getTemplatePath(string $slug): string;
+use Symfony\Component\HttpFoundation\Request;
 
-    public function getTemplateAbsolutePath(string $slug): string;
+interface TemplateResolverInterface
+{
+    public function resolve(Request $request): ?string;
 }
