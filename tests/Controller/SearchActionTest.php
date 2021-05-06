@@ -21,7 +21,7 @@ final class SearchActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', 'search?query=foo+fighters');
+        $client->request('GET', '/current/search?query=foo+fighters');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('html h1', 'foo fighters');

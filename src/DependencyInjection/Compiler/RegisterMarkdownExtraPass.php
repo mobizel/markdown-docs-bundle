@@ -26,6 +26,6 @@ final class RegisterMarkdownExtraPass implements CompilerPassInterface
         }
 
         $markdownRuntimeDefinition = $container->findDefinition('twig.runtime.markdown');
-        $markdownRuntimeDefinition->setArgument(0, new Reference('mobizel.markdown_docs.markdown_extra'));
+        $markdownRuntimeDefinition->setArgument(0, new Reference('mobizel_markdown_docs.markdown_extra'));
     }
 }

@@ -2,18 +2,21 @@
 
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Helper;
 
+use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProviderInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelper;
 use PhpSpec\ObjectBehavior;
 
 class PageHelperSpec extends ObjectBehavior
 {
-    function let(): void
+    function let(PageCollectionDataProviderInterface $pageCollectionDataProvider): void
     {
-        $this->beConstructedWith([
+        $pageCollectionDataProvider->getPagesMap()->willReturn([
             'first-page' => 'First page',
             'foo' => 'Foo fighters',
             'last-page' => 'Last page',
         ]);
+
+        $this->beConstructedWith($pageCollectionDataProvider);
     }
 
     function it_is_initializable(): void

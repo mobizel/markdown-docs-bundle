@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Mobizel\Bundle\MarkdownDocsBundle\Template;
+namespace Mobizel\Bundle\MarkdownDocsBundle\Context;
 
-interface TemplateHandlerInterface
+use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
+
+interface ReaderContextInterface
 {
-    public function getTemplatePath(string $slug): string;
-
-    public function getTemplateAbsolutePath(string $slug): string;
+    public function getContext(): ContextInterface;
 }

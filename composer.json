@@ -40,6 +40,9 @@
         "symfony/phpunit-bridge": "^4.4|^5.1",
         "symplify/easy-coding-standard": "^9.0"
     },
+    "conflict": {
+        "symplify/easy-coding-standard": "9.3.*"
+    },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true

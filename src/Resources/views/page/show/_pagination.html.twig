@@ -6,7 +6,7 @@
     <ul class="pagination justify-content-between">
         {% if previousPageSlug %}
         <li class="page-item mr-4">
-            <a class="d-flex" href="{{ path('mobizel_markdown_docs_page_show', { 'slug': previousPageSlug } ) }}" tabindex="-1">
+            <a class="d-flex" href="{{ path_for_page(previousPageSlug) }}" tabindex="-1">
                 <span aria-hidden="true" class="mr-2">←</span>
                 {{ page_title(previousPageSlug) }}
             </a>
@@ -14,7 +14,7 @@
         {% endif %}
         {% if nextPageSlug %}
         <li class="page-item text-right">
-            <a class="d-flex" href="{{ path('mobizel_markdown_docs_page_show', { 'slug': nextPageSlug } ) }}">
+            <a class="d-flex" href="{{ path_for_page(nextPageSlug) }}">
                 {{ page_title(nextPageSlug) }}
                 <span aria-hidden="true" class="ml-2">→</span>
             </a>

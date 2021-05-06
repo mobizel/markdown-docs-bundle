@@ -6,7 +6,7 @@
         {% for file in files %}
             {% set slug = file.relativePathname|split('.md')[0] %}
             <li>
-                <a href="{{ path('mobizel_markdown_docs_page_show', { 'slug': slug }) }}">
+                <a href="{{ path_for_page(slug) }}">
                     {{ page_title(slug) }} [{{ slug }}]
                 </a>
             </li>

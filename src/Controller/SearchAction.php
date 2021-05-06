@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +21,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class SearchAction extends AbstractController
 {
-    /** @var string */
-    private $docsDir;
+    /** @var ReaderContextInterface */
+    private $readerContext;
 
-    public function __construct(string $docsDir)
+    public function __construct(ReaderContextInterface $readerContext)
     {
-        $this->docsDir = $docsDir;
+        $this->readerContext = $readerContext;
     }
 
     public function __invoke(Request $request): Response
@@ -33,7 +34,7 @@ final class SearchAction extends AbstractController
         $query = $request->get('query', '');
 
         $finder = new Finder();
-        $finder->files()->in($this->docsDir)->contains('/'.$query.'/i');
+        $finder->files()->in($this->readerContext->getContext()->getDocsDir($request))->contains('/'.$query.'/i');
 
         return $this->render('@MobizelMarkdownDocs/search/index.html.twig', [
             'files' => $finder,

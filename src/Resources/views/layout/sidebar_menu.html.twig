@@ -1,3 +1,3 @@
 {% import '@MobizelMarkdownDocs/macro/menu.html.twig' as menu %}
 
-{{ render(path('mobizel_markdown_docs_menu', {'current_item': app.request.get('slug')})) }}
+{{ render( path_for_menu() ) }}

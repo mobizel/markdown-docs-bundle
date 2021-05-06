@@ -33,6 +33,7 @@ final class MenuAction extends AbstractController
         return $this->render('@MobizelMarkdownDocs/layout/menu.html.twig', [
             'menu_items' => $this->pageCollectionDataProvider->getPagesAsTree(),
             'current_item' => $request->query->get('current_item'),
+            'current_route' => $request->query->get('current_route'),
         ]);
     }
 }

@@ -13,13 +13,34 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class IndexAction extends AbstractController
 {
+    /** @var ReaderContextInterface */
+    private $readerContext;
+
+    /** @var RouteHelperInterface */
+    private $routeHelper;
+
+    public function __construct(ReaderContextInterface $readerContext, RouteHelperInterface $routeHelper)
+    {
+        $this->readerContext = $readerContext;
+        $this->routeHelper = $routeHelper;
+    }
+
     public function __invoke(): Response
     {
-        return $this->redirectToRoute('mobizel_markdown_docs_page_show', ['slug' => 'index']);
+        try {
+            $context = $this->readerContext->getContext();
+        } catch (\InvalidArgumentException $exception) {
+            throw new NotFoundHttpException($exception->getMessage());
+        }
+
+        return $this->redirect($this->routeHelper->getPathForPage($context, 'index'));
     }
 }

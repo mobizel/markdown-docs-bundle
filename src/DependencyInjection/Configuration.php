@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -23,11 +24,29 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('mobizel_markdown_docs');
         $rootNode = $treeBuilder->getRootNode();
 
-        $rootNode
-            ->children()
-                ->scalarNode('docs_dir')->defaultValue('%kernel.project_dir%/docs')->cannotBeEmpty()->end()
-            ->end();
+        $this->addContextsSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    private function addContextsSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->children()
+                ->arrayNode('contexts')
+                    ->useAttributeAsKey('name')
+                        ->arrayPrototype()
+                            ->children()
+                                ->scalarNode('path')->cannotBeEmpty()->end()
+                                ->scalarNode('pattern')->end()
+                                ->arrayNode('requirements')
+                                    ->scalarPrototype()->end()
+                                ->end()
+                                ->scalarNode('docs_dir')->cannotBeEmpty()->end()
+                            ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }

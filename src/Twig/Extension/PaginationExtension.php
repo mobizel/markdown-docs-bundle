@@ -27,7 +27,7 @@ final class PaginationExtension extends AbstractExtension implements PaginationE
         $this->pageHelper = $pageHelper;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('previous_page', [$this, 'previousPage']),

@@ -13,21 +13,22 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Helper;
 
+use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class PageHelper implements PageHelperInterface
 {
-    /** @var array */
-    private $pagesMap;
+    /** @var PageCollectionDataProviderInterface */
+    private $pageCollectionDataProvider;
 
-    public function __construct(array $pagesMap)
+    public function __construct(PageCollectionDataProviderInterface $pageCollectionDataProvider)
     {
-        $this->pagesMap = $pagesMap;
+        $this->pageCollectionDataProvider = $pageCollectionDataProvider;
     }
 
     public function getTitle(string $slug): string
     {
-        return $this->pagesMap[$slug] ?? '';
+        return $this->getPagesMap()[$slug] ?? '';
     }
 
     public function getPreviousPage(string $slug): ?string
@@ -47,7 +48,7 @@ final class PageHelper implements PageHelperInterface
     private function getCurrentPosition(string $slug): int
     {
         /** @var int $currentPosition */
-        $currentPosition = array_search($slug, array_keys($this->pagesMap));
+        $currentPosition = array_search($slug, array_keys($this->getPagesMap()));
         Assert::notFalse($currentPosition, 'Current position was not found');
 
         return $currentPosition;
@@ -56,8 +57,13 @@ final class PageHelper implements PageHelperInterface
     private function getPageFromPosition(int $position): ?string
     {
         /** @var string|null $slug */
-        $slug = array_keys($this->pagesMap)[$position] ?? null;
+        $slug = array_keys($this->getPagesMap())[$position] ?? null;
 
         return $slug;
+    }
+
+    private function getPagesMap(): array
+    {
+        return $this->pageCollectionDataProvider->getPagesMap();
     }
 }

@@ -8,26 +8,57 @@
 
         <!-- Main -->
 
-        <service id="mobizel.markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>
+        <service id="mobizel_markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>
 
-        <service id="mobizel_markdown_docs.template.template_handler" class="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandler">
-            <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
+        <service id="mobizel_markdown_docs.template.template_resolver" class="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateResolver">
+            <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader" />
         </service>
-        <service id="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface" alias="mobizel_markdown_docs.template.template_handler"/>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateResolverInterface" alias="mobizel_markdown_docs.template.template_resolver"/>
+
+        <!-- Helpers -->
 
         <service id="mobizel_markdown_docs.helper.page_helper" class="Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelper">
-            <argument key="$pagesMap" type="expression">service('mobizel_markdown_docs.data_provider.page_collection').getPagesMap()</argument>
+            <argument key="$pageCollectionDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_collection" />
         </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelperInterface" alias="mobizel_markdown_docs.helper.page_helper"/>
+
+        <service id="mobizel_markdown_docs.helper.route_helper" class="Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelper">
+            <argument key="$requestStack" type="service" id="request_stack" />
+            <argument key="$router" type="service" id="router.default" />
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface" alias="mobizel_markdown_docs.helper.route_helper"/>
+
+        <!-- Contexts -->
+
+        <service id="mobizel_markdown_docs.context.reader" class="Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContext">
+            <argument key="$requestStack" type="service" id="request_stack" />
+            <argument key="$contextResolver" type="service" id="mobizel_markdown_docs.docs.context_resolver" />
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface" alias="mobizel_markdown_docs.context.reader"/>
+
+
+        <!-- Docs -->
+
+        <service id="mobizel_markdown_docs.docs.context_registry" class="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextRegistry">
+            <argument key="$contexts" type="tagged_iterator" tag="mobizel_markdown_docs.context" />
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextRegistryInterface" alias="mobizel_markdown_docs.docs.context_registry" />
+
+        <service id="mobizel_markdown_docs.docs.context_resolver" class="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextResolver">
+            <argument key="$contextRegistry" type="service" id="mobizel_markdown_docs.docs.context_registry" />
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextResolverInterface" alias="mobizel_markdown_docs.docs.context_resolver" />
 
         <!-- Data Providers -->
 
         <service id="mobizel_markdown_docs.data_provider.page_collection" class="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProvider">
-            <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
+            <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader"/>
+            <argument key="$requestStack" type="service" id="request_stack"/>
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProviderInterface" alias="mobizel_markdown_docs.data_provider.page_collection"/>
 
         <service id="mobizel_markdown_docs.data_provider.page_item" class="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageItemDataProvider">
-            <argument key="$templateHandler" type="service" id="mobizel_markdown_docs.template.template_handler"/>
+            <argument key="$templateResolver" type="service" id="mobizel_markdown_docs.template.template_resolver"/>
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageItemDataProviderInterface" alias="mobizel_markdown_docs.data_provider.page_item"/>
 
@@ -35,13 +66,22 @@
 
         <service id="mobizel_markdown_docs.twig.extension.page_title" class="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtension">
             <argument key="$pageHelper" type="service" id="mobizel_markdown_docs.helper.page_helper"/>
+            <tag name="twig.extension" />
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PageTitleExtensionInterface" alias="mobizel_markdown_docs.twig.extension.page_title"/>
 
         <service id="mobizel_markdown_docs.twig.extension.pagination" class="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PaginationExtension">
             <argument key="$pageHelper" type="service" id="mobizel_markdown_docs.helper.page_helper"/>
+            <tag name="twig.extension" />
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\PaginationExtensionInterface" alias="mobizel_markdown_docs.twig.extension.pagination"/>
+
+        <service id="mobizel_markdown_docs.twig.extension.reader" class="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\ReaderExtension">
+            <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader"/>
+            <argument key="$routeHelper" type="service" id="mobizel_markdown_docs.helper.route_helper"/>
+            <tag name="twig.extension" />
+        </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension\ReaderExtensionInterface" alias="mobizel_markdown_docs.twig.extension.reader"/>
 
         <!-- Controllers -->
 
@@ -49,6 +89,8 @@
             <call method="setContainer">
                 <argument type="service" id="Psr\Container\ContainerInterface"/>
             </call>
+            <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader" />
+            <argument key="$routeHelper" type="service" id="mobizel_markdown_docs.helper.route_helper" />
             <tag name="container.service_subscriber"/>
         </service>
 
@@ -57,7 +99,7 @@
                 <argument type="service" id="Psr\Container\ContainerInterface"/>
             </call>
             <tag name="container.service_subscriber"/>
-            <argument key="$docsDir">%mobizel.markdown_docs.docs_dir%</argument>
+            <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader" />
         </service>
 
         <service id="mobizel_markdown_docs.controller.page_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\PageAction">
@@ -66,6 +108,8 @@
             </call>
             <tag name="container.service_subscriber"/>
             <argument key="$pageItemDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_item"/>
+            <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader" />
+            <argument key="$routeHelper" type="service" id="mobizel_markdown_docs.helper.route_helper" />
         </service>
 
         <service id="mobizel_markdown_docs.controller.menu_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\MenuAction">
@@ -74,6 +118,14 @@
             </call>
             <tag name="container.service_subscriber"/>
             <argument key="$pageCollectionDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_collection"/>
+        </service>
+
+        <!-- Routing -->
+
+        <service id="mobizel_markdown_docs.routing.context_loader" class="Mobizel\Bundle\MarkdownDocsBundle\Routing\ContextLoader">
+            <argument key="$contextRegistry" type="service" id="mobizel_markdown_docs.docs.context_registry"/>
+            <argument key="$routeHelper" type="service" id="mobizel_markdown_docs.helper.route_helper"/>
+            <tag name="routing.route_loader"/>
         </service>
     </services>
 </container>

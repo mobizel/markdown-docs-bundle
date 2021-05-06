@@ -2,13 +2,16 @@
 
 Markdown templates are on `docs` directory.
 
-You can customize the docs directory: 
+You can customize your main docs directory: 
 
 ```yaml
 # config/packages/mobizel_markdown_docs.yaml
 
 mobizel_markdown_docs:
-    docs_dir: '/path/to/your/docs'
+    contexts:
+        main:
+            path: /docs
+            docs_dir: '/path/to/your/docs'
 ```
 
 Your files are already available on your server.
