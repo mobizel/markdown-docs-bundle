@@ -11,6 +11,8 @@ mobizel_markdown_docs:
             docs_dir: '%kernel.project_dir%/tests/docs'
         packages:
             path: /packages/{package}/{version}
+            metadata:
+                title: '{package}'
             docs_dir: '%kernel.project_dir%/tests/packages/{package}/{version}'
             requirements:
                 package: '.+'
