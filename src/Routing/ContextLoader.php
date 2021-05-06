@@ -48,7 +48,7 @@ final class ContextLoader
         return $routeCollection;
     }
 
-    private function addRoutesForContext(RouteCollection $routeCollection, ContextInterface $context)
+    private function addRoutesForContext(RouteCollection $routeCollection, ContextInterface $context): void
     {
         $this->addRouteForMenu($routeCollection, $context);
         $this->addRouteForSearch($routeCollection, $context);
@@ -56,7 +56,7 @@ final class ContextLoader
         $this->addRouteForPage($routeCollection, $context);
     }
 
-    private function addRouteForMenu(RouteCollection $routeCollection, ContextInterface $context)
+    private function addRouteForMenu(RouteCollection $routeCollection, ContextInterface $context): void
     {
         $defaults = ['_controller' => 'mobizel_markdown_docs.controller.menu_action'];
 
@@ -64,7 +64,7 @@ final class ContextLoader
         $routeCollection->add($this->routeHelper->getRouteForMenu($context), $route);
     }
 
-    private function addRouteForSearch(RouteCollection $routeCollection, ContextInterface $context)
+    private function addRouteForSearch(RouteCollection $routeCollection, ContextInterface $context): void
     {
         $defaults = ['_controller' => 'mobizel_markdown_docs.controller.search_action'];
 
@@ -72,7 +72,7 @@ final class ContextLoader
         $routeCollection->add($this->routeHelper->getRouteForSearch($context), $route);
     }
 
-    private function addRouteForIndex(RouteCollection $routeCollection, ContextInterface $context)
+    private function addRouteForIndex(RouteCollection $routeCollection, ContextInterface $context): void
     {
         $defaults = ['_controller' => 'mobizel_markdown_docs.controller.index_action'];
 
@@ -80,7 +80,7 @@ final class ContextLoader
         $routeCollection->add($this->routeHelper->getRouteForIndex($context), $route);
     }
 
-    private function addRouteForPage(RouteCollection $routeCollection, ContextInterface $context)
+    private function addRouteForPage(RouteCollection $routeCollection, ContextInterface $context): void
     {
         $defaults = [
             '_controller' => 'mobizel_markdown_docs.controller.page_action',

@@ -48,6 +48,7 @@ final class PageAction extends AbstractController
 
         // redirect a suffixed page ("foo/bar.md" should be redirected to "foo/bar")
         if (false !== strpos($slug, '.md')) {
+            /** @var string $slug */
             $slug = preg_replace('/\.md$/', '', $slug);
 
             return $this->redirect($this->routeHelper->getPathForPage($context, $slug));
@@ -55,6 +56,7 @@ final class PageAction extends AbstractController
 
         // redirect a directory homepage ("foo/bar/index" should be redirected to "foo/bar")
         if (false !== strpos($slug, '/index')) {
+            /** @var string $slug */
             $slug = preg_replace('/\/index$/', '', $slug);
 
             return $this->redirect($this->routeHelper->getPathForPage($context, $slug));

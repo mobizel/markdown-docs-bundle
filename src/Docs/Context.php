@@ -55,7 +55,7 @@ final class Context implements ContextInterface
             if (preg_match('/\{(.+)\}/', $this->docsDir, $matches)) {
                 $parameterKey = $matches[1];
 
-                return preg_replace('/\{(.+)\}/', $routeParameters[$parameterKey], $this->docsDir);
+                return (string) preg_replace('/\{(.+)\}/', $routeParameters[$parameterKey], $this->docsDir);
             }
         }
 

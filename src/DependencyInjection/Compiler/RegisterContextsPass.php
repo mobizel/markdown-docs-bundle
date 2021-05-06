@@ -19,13 +19,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class RegisterContextsPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $this->registerCustomContexts($container);
     }
 
     private function registerCustomContexts(ContainerBuilder $container): void
     {
+        /** @var array $contexts */
         $contexts = $container->getParameter('mobizel.markdown_docs.contexts');
 
         foreach ($contexts as $identifier => $data) {

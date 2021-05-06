@@ -35,6 +35,7 @@ final class ReaderContext implements ReaderContextInterface
 
     public function getContext(): ContextInterface
     {
+        /** @var ContextInterface $context */
         $context = $this->contextResolver->resolve($this->request->getRequestUri());
         Assert::notNull($context, 'Context was not found but it should.');
 
