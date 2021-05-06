@@ -26,10 +26,10 @@ jobs:
             matrix:
                 include:
                     -
-                        php: 7.3
+                        php: 7.4
                         symfony: ${SYMFONY_LTS}
                     -
-                        php: 7.3
+                        php: 7.4
                         symfony: ${SYMFONY_LATEST}
                     -
                         php: 8.0
@@ -69,7 +69,7 @@ jobs:
 
             -
                 name: Validate coding standard
-                run: vendor/bin/ecs check src tests
+                run: vendor/bin/ecs check src spec tests
 
             -
                 name: Run phpspec

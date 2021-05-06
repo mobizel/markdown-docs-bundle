@@ -14,8 +14,11 @@ declare(strict_types=1);
 namespace Mobizel\Bundle\MarkdownDocsBundle\Context;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 interface ReaderContextInterface
 {
+    public function getRequest(): Request;
+
     public function getContext(): ContextInterface;
 }

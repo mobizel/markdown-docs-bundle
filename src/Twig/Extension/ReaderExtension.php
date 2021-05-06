@@ -41,6 +41,7 @@ final class ReaderExtension extends AbstractExtension implements ReaderExtension
             new TwigFunction('path_for_menu', [$this, 'getPathForMenu']),
             new TwigFunction('path_for_page', [$this, 'getPathForPage']),
             new TwigFunction('path_for_search', [$this, 'getPathForSearch']),
+            new TwigFunction('metadata', [$this, 'getMetadata']),
         ];
     }
 
@@ -62,5 +63,15 @@ final class ReaderExtension extends AbstractExtension implements ReaderExtension
     public function getPathForSearch(): string
     {
         return $this->routeHelper->getPathForSearch($this->readerContext->getContext());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMetadata(string $key)
+    {
+        $request = $this->readerContext->getRequest();
+
+        return $this->readerContext->getContext()->getMetadata($request)[$key] ?? null;
     }
 }

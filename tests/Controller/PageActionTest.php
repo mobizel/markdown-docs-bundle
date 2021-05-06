@@ -67,6 +67,26 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Destroyer');
     }
 
+    public function testShowPageWithMetadata()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/current/index');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('.navbar-brand', 'Documentation');
+    }
+
+    public function testShowPageWithMetadataContainingOneRequirement()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/packages/destroyer/1.2/index');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('.navbar-brand', 'Destroyer');
+    }
+
     public function testDirectoryIndexPage()
     {
         $client = static::createClient();

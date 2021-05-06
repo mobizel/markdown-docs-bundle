@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\PageHelperInterface;

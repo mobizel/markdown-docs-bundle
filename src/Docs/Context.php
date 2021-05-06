@@ -29,12 +29,21 @@ final class Context implements ContextInterface
     /** @var array */
     private $requirements;
 
-    public function __construct(string $name, string $path, string $dir, array $requirements = [])
-    {
+    /** @var array */
+    private $metadata;
+
+    public function __construct(
+        string $name,
+        string $path,
+        string $dir,
+        array $requirements = [],
+        array $metadata = []
+    ) {
         $this->name = $name;
         $this->path = $path;
         $this->docsDir = $dir;
         $this->requirements = $requirements;
+        $this->metadata = $metadata;
     }
 
     public function getName(): string
@@ -49,21 +58,9 @@ final class Context implements ContextInterface
 
     public function getDocsDir(Request $request): string
     {
-        $docsDir = $this->docsDir;
+        $routeParameters = $request->get('_route_params');
 
-        if (count($this->getRequirements()) > 0) {
-            $routeParameters = $request->get('_route_params');
-
-            foreach ($this->getRequirements() as $parameter => $parameterPattern) {
-                $replacementPattern = sprintf('/\{%s\}/', $parameter);
-
-                if (preg_match($replacementPattern, $docsDir)) {
-                    $docsDir = (string) preg_replace($replacementPattern, $routeParameters[$parameter], $docsDir);
-                }
-            }
-        }
-
-        return $docsDir;
+        return $this->replaceMatchingParametersWithRouteParameters($this->docsDir, $routeParameters);
     }
 
     public function getRequirements(): array
@@ -75,21 +72,49 @@ final class Context implements ContextInterface
     {
         $path = $this->getPath();
 
-        if (count($this->getRequirements()) > 0) {
-            foreach ($this->getRequirements() as $parameter => $parameterPattern) {
-                $replacementPattern = sprintf('/\{%s\}/', $parameter);
+        foreach ($this->getRequirements() as $parameter => $parameterPattern) {
+            $replacementPattern = sprintf('/\{%s\}/', $parameter);
 
-                if (preg_match($replacementPattern, $path)) {
-                    $path = (string) preg_replace($replacementPattern, $parameterPattern, $path);
-                }
+            if (preg_match($replacementPattern, $path)) {
+                $path = (string) preg_replace($replacementPattern, $parameterPattern, $path);
             }
         }
 
         return $this->buildPattern($path);
     }
 
+    public function getMetadata(Request $request): array
+    {
+        $metadata = $this->metadata;
+
+        $routeParameters = $request->get('_route_params');
+
+        foreach ($metadata as $key => $data) {
+            if (!\is_string($data)) {
+                continue;
+            }
+
+            $metadata[$key] = $this->replaceMatchingParametersWithRouteParameters($data, $routeParameters);
+        }
+
+        return $metadata;
+    }
+
     private function buildPattern(string $pattern): string
     {
         return sprintf('/%s/', str_replace('/', '\\/', $pattern));
+    }
+
+    private function replaceMatchingParametersWithRouteParameters(string $data, array $routeParameters): string
+    {
+        foreach ($this->getRequirements() as $parameter => $parameterPattern) {
+            $replacementPattern = sprintf('/\{%s\}/', $parameter);
+
+            if (preg_match($replacementPattern, $data)) {
+                $data = (string) preg_replace($replacementPattern, $routeParameters[$parameter], $data);
+            }
+        }
+
+        return $data;
     }
 }

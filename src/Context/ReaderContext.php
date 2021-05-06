@@ -33,6 +33,11 @@ final class ReaderContext implements ReaderContextInterface
         $this->contextResolver = $contextResolver;
     }
 
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
     public function getContext(): ContextInterface
     {
         /** @var ContextInterface $context */

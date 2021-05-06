@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Mobizel package.
+ *
+ * (c) Mobizel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Docs;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\Context;
@@ -27,7 +38,7 @@ class ContextSpec extends ObjectBehavior
     {
         $this->beConstructedWith('legacy', '/{project}/{version}', './legacy_docs/{project}/{version}', [
             'project' => '(\w+)',
-            'version' => '(\d+).(\d+)'
+            'version' => '(\d+).(\d+)',
         ]);
 
         $this->getPattern()->shouldReturn('/\/(\w+)\/(\d+).(\d+)/');
@@ -44,7 +55,7 @@ class ContextSpec extends ObjectBehavior
     {
         $this->beConstructedWith('legacy', '/{project}/{version}', './docs/{project}/{version}', [
             'project' => '(\w+)',
-            'version' => '(\d+).(\d+)'
+            'version' => '(\d+).(\d+)',
         ]);
 
         $request->get('_route_params')->willReturn([

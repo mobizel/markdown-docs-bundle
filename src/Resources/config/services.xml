@@ -53,7 +53,6 @@
 
         <service id="mobizel_markdown_docs.data_provider.page_collection" class="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProvider">
             <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader"/>
-            <argument key="$requestStack" type="service" id="request_stack"/>
         </service>
         <service id="Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProviderInterface" alias="mobizel_markdown_docs.data_provider.page_collection"/>
 
