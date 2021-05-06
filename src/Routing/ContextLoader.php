@@ -82,9 +82,17 @@ final class ContextLoader
 
     private function addRouteForPage(RouteCollection $routeCollection, ContextInterface $context)
     {
-        $defaults = ['_controller' => 'mobizel_markdown_docs.controller.page_action'];
+        $defaults = [
+            '_controller' => 'mobizel_markdown_docs.controller.page_action',
+            'trailingSlash' => null,
+        ];
 
-        $route = new Route($context->getPath().'/{slug}', $defaults, ['slug' => '.+'], [], null, [], [Request::METHOD_GET]);
+        $requirements = [
+            'slug' => '.+(?<!/)',
+            'trailingSlash' => '\/?$', // allow trailing slash if a directory with the same name exists on public
+        ];
+
+        $route = new Route($context->getPath().'/{slug}{trailingSlash}', $defaults, $requirements, [], null, [], [Request::METHOD_GET]);
         $routeCollection->add($this->routeHelper->getRouteForPage($context), $route);
     }
 }

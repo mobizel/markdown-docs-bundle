@@ -37,8 +37,7 @@ final class IndexAction extends AbstractController
     {
         try {
             $context = $this->readerContext->getContext();
-        }
-        catch (\InvalidArgumentException $exception) {
+        } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
         }
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the markdown-docs-bundle project.
+ * This file is part of the Mobizel package.
  *
  * (c) Mobizel
  *
@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Mobizel\Bundle\MarkdownDocsBundle\Twig\Extension;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
-use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

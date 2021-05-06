@@ -8,7 +8,7 @@
 
         <!-- Main -->
 
-        <service id="mobizel.markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>
+        <service id="mobizel_markdown_docs.markdown_extra" class="Mobizel\Bundle\MarkdownDocsBundle\Markdown\MarkdownExtra"/>
 
         <service id="mobizel_markdown_docs.template.template_resolver" class="Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateResolver">
             <argument key="$readerContext" type="service" id="mobizel_markdown_docs.context.reader" />
@@ -42,11 +42,12 @@
         <service id="mobizel_markdown_docs.docs.context_registry" class="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextRegistry">
             <argument key="$contexts" type="tagged_iterator" tag="mobizel_markdown_docs.context" />
         </service>
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextRegistryInterface" alias="mobizel_markdown_docs.docs.context_registry" />
 
         <service id="mobizel_markdown_docs.docs.context_resolver" class="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextResolver">
             <argument key="$contextRegistry" type="service" id="mobizel_markdown_docs.docs.context_registry" />
         </service>
-
+        <service id="Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextResolverInterface" alias="mobizel_markdown_docs.docs.context_resolver" />
 
         <!-- Data Providers -->
 
