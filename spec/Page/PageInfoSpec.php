@@ -2,7 +2,6 @@
 
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Page;
 
-use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateHandlerInterface;
 use PhpSpec\ObjectBehavior;
 
 class PageInfoSpec extends ObjectBehavior
@@ -13,14 +12,14 @@ class PageInfoSpec extends ObjectBehavior
         $this->getTitle()->shouldReturn('Foo fighters');
     }
 
-    function it_return_default_title_when_no_title_has_been_found(TemplateHandlerInterface $templateHandler): void
+    function it_return_default_title_when_no_title_has_been_found(): void
     {
         $this->beConstructedWith('tests/docs/bar.md', '', '');
 
         $this->getTitle()->shouldReturn('Bar');
     }
 
-    function it_return_default_title_when_file_is_empty(TemplateHandlerInterface $templateHandler): void
+    function it_return_default_title_when_file_is_empty(): void
     {
         $this->beConstructedWith('tests/docs/empty.md', '', '');
 

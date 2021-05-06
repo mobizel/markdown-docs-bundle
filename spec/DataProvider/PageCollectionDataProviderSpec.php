@@ -6,12 +6,15 @@ use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProvider;
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use PhpSpec\ObjectBehavior;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class PageCollectionDataProviderSpec extends ObjectBehavior
 {
-    function let(ReaderContextInterface $readerContext): void
+    function let(ReaderContextInterface $readerContext, RequestStack $requestStack, Request $request): void
     {
-        $this->beConstructedWith($readerContext);
+        $requestStack->getCurrentRequest()->willReturn($request);
+        $this->beConstructedWith($readerContext, $requestStack);
     }
 
     function it_is_initializable(): void
@@ -19,10 +22,13 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         $this->shouldHaveType(PageCollectionDataProvider::class);
     }
 
-    function it_returns_root_pages(ReaderContextInterface $readerContext, ContextInterface $context): void
-    {
+    function it_returns_root_pages(
+        ReaderContextInterface $readerContext,
+        ContextInterface $context,
+        Request $request
+    ): void {
         $readerContext->getContext()->willReturn($context);
-        $context->getDocsDir()->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
+        $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $rootPages = $this->getRootPages();
         $rootPages->shouldHaveCount(7);
@@ -30,10 +36,13 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         $rootPages[0]->title->shouldReturn('Documentation');
     }
 
-    function it_returns_children_pages(ReaderContextInterface $readerContext, ContextInterface $context): void
-    {
+    function it_returns_children_pages(
+        ReaderContextInterface $readerContext,
+        ContextInterface $context,
+        Request $request
+    ): void {
         $readerContext->getContext()->willReturn($context);
-        $context->getDocsDir()->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
+        $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $childrenPages = $this->getChildrenPages('products');
         $childrenPages->shouldHaveCount(2);
@@ -43,10 +52,13 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         $childrenPages[1]->title->shouldReturn('Book homepage');
     }
 
-    function it_returns_pages_map(ReaderContextInterface $readerContext, ContextInterface $context): void
-    {
+    function it_returns_pages_map(
+        ReaderContextInterface $readerContext,
+        ContextInterface $context,
+        Request $request
+    ): void {
         $readerContext->getContext()->willReturn($context);
-        $context->getDocsDir()->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
+        $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $this->getPagesMap()->shouldReturn([
             'index' => 'Documentation',
@@ -66,10 +78,13 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         ]);
     }
 
-    function it_returns_pases_as_tree(ReaderContextInterface $readerContext, ContextInterface $context): void
-    {
+    function it_returns_pages_as_tree(
+        ReaderContextInterface $readerContext,
+        ContextInterface $context,
+        Request $request
+    ): void {
         $readerContext->getContext()->willReturn($context);
-        $context->getDocsDir()->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
+        $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $tree = $this->getPagesAsTree();
 

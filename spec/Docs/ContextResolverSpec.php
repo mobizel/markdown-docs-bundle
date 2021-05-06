@@ -2,6 +2,7 @@
 
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Docs;
 
+use http\Client\Request;
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextRegistryInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextResolver;
@@ -34,9 +35,9 @@ class ContextResolverSpec extends ObjectBehavior
     ): void {
         $contextRegistry->getAll()->willReturn([$currentVersionContext->getWrappedObject(), $legacyVersionContext->getWrappedObject()]);
         $currentVersionContext->getPath()->willReturn('/current');
-        $currentVersionContext->getDocsDir()->willReturn('./docs/current');
-        $legacyVersionContext->getPath()->willReturn('/1.2');
-        $currentVersionContext->getDocsDir()->willReturn('./docs/1.2');
+        $currentVersionContext->getPattern()->willReturn(null);
+        $legacyVersionContext->getPath()->willReturn('/{version}');
+        $legacyVersionContext->getPattern()->willReturn('(\d+).(\d+)');
 
         $this->resolve('/current/setup/requirements')->shouldReturn($currentVersionContext);
         $this->resolve('/1.2/setup/requirements')->shouldReturn($legacyVersionContext);
