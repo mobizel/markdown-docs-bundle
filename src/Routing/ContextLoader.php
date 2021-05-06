@@ -60,7 +60,15 @@ final class ContextLoader
     {
         $defaults = ['_controller' => 'mobizel_markdown_docs.controller.menu_action'];
 
-        $route = new Route($context->getPath().'/menu', $defaults, [], [], null, [], [Request::METHOD_GET]);
+        $route = new Route(
+            $context->getPath().'/_partials/menu',
+            $defaults,
+            $this->buildRequirements($context),
+            [],
+            null,
+            [],
+            [Request::METHOD_GET]
+        );
         $routeCollection->add($this->routeHelper->getRouteForMenu($context), $route);
     }
 
@@ -68,7 +76,15 @@ final class ContextLoader
     {
         $defaults = ['_controller' => 'mobizel_markdown_docs.controller.search_action'];
 
-        $route = new Route($context->getPath().'/search', $defaults, [], [], null, [], [Request::METHOD_GET]);
+        $route = new Route(
+            $context->getPath().'/search',
+            $defaults,
+            $this->buildRequirements($context),
+            [],
+            null,
+            [],
+            [Request::METHOD_GET]
+        );
         $routeCollection->add($this->routeHelper->getRouteForSearch($context), $route);
     }
 
@@ -76,7 +92,15 @@ final class ContextLoader
     {
         $defaults = ['_controller' => 'mobizel_markdown_docs.controller.index_action'];
 
-        $route = new Route($context->getPath().'/', $defaults, [], [], null, [], [Request::METHOD_GET]);
+        $route = new Route(
+            $context->getPath().'/',
+            $defaults,
+            $this->buildRequirements($context),
+            [],
+            null,
+            [],
+            [Request::METHOD_GET]
+        );
         $routeCollection->add($this->routeHelper->getRouteForIndex($context), $route);
     }
 
@@ -92,7 +116,20 @@ final class ContextLoader
             'trailingSlash' => '\/?$', // allow trailing slash if a directory with the same name exists on public
         ];
 
-        $route = new Route($context->getPath().'/{slug}{trailingSlash}', $defaults, $requirements, [], null, [], [Request::METHOD_GET]);
+        $route = new Route(
+            $context->getPath().'/{slug}{trailingSlash}',
+            $defaults,
+            $this->buildRequirements($context, $requirements),
+            [],
+            null,
+            [],
+            [Request::METHOD_GET]
+        );
         $routeCollection->add($this->routeHelper->getRouteForPage($context), $route);
+    }
+
+    private function buildRequirements(ContextInterface $context, array $requirements = []): array
+    {
+        return array_merge($requirements, $context->getRequirements());
     }
 }

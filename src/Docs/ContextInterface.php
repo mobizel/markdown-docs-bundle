@@ -23,5 +23,7 @@ interface ContextInterface
 
     public function getDocsDir(Request $request): string;
 
-    public function getPattern(): ?string;
+    public function getRequirements(): array;
+
+    public function getPattern(): string;
 }

@@ -27,12 +27,7 @@ final class ContextResolver implements ContextResolverInterface
     {
         /** @var ContextInterface $context */
         foreach ($this->contextRegistry->getAll() as $context) {
-            $pattern = $context->getPattern() ?? $context->getPath();
-
-            // escape slashes
-            $pattern = sprintf('/%s/', str_replace('/', '\\/', $pattern));
-
-            if (!preg_match($pattern, $path)) {
+            if (!preg_match($context->getPattern(), $path)) {
                 continue;
             }
 

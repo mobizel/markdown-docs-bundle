@@ -9,7 +9,14 @@ mobizel_markdown_docs:
         current:
             path: /current
             docs_dir: '%kernel.project_dir%/tests/docs'
-#        lecacy:
-#            path: /{version}
-#            pattern: (\d+)\.(\d+)
-#            docs_dir: '%kernel.project_dir%/../tests/legacy_docs/{version}'
+        packages:
+            path: /packages/{package}/{version}
+            docs_dir: '%kernel.project_dir%/tests/packages/{package}/{version}'
+            requirements:
+                package: '.+'
+                version: '(\d+)\.(\d+)'
+        lecacy:
+            path: /{version}
+            docs_dir: '%kernel.project_dir%/tests/legacy_docs/{version}'
+            requirements:
+                version: '(\d+)\.(\d+)'

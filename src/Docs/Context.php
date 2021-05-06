@@ -26,15 +26,15 @@ final class Context implements ContextInterface
     /** @var string */
     private $docsDir;
 
-    /** @var string|null */
-    private $pattern;
+    /** @var array */
+    private $requirements;
 
-    public function __construct(string $name, string $path, string $dir, ?string $pattern = null)
+    public function __construct(string $name, string $path, string $dir, array $requirements = [])
     {
         $this->name = $name;
         $this->path = $path;
         $this->docsDir = $dir;
-        $this->pattern = $pattern;
+        $this->requirements = $requirements;
     }
 
     public function getName(): string
@@ -49,21 +49,47 @@ final class Context implements ContextInterface
 
     public function getDocsDir(Request $request): string
     {
-        if (null !== $this->pattern) {
+        $docsDir = $this->docsDir;
+
+        if (count($this->getRequirements()) > 0) {
             $routeParameters = $request->get('_route_params');
 
-            if (preg_match('/\{(.+)\}/', $this->docsDir, $matches)) {
-                $parameterKey = $matches[1];
+            foreach ($this->getRequirements() as $parameter => $parameterPattern) {
+                $replacementPattern = sprintf('/\{%s\}/', $parameter);
 
-                return (string) preg_replace('/\{(.+)\}/', $routeParameters[$parameterKey], $this->docsDir);
+                if (preg_match($replacementPattern, $docsDir)) {
+                    $docsDir = (string) preg_replace($replacementPattern, $routeParameters[$parameter], $docsDir);
+                }
             }
         }
 
-        return $this->docsDir;
+        return $docsDir;
     }
 
-    public function getPattern(): ?string
+    public function getRequirements(): array
     {
-        return $this->pattern;
+        return $this->requirements;
+    }
+
+    public function getPattern(): string
+    {
+        $path = $this->getPath();
+
+        if (count($this->getRequirements()) > 0) {
+            foreach ($this->getRequirements() as $parameter => $parameterPattern) {
+                $replacementPattern = sprintf('/\{%s\}/', $parameter);
+
+                if (preg_match($replacementPattern, $path)) {
+                    $path = (string) preg_replace($replacementPattern, $parameterPattern, $path);
+                }
+            }
+        }
+
+        return $this->buildPattern($path);
+    }
+
+    private function buildPattern(string $pattern): string
+    {
+        return sprintf('/%s/', str_replace('/', '\\/', $pattern));
     }
 }

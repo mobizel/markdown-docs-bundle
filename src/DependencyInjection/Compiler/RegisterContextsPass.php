@@ -36,7 +36,7 @@ final class RegisterContextsPass implements CompilerPassInterface
                     $identifier,
                     $data['path'],
                     $data['docs_dir'],
-                    $data['pattern'] ?? null,
+                    $data['requirements'],
                 ])
                 ->addTag('mobizel_markdown_docs.context');
         }

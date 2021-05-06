@@ -47,6 +47,26 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Documentation');
     }
 
+    public function testShowPageWithContextContainingOneRequirement()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/1.2/index');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('html h1', 'Documentation for 1.2 release');
+    }
+
+    public function testShowPageWithContextContainingTwoRequirements()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/packages/destroyer/1.2/index');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextSame('html h1', 'Destroyer');
+    }
+
     public function testDirectoryIndexPage()
     {
         $client = static::createClient();

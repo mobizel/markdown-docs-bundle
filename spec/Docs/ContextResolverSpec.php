@@ -35,9 +35,9 @@ class ContextResolverSpec extends ObjectBehavior
     ): void {
         $contextRegistry->getAll()->willReturn([$currentVersionContext->getWrappedObject(), $legacyVersionContext->getWrappedObject()]);
         $currentVersionContext->getPath()->willReturn('/current');
-        $currentVersionContext->getPattern()->willReturn(null);
+        $currentVersionContext->getPattern()->willReturn('/\/current/');
         $legacyVersionContext->getPath()->willReturn('/{version}');
-        $legacyVersionContext->getPattern()->willReturn('(\d+).(\d+)');
+        $legacyVersionContext->getPattern()->willReturn('/(\d+).(\d+)/');
 
         $this->resolve('/current/setup/requirements')->shouldReturn($currentVersionContext);
         $this->resolve('/1.2/setup/requirements')->shouldReturn($legacyVersionContext);
