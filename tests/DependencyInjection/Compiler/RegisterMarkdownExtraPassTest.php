@@ -28,14 +28,14 @@ final class RegisterMarkdownExtraPassTest extends AbstractCompilerPassTestCase
     public function it_registers_client_manager_if_not_oauth_is_configured(): void
     {
         $this->registerService('twig.runtime.markdown', MarkdownRuntime::class);
-        $this->registerService('mobizel.markdown_docs.markdown_extra', MarkdownExtra::class);
+        $this->registerService('mobizel_markdown_docs.markdown_extra', MarkdownExtra::class);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'twig.runtime.markdown',
             0,
-            new Reference('mobizel.markdown_docs.markdown_extra')
+            new Reference('mobizel_markdown_docs.markdown_extra')
         );
     }
 
