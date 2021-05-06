@@ -20,26 +20,20 @@ use Mobizel\Bundle\MarkdownDocsBundle\Page\PageInfo;
 use Mobizel\Bundle\MarkdownDocsBundle\Page\PageSorter;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 final class PageCollectionDataProvider implements PageCollectionDataProviderInterface
 {
     /** @var ReaderContextInterface */
     private $readerContext;
 
-    /** @var Request */
-    private $request;
-
-    public function __construct(ReaderContextInterface $readerContext, RequestStack $requestStack)
+    public function __construct(ReaderContextInterface $readerContext)
     {
         $this->readerContext = $readerContext;
-        $this->request = $requestStack->getCurrentRequest() ?? new Request();
     }
 
     public function getRootPages(): iterable
     {
-        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
+        $docsDir = $this->getDocsDir();
         $finder = new Finder();
 
         $finder
@@ -71,7 +65,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
 
     public function getChildrenPages(string $parentSlug): iterable
     {
-        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
+        $docsDir = $this->getDocsDir();
         $finder = new Finder();
 
         try {
@@ -165,7 +159,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     private function getRootPagesMap(): array
     {
         $finder = new Finder();
-        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
+        $docsDir = $this->getDocsDir();
 
         // first get Root pages and also homepage
         $finder
@@ -194,7 +188,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     private function getChildrenPagesMap(array $row, array $pages, int &$currentPosition): array
     {
         $parentSlug = $row['slug'];
-        $docsDir = $this->getCurrentContext()->getDocsDir($this->request);
+        $docsDir = $this->getDocsDir();
         $finder = new Finder();
 
         try {
@@ -229,6 +223,11 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     private function getCurrentContext(): ContextInterface
     {
         return $this->readerContext->getContext();
+    }
+
+    private function getDocsDir(): string
+    {
+        return $this->getCurrentContext()->getDocsDir($this->readerContext->getRequest());
     }
 
     private function createDirectoryIndexFinder(string $dir): Finder

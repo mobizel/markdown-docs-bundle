@@ -26,4 +26,6 @@ interface ContextInterface
     public function getRequirements(): array;
 
     public function getPattern(): string;
+
+    public function getMetadata(Request $request): array;
 }

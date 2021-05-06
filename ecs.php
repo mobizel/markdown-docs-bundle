@@ -2,10 +2,10 @@
 
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import('vendor/mobizel/coding-standard/ecs.php');
+
     $header = <<<EOM
 This file is part of the Mobizel package.
 
@@ -20,9 +20,6 @@ EOM;
         ->call('configure', [[
             'header' => $header,
             'location' => 'after_open'
-        ]]);
-
-
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SETS, [SetList::SYMFONY]);
+        ]])
+    ;
 };

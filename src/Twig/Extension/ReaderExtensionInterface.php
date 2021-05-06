@@ -22,4 +22,9 @@ interface ReaderExtensionInterface
     public function getPathForPage(string $slug): string;
 
     public function getPathForSearch(): string;
+
+    /**
+     * @return mixed
+     */
+    public function getMetadata(string $key);
 }

@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Mobizel package.
+ *
+ * (c) Mobizel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace spec\Mobizel\Bundle\MarkdownDocsBundle\DataProvider;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
@@ -7,14 +18,12 @@ use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageCollectionDataProvider;
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class PageCollectionDataProviderSpec extends ObjectBehavior
 {
-    function let(ReaderContextInterface $readerContext, RequestStack $requestStack, Request $request): void
+    function let(ReaderContextInterface $readerContext): void
     {
-        $requestStack->getCurrentRequest()->willReturn($request);
-        $this->beConstructedWith($readerContext, $requestStack);
+        $this->beConstructedWith($readerContext);
     }
 
     function it_is_initializable(): void
@@ -28,6 +37,7 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         Request $request
     ): void {
         $readerContext->getContext()->willReturn($context);
+        $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $rootPages = $this->getRootPages();
@@ -42,6 +52,7 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         Request $request
     ): void {
         $readerContext->getContext()->willReturn($context);
+        $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $childrenPages = $this->getChildrenPages('products');
@@ -58,6 +69,7 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         Request $request
     ): void {
         $readerContext->getContext()->willReturn($context);
+        $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $this->getPagesMap()->shouldReturn([
@@ -84,6 +96,7 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         Request $request
     ): void {
         $readerContext->getContext()->willReturn($context);
+        $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
 
         $tree = $this->getPagesAsTree();
