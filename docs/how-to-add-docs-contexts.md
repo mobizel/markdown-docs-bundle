@@ -16,7 +16,7 @@ mobizel_markdown_docs:
                 version: '(\d+)\.(\d+)'
 ```
 
-Another example is to add a context for your packages
+Another example is to add a context for your packages.
 
 ```yaml
 mobizel_markdown_docs:
@@ -28,3 +28,7 @@ mobizel_markdown_docs:
                 package: '.+'
                 version: '(\d+)\.(\d+)'
 ```
+
+`Warning`
+Remember the first context to match the route path will be used.
+So the order of your contexts can be important.
