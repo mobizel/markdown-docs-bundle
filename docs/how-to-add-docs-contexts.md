@@ -32,3 +32,17 @@ mobizel_markdown_docs:
 `Warning`
 Remember the first context to match the route path will be used.
 So the order of your contexts can be important.
+
+You can also add a metadata title for your contexts using a parameter.
+
+```yaml
+mobizel_markdown_docs:
+    contexts:
+        packages:
+            path: /packages/{package}
+            docs_dir: '/path/to/your/packages_docs/{package}/'
+            metadata:
+                title: '{package} documentation'
+            requirements:
+                package: '.+'
+```
