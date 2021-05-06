@@ -6,9 +6,14 @@ Moreover you can make a full-text search.
 
 ![Example 1](docs/images/example-1.png) 
 
+## Subdirectories support
 ![Example 2](docs/images/example-2.png)
 
+## Full-text search support
 ![Example 3](docs/images/example-3.png)
+
+## Mermaid JS support
+![Mermaid graph](docs/images/mermaid.png)
 
 Documentation
 -------------
