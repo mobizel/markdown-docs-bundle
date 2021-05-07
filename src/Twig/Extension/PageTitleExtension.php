@@ -19,8 +19,7 @@ use Twig\TwigFunction;
 
 final class PageTitleExtension extends AbstractExtension implements PageTitleExtensionInterface
 {
-    /** @var PageHelperInterface */
-    private $pageHelper;
+    private PageHelperInterface $pageHelper;
 
     public function __construct(PageHelperInterface $pageHelper)
     {
@@ -30,7 +29,7 @@ final class PageTitleExtension extends AbstractExtension implements PageTitleExt
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('page_title', [$this, 'pageTitle']),
+            new TwigFunction('markdown_docs_page_title', [$this, 'pageTitle']),
         ];
     }
 

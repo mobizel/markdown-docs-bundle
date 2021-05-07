@@ -4,7 +4,7 @@
     {% set currentRootMenu = (item.slug == root) %}
     <li class="nav-item">
         <a class="nav-link{% if currentRootMenu %} active{% endif %}"
-           href="{{ path_for_page(item.slug) }}">
+           href="{{ markdown_docs_path_for_page(item.slug) }}">
             {{ item.title }} {% if currentRootMenu %}<span class="sr-only">(current)</span>{% endif %}
         </a>
     {% if currentRootMenu and item.children|length > 0 %}
@@ -19,7 +19,7 @@
             {% set currentSubMenu = submenu_item.slug in current_item %}
             <li class="nav-item">
                 <a class="nav-link{% if currentSubMenu %} active{% endif %}"
-                   href="{{ path_for_page(submenu_item.slug) }}">
+                   href="{{ markdown_docs_path_for_page(submenu_item.slug) }}">
                     {{ submenu_item.title }} {% if currentSubMenu %}<span class="sr-only">(current)</span>{% endif %}
                 </a>
 

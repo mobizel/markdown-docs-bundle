@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title>{% block title %}{% if page.slug is defined %}{{ page_title(page.slug) }} - {% endif %}{{ metadata('title')|capitalize }}{% endblock %}</title>
+        <title>{% block title %}{% if page.slug is defined %}{{ markdown_docs_page_title(page.slug) }} - {% endif %}{{ markdown_docs_metadata('title')|capitalize }}{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.21.0/themes/prism-tomorrow.min.css"/>
             <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
