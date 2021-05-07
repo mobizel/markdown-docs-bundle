@@ -17,20 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class Context implements ContextInterface
 {
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $path;
-
-    /** @var string */
-    private $docsDir;
-
-    /** @var array */
-    private $requirements;
-
-    /** @var array */
-    private $metadata;
+    private string $name;
+    private string $path;
+    private string $docsDir;
+    private array $requirements;
+    private array $metadata;
 
     public function __construct(
         string $name,

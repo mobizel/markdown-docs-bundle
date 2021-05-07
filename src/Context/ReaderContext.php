@@ -21,11 +21,8 @@ use Webmozart\Assert\Assert;
 
 final class ReaderContext implements ReaderContextInterface
 {
-    /** @var Request */
-    private $request;
-
-    /** @var ContextResolverInterface */
-    private $contextResolver;
+    private Request $request;
+    private ContextResolverInterface $contextResolver;
 
     public function __construct(RequestStack $requestStack, ContextResolverInterface $contextResolver)
     {
@@ -38,10 +35,14 @@ final class ReaderContext implements ReaderContextInterface
         return $this->request;
     }
 
+    /**
+     * @psalm-suppress RedundantConditionGivenDocblockType
+     */
     public function getContext(): ContextInterface
     {
         /** @var ContextInterface $context */
         $context = $this->contextResolver->resolve($this->request->getRequestUri());
+
         Assert::notNull($context, 'Context was not found but it should.');
 
         return $context;

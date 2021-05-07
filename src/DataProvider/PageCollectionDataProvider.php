@@ -23,8 +23,7 @@ use Symfony\Component\Finder\Finder;
 
 final class PageCollectionDataProvider implements PageCollectionDataProviderInterface
 {
-    /** @var ReaderContextInterface */
-    private $readerContext;
+    private ReaderContextInterface $readerContext;
 
     public function __construct(ReaderContextInterface $readerContext)
     {
@@ -148,12 +147,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
 
     private function createPage(string $slug, string $title, string $content): PageOutput
     {
-        $page = new PageOutput();
-        $page->slug = $slug;
-        $page->title = $title;
-        $page->content = $content;
-
-        return $page;
+        return new PageOutput($slug, $title, $content);
     }
 
     private function getRootPagesMap(): array

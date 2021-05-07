@@ -18,8 +18,7 @@ use Twig\Extra\Markdown\MarkdownInterface;
 
 class MarkdownExtra implements MarkdownInterface
 {
-    /** @var ParsedownExtra */
-    private $converter;
+    private ParsedownExtra $converter;
 
     public function __construct(ParsedownExtra $converter = null)
     {

@@ -15,8 +15,7 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Docs;
 
 final class ContextResolver implements ContextResolverInterface
 {
-    /** @var ContextRegistryInterface */
-    private $contextRegistry;
+    private ContextRegistryInterface $contextRegistry;
 
     public function __construct(ContextRegistryInterface $contextRegistry)
     {

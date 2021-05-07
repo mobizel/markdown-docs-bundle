@@ -20,8 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class PageItemDataProvider
 {
-    /** @var TemplateResolverInterface */
-    private $templateResolver;
+    private TemplateResolverInterface $templateResolver;
 
     public function __construct(TemplateResolverInterface $templateResolver)
     {
@@ -49,12 +48,6 @@ final class PageItemDataProvider
 
     private function createPage(string $slug, string $title, string $content, string $tableOfContents = null): PageOutput
     {
-        $page = new PageOutput();
-        $page->slug = $slug;
-        $page->title = $title;
-        $page->content = $content;
-        $page->tableOfContents = $tableOfContents;
-
-        return $page;
+        return new PageOutput($slug, $title, $content, $tableOfContents);
     }
 }

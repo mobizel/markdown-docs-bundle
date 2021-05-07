@@ -15,7 +15,7 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Docs;
 
 final class ContextRegistry implements ContextRegistryInterface
 {
-    /** @var ContextInterface[] */
+    /** @var array<string, ContextInterface> */
     private $contexts = [];
 
     public function __construct(iterable $contexts)

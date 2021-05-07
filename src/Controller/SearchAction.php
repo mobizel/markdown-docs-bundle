@@ -19,10 +19,12 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 final class SearchAction extends AbstractController
 {
-    /** @var ReaderContextInterface */
-    private $readerContext;
+    private ReaderContextInterface $readerContext;
 
     public function __construct(ReaderContextInterface $readerContext)
     {
