@@ -1,21 +1,21 @@
-{% set previousPageSlug = previous_page(page.slug) %}
-{% set nextPageSlug = next_page(page.slug) %}
+{% set previousPageSlug = markdown_docs_previous_page(page.slug) %}
+{% set nextPageSlug = markdown_docs_next_page(page.slug) %}
 
 <nav aria-label="Page navigation">
     <hr class="mt-5"/>
     <ul class="pagination justify-content-between">
         {% if previousPageSlug %}
         <li class="page-item mr-4">
-            <a class="d-flex" href="{{ path_for_page(previousPageSlug) }}" tabindex="-1">
+            <a class="d-flex" href="{{ markdown_docs_path_for_page(previousPageSlug) }}" tabindex="-1">
                 <span aria-hidden="true" class="mr-2">←</span>
-                {{ page_title(previousPageSlug) }}
+                {{ markdown_docs_page_title(previousPageSlug) }}
             </a>
         </li>
         {% endif %}
         {% if nextPageSlug %}
         <li class="page-item text-right">
-            <a class="d-flex" href="{{ path_for_page(nextPageSlug) }}">
-                {{ page_title(nextPageSlug) }}
+            <a class="d-flex" href="{{ markdown_docs_path_for_page(nextPageSlug) }}">
+                {{ markdown_docs_page_title(nextPageSlug) }}
                 <span aria-hidden="true" class="ml-2">→</span>
             </a>
         </li>

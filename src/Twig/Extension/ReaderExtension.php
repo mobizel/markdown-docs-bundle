@@ -20,11 +20,8 @@ use Twig\TwigFunction;
 
 final class ReaderExtension extends AbstractExtension implements ReaderExtensionInterface
 {
-    /** @var ReaderContextInterface */
-    private $readerContext;
-
-    /** @var RouteHelperInterface */
-    private $routeHelper;
+    private ReaderContextInterface $readerContext;
+    private RouteHelperInterface $routeHelper;
 
     public function __construct(
         ReaderContextInterface $readerContext,
@@ -37,11 +34,11 @@ final class ReaderExtension extends AbstractExtension implements ReaderExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('path_for_index', [$this, 'getPathForIndex']),
-            new TwigFunction('path_for_menu', [$this, 'getPathForMenu']),
-            new TwigFunction('path_for_page', [$this, 'getPathForPage']),
-            new TwigFunction('path_for_search', [$this, 'getPathForSearch']),
-            new TwigFunction('metadata', [$this, 'getMetadata']),
+            new TwigFunction('markdown_docs_path_for_index', [$this, 'getPathForIndex']),
+            new TwigFunction('markdown_docs_path_for_menu', [$this, 'getPathForMenu']),
+            new TwigFunction('markdown_docs_path_for_page', [$this, 'getPathForPage']),
+            new TwigFunction('markdown_docs_path_for_search', [$this, 'getPathForSearch']),
+            new TwigFunction('markdown_docs_metadata', [$this, 'getMetadata']),
         ];
     }
 

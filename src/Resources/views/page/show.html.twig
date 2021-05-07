@@ -13,9 +13,9 @@
                 <li class="breadcrumb-item{% if loop.last %} active{% endif %}" {% if loop.last %}aria-current="page"{% endif %}>
                     {% set itemSlug = items|slice(0, loop.index)|join('/') %}
                     {% if not loop.last %}
-                        <a href="/doc/{{ itemSlug }}">{{ page_title(itemSlug) }}</a>
+                        <a href="/doc/{{ itemSlug }}">{{ markdown_docs_page_title(itemSlug) }}</a>
                     {% else %}
-                        {{ page_title(itemSlug) }}
+                        {{ markdown_docs_page_title(itemSlug) }}
                     {% endif %}
                 </li>
             {% endfor %}

@@ -5,18 +5,18 @@
         <nav aria-label="breadcrumb">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ path_for_index() }}">Homepage</a>
+                    <a href="{{ markdown_docs_path_for_index() }}">Homepage</a>
                 </li>
 
                 {% for title in items %}
                     <li class="breadcrumb-item{% if loop.last %} active{% endif %}" {% if loop.last %}aria-current="page"{% endif %}>
                         {% set itemSlug = items|slice(0, loop.index)|join('/') %}
                         {% if not loop.last %}
-                            <a href="{{ path_for_page(itemSlug) }}">
-                                {{ page_title(itemSlug) }}
+                            <a href="{{ markdown_docs_path_for_page(itemSlug) }}">
+                                {{ markdown_docs_page_title(itemSlug) }}
                             </a>
                         {% else %}
-                            {{ page_title(itemSlug) }}
+                            {{ markdown_docs_page_title(itemSlug) }}
                         {% endif %}
                     </li>
                 {% endfor %}

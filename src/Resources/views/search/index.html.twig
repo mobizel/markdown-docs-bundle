@@ -6,8 +6,8 @@
         {% for file in files %}
             {% set slug = file.relativePathname|split('.md')[0] %}
             <li>
-                <a href="{{ path_for_page(slug) }}">
-                    {{ page_title(slug) }} [{{ slug }}]
+                <a href="{{ markdown_docs_path_for_page(slug) }}">
+                    {{ markdown_docs_page_title(slug) }} [{{ slug }}]
                 </a>
             </li>
         {% endfor %}

@@ -19,8 +19,7 @@ use Twig\TwigFunction;
 
 final class PaginationExtension extends AbstractExtension implements PaginationExtensionInterface
 {
-    /** @var PageHelperInterface */
-    private $pageHelper;
+    private PageHelperInterface $pageHelper;
 
     public function __construct(PageHelperInterface $pageHelper)
     {
@@ -30,8 +29,8 @@ final class PaginationExtension extends AbstractExtension implements PaginationE
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('previous_page', [$this, 'previousPage']),
-            new TwigFunction('next_page', [$this, 'nextPage']),
+            new TwigFunction('markdown_docs_previous_page', [$this, 'previousPage']),
+            new TwigFunction('markdown_docs_next_page', [$this, 'nextPage']),
         ];
     }
 
