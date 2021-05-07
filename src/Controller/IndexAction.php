@@ -19,13 +19,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 final class IndexAction extends AbstractController
 {
-    /** @var ReaderContextInterface */
-    private $readerContext;
-
-    /** @var RouteHelperInterface */
-    private $routeHelper;
+    private ReaderContextInterface $readerContext;
+    private RouteHelperInterface $routeHelper;
 
     public function __construct(ReaderContextInterface $readerContext, RouteHelperInterface $routeHelper)
     {

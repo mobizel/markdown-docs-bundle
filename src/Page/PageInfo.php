@@ -31,10 +31,7 @@ final class PageInfo extends SplFileInfo implements PageInfoInterface
 
     public function getContent(): string
     {
-        /** @var string $content */
-        $content = file_get_contents($this->getPathname());
-
-        return $content;
+        return (string) file_get_contents($this->getPathname());
     }
 
     public function getTableOfContents(): ?string
@@ -84,6 +81,8 @@ final class PageInfo extends SplFileInfo implements PageInfoInterface
     {
         /** @var resource $resource */
         $resource = fopen($this->getPathname(), 'r');
+
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::notFalse($resource);
 
         $line = fgets($resource);

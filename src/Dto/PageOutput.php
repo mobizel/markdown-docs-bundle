@@ -15,18 +15,20 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Dto;
 
 final class PageOutput
 {
-    /** @var string */
-    public $slug;
+    public string $slug;
+    public string $title;
+    public string $content;
+    public ?string $tableOfContents = null;
 
-    /** @var string */
-    public $path;
-
-    /** @var string */
-    public $title;
-
-    /** @var string */
-    public $content;
-
-    /** @var string|null */
-    public $tableOfContents;
+    public function __construct(
+        string $slug,
+        string $title,
+        string $content,
+        ?string $tableOfContents = null
+    ) {
+        $this->slug = $slug;
+        $this->title = $title;
+        $this->content = $content;
+        $this->tableOfContents = $tableOfContents;
+    }
 }

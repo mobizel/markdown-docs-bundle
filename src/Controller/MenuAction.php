@@ -18,10 +18,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 final class MenuAction extends AbstractController
 {
-    /** @var PageCollectionDataProviderInterface */
-    private $pageCollectionDataProvider;
+    private PageCollectionDataProviderInterface $pageCollectionDataProvider;
 
     public function __construct(PageCollectionDataProviderInterface $pageCollectionDataProvider)
     {

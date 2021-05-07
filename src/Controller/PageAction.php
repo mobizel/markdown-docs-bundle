@@ -21,16 +21,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 final class PageAction extends AbstractController
 {
-    /** @var PageItemDataProvider */
-    private $pageItemDataProvider;
-
-    /** @var ReaderContextInterface */
-    private $readerContext;
-
-    /** @var RouteHelperInterface */
-    private $routeHelper;
+    private PageItemDataProvider $pageItemDataProvider;
+    private ReaderContextInterface $readerContext;
+    private RouteHelperInterface $routeHelper;
 
     public function __construct(
         PageItemDataProvider $pageItemDataProvider,

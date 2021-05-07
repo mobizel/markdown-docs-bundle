@@ -80,5 +80,9 @@ jobs:
                 run: vendor/bin/phpstan analyse src --level=max
 
             -
+                name: Run Psalm
+                run: vendor/bin/psalm
+
+            -
                 name: Run PHPUnit
                 run: vendor/bin/simple-phpunit $PHPUNIT_FLAGS

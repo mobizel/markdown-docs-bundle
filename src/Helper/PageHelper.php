@@ -18,8 +18,7 @@ use Webmozart\Assert\Assert;
 
 final class PageHelper implements PageHelperInterface
 {
-    /** @var PageCollectionDataProviderInterface */
-    private $pageCollectionDataProvider;
+    private PageCollectionDataProviderInterface $pageCollectionDataProvider;
 
     public function __construct(PageCollectionDataProviderInterface $pageCollectionDataProvider)
     {
@@ -49,6 +48,8 @@ final class PageHelper implements PageHelperInterface
     {
         /** @var int $currentPosition */
         $currentPosition = array_search($slug, array_keys($this->getPagesMap()));
+
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::notFalse($currentPosition, 'Current position was not found');
 
         return $currentPosition;
