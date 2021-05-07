@@ -1,5 +1,23 @@
 ## Change Log
 
+### v0.9.0 (2021/05/07 11:38 +00:00)
+
+#### TL;DR
+
+- Add support for multiple docs contexts
+- Drop PHP 7.3 support
+
+#### Details
+
+- [#76](https://github.com/mobizel/markdown-docs-bundle/pull/76) Rename Twig functions to avoid collisions (@loic425)
+- [#75](https://github.com/mobizel/markdown-docs-bundle/pull/75) Add param types and psalm (@loic425)
+- [#73](https://github.com/mobizel/markdown-docs-bundle/pull/73) Add Metadata to docs context (@loic425)
+- [#72](https://github.com/mobizel/markdown-docs-bundle/pull/72) Fix test app redirection (@loic425)
+- [#71](https://github.com/mobizel/markdown-docs-bundle/pull/71) Improve readme file (@loic425)
+- [#68](https://github.com/mobizel/markdown-docs-bundle/pull/68) Upgrade to GitHub-native Dependabot (@dependabot-preview[bot])
+- [#70](https://github.com/mobizel/markdown-docs-bundle/pull/70) Fix chart link on doc index (@loic425)
+- [#69](https://github.com/mobizel/markdown-docs-bundle/pull/69) Allow multiple docs contexts (for example: including legacy versions) (@loic425)
+
 ### v0.8.0 (2021/04/02 21:31 +00:00)
 - [#67](https://github.com/mobizel/markdown-docs-bundle/pull/67) show more levels on menu (@loic425)
 
