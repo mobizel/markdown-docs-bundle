@@ -44,12 +44,14 @@ final class PageHelper implements PageHelperInterface
         return $this->getPageFromPosition($currentPosition + 1);
     }
 
+    /**
+     * @psalm-suppress RedundantConditionGivenDocblockType
+     */
     private function getCurrentPosition(string $slug): int
     {
         /** @var int $currentPosition */
         $currentPosition = array_search($slug, array_keys($this->getPagesMap()));
 
-        /* @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::notFalse($currentPosition, 'Current position was not found');
 
         return $currentPosition;

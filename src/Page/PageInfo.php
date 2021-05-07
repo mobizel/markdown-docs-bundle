@@ -77,12 +77,13 @@ final class PageInfo extends SplFileInfo implements PageInfoInterface
         return $this->getContent();
     }
 
+    /**
+     * @psalm-suppress RedundantConditionGivenDocblockType
+     */
     private function getFirstLine(): string
     {
         /** @var resource $resource */
         $resource = fopen($this->getPathname(), 'r');
-
-        /* @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::notFalse($resource);
 
         $line = fgets($resource);

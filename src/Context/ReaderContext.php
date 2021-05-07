@@ -35,12 +35,14 @@ final class ReaderContext implements ReaderContextInterface
         return $this->request;
     }
 
+    /**
+     * @psalm-suppress RedundantConditionGivenDocblockType
+     */
     public function getContext(): ContextInterface
     {
         /** @var ContextInterface $context */
         $context = $this->contextResolver->resolve($this->request->getRequestUri());
 
-        /* @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::notNull($context, 'Context was not found but it should.');
 
         return $context;
