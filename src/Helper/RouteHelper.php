@@ -20,10 +20,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class RouteHelper implements RouteHelperInterface
 {
-    /**
-     * @var Request
-     */
-    private $request;
+    private Request $request;
     private RouterInterface $router;
 
     public function __construct(RequestStack $requestStack, RouterInterface $router)

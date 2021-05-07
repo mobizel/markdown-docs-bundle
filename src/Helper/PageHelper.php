@@ -49,7 +49,7 @@ final class PageHelper implements PageHelperInterface
         /** @var int $currentPosition */
         $currentPosition = array_search($slug, array_keys($this->getPagesMap()));
 
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        /* @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::notFalse($currentPosition, 'Current position was not found');
 
         return $currentPosition;

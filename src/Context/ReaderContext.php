@@ -40,7 +40,7 @@ final class ReaderContext implements ReaderContextInterface
         /** @var ContextInterface $context */
         $context = $this->contextResolver->resolve($this->request->getRequestUri());
 
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        /* @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::notNull($context, 'Context was not found but it should.');
 
         return $context;
