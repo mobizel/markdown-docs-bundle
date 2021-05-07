@@ -76,6 +76,7 @@ final class RouteHelper implements RouteHelperInterface
 
         $routeParameters = $this->request->get('_route_params');
         $routeParameters['slug'] = $slug;
+        unset($routeParameters['trailingSlash']);
 
         return $this->router->generate($route, $routeParameters);
     }
