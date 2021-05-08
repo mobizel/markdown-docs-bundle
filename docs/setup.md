@@ -7,7 +7,7 @@ export SYMFONY_ENDPOINT=https://flex.symfony.com/r/github.com/symfony/recipes-co
 SET SYMFONY_ENDPOINT=https://flex.symfony.com/r/github.com/symfony/recipes-contrib/1142
 ```
 
-```bash```
+```bash
 composer config extra.symfony.allow-contrib true
 composer require mobizel/markdown-docs-bundle
 ```
