@@ -19,7 +19,20 @@ unset SYMFONY_ENDPOINT
 SET SYMFONY_ENDPOINT=
 ```
 
-If you don't use Symfony Flex, add the required configuration on `config/packages/mobizel_markdown_docs.yaml`: 
+If you don't use Symfony Flex, 
+
+Enable the bundle on `config/bundles.php`
+
+```php
+<?php
+
+return [
+    // [...]
+    Mobizel\Bundle\MarkdownDocsBundle\MobizelMarkdownDocsBundle::class => ['all' => true],
+];
+```
+
+Add the required configuration on `config/packages/mobizel_markdown_docs.yaml`: 
 
 ```yaml
 mobizel_markdown_docs:
