@@ -1,22 +1,8 @@
 # Setup
 
 ```bash
-# On *nix and Mac
-export SYMFONY_ENDPOINT=https://flex.symfony.com/r/github.com/symfony/recipes-contrib/1142
-# On Windows
-SET SYMFONY_ENDPOINT=https://flex.symfony.com/r/github.com/symfony/recipes-contrib/1142
-```
-
-```bash
 composer config extra.symfony.allow-contrib true
 composer require mobizel/markdown-docs-bundle
-```
-
-```bash
-# On *nix and Mac
-unset SYMFONY_ENDPOINT
-# On Windows
-SET SYMFONY_ENDPOINT=
 ```
 
 If you don't use Symfony Flex, 
