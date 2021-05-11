@@ -1,6 +1,6 @@
 # How to localize your documentation
 
-You can use configure your docs context for localization.
+You can configure your docs context for localization.
 
 ```yaml
 # config/packages/mobizel_markdown_docs.yaml
