@@ -75,6 +75,8 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         $this->getPagesMap()->shouldReturn([
             'index' => 'Documentation',
             'bar' => 'Bar',
+            'bar/man' => 'Man',
+            'bar/el' => 'El',
             'chart' => 'Chart',
             'cookbook' => 'Cookbook',
             'cookbook/bdd' => 'BDD - Behaviour-driven development',
