@@ -17,9 +17,9 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class PageSorter
 {
-    public static function sortByTitle(): \Closure
+    public static function sort(array $pageSorterContents = []): \Closure
     {
-        return function (SplFileInfo $a, SplFileInfo $b) {
+        return function (SplFileInfo $a, SplFileInfo $b) use ($pageSorterContents) {
             $secondPageSlug = preg_replace('/\.md$/', '', $b->getRelativePathName());
             $firstPageSlug = preg_replace('/\.md$/', '', $a->getRelativePathName());
 
@@ -28,8 +28,30 @@ final class PageSorter
                 return 1;
             }
 
-            if ('index' == $firstPageSlug) {
+            if ('index' === $firstPageSlug) {
                 return -1;
+            }
+
+            $firstPagePosition = array_search($a->getRelativePathname(), $pageSorterContents);
+            $secondPagePosition = array_search($b->getRelativePathname(), $pageSorterContents);
+
+            // two files are on custom page position file
+            if (false !== $firstPagePosition && false !== $secondPagePosition) {
+                $order = $firstPagePosition > $secondPagePosition ? 1 : -1;
+
+                return 1 * $order;
+            }
+
+            // only the first file to compare is on custom page position file
+            // so place it before
+            if (false !== $firstPagePosition) {
+                return -1;
+            }
+
+            // only the second file to compare is on custom page position file
+            // so place it after
+            if (false !== $secondPagePosition) {
+                return 1;
             }
 
             $firstPage = new PageInfo($a->getPathname(), $a->getRelativePath(), $a->getRelativePathname());
