@@ -1,5 +1,10 @@
 ## Change Log
 
+### v0.9.1 (2021/05/12 13:39 +00:00)
+- [#81](https://github.com/mobizel/markdown-docs-bundle/pull/81) Add a docs to configure localized routes (@loic425)
+- [#79](https://github.com/mobizel/markdown-docs-bundle/pull/79) Fix setup for Flex (@loic425)
+- [#77](https://github.com/mobizel/markdown-docs-bundle/pull/77) Remove trailing slash (@loic425)
+
 ### v0.9.0 (2021/05/07 11:38 +00:00)
 
 #### TL;DR
