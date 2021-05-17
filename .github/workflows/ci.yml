@@ -51,7 +51,6 @@ jobs:
                 run: |
                     composer global require --no-progress --no-scripts --no-plugins "symfony/flex"
                     composer config extra.symfony.require "${{ matrix.symfony }}"
-                    composer config extra.symfony.require "${SYMFONY_VERSION}"
                     composer config minimum-stability "dev"
                     composer config prefer-stable true
 

@@ -20,6 +20,7 @@ use Mobizel\Bundle\MarkdownDocsBundle\Page\PageInfo;
 use Mobizel\Bundle\MarkdownDocsBundle\Page\PageSorter;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
+use Webmozart\Assert\Assert;
 
 final class PageCollectionDataProvider implements PageCollectionDataProviderInterface
 {
@@ -38,10 +39,11 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $finder
             ->files()
             ->in($docsDir)
+            ->name('*.md')
             //->notName('index.md')
             ->depth(0)
             ->append($this->createDirectoryIndexFinder($docsDir))
-            ->sort(PageSorter::sortByTitle());
+            ->sort(PageSorter::sort($this->getPageSorterContents($docsDir)));
 
         $pages = [];
 
@@ -71,10 +73,11 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $finder
                 ->files()
                 ->in($docsDir.'/'.$parentSlug)
+                ->name('*.md')
                 ->notName('index.md')
                 ->depth(0)
                 ->append($this->createDirectoryIndexFinder($docsDir.'/'.$parentSlug))
-                ->sort(PageSorter::sortByTitle());
+                ->sort(PageSorter::sort($this->getPageSorterContents($docsDir.'/'.$parentSlug)));
         } catch (DirectoryNotFoundException $exception) {
             return [];
         }
@@ -158,10 +161,11 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         // first get Root pages and also homepage
         $finder
             ->files()
+            ->name('*.md')
             ->in($docsDir)
             ->depth(0)
             ->append($this->createDirectoryIndexFinder($docsDir))
-            ->sort(PageSorter::sortByTitle())
+            ->sort(PageSorter::sort($this->getPageSorterContents($docsDir)))
         ;
 
         $pages = [];
@@ -189,10 +193,11 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $finder
                 ->files()
                 ->in($docsDir.'/'.$parentSlug)
+                ->name('*.md')
                 ->notName('index.md')
                 ->depth(0)
                 ->append($this->createDirectoryIndexFinder($docsDir.'/'.$parentSlug))
-                ->sort(PageSorter::sortByTitle())
+                ->sort(PageSorter::sort($this->getPageSorterContents($docsDir.'/'.$parentSlug)))
             ;
         } catch (DirectoryNotFoundException $exception) {
             return $pages;
@@ -231,5 +236,19 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             ->name('index.md')
             ->in($dir)
             ->depth(1);
+    }
+
+    private function getPageSorterContents(string $dir): array
+    {
+        $pageSorterFile = $dir.'/pages.php';
+
+        if (file_exists($pageSorterFile)) {
+            $contents = require $pageSorterFile;
+            Assert::isArray($contents, sprintf('File "%s" should return an array', $pageSorterFile));
+
+            return $contents;
+        }
+
+        return [];
     }
 }

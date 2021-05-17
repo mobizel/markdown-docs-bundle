@@ -42,9 +42,6 @@
         "symplify/easy-coding-standard": "^9.0",
         "vimeo/psalm": "^4.7"
     },
-    "conflict": {
-        "symplify/easy-coding-standard": "9.3.*"
-    },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true

@@ -57,10 +57,10 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
 
         $childrenPages = $this->getChildrenPages('products');
         $childrenPages->shouldHaveCount(2);
-        $childrenPages[0]->slug->shouldReturn('products/board-games');
-        $childrenPages[0]->title->shouldReturn('Boardgames');
-        $childrenPages[1]->slug->shouldReturn('products/books');
-        $childrenPages[1]->title->shouldReturn('Book homepage');
+        $childrenPages[0]->slug->shouldReturn('products/books');
+        $childrenPages[0]->title->shouldReturn('Book homepage');
+        $childrenPages[1]->slug->shouldReturn('products/board-games');
+        $childrenPages[1]->title->shouldReturn('Boardgames');
     }
 
     function it_returns_pages_map(
@@ -75,6 +75,8 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         $this->getPagesMap()->shouldReturn([
             'index' => 'Documentation',
             'bar' => 'Bar',
+            'bar/man' => 'Man',
+            'bar/el' => 'El',
             'chart' => 'Chart',
             'cookbook' => 'Cookbook',
             'cookbook/bdd' => 'BDD - Behaviour-driven development',
@@ -82,11 +84,11 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
             'empty' => 'Empty',
             'foo' => 'Foo fighters',
             'products' => 'Products',
-            'products/board-games' => 'Boardgames',
-            'products/board-games/puerto-rico' => 'Puerto-rico',
             'products/books' => 'Book homepage',
             'products/books/nicolas-beuglet' => 'Nicolas Beuglet',
             'products/books/stephen-king' => 'Stephen King Books',
+            'products/board-games' => 'Boardgames',
+            'products/board-games/puerto-rico' => 'Puerto-rico',
         ]);
     }
 
@@ -113,17 +115,6 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
             'slug' => 'products',
             'title' => 'Products',
             'children' => [
-                'products/board-games' => [
-                    'slug' => 'products/board-games',
-                    'title' => 'Boardgames',
-                    'children' => [
-                        'products/board-games/puerto-rico' => [
-                            'slug' => 'products/board-games/puerto-rico',
-                            'title' => 'Puerto-rico',
-                            'children' => [],
-                        ],
-                    ],
-                ],
                 'products/books' => [
                     'slug' => 'products/books',
                     'title' => 'Book homepage',
@@ -136,6 +127,17 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
                         'products/books/stephen-king' => [
                             'slug' => 'products/books/stephen-king',
                             'title' => 'Stephen King Books',
+                            'children' => [],
+                        ],
+                    ],
+                ],
+                'products/board-games' => [
+                    'slug' => 'products/board-games',
+                    'title' => 'Boardgames',
+                    'children' => [
+                        'products/board-games/puerto-rico' => [
+                            'slug' => 'products/board-games/puerto-rico',
+                            'title' => 'Puerto-rico',
                             'children' => [],
                         ],
                     ],

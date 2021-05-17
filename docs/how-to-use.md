@@ -20,7 +20,7 @@ Example:
 `docs/dummy/foo.md` is available at [/docs/dummy/foo](http://localhost:8000/docs/dummy/foo)
 
 ## Menu
-Menu items are sorted by titles.
+By default, menu items are sorted by titles, but you can [customize positions of your pages](how-to-customize-pages-positions.md).
 
 ![Menu example](images/menu.png)
 
