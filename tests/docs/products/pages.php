@@ -12,6 +12,5 @@
 declare(strict_types=1);
 
 return [
-    'man.md' => [],
-    'el.md' => [],
+    'books/index.md',
 ];

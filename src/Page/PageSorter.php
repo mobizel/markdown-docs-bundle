@@ -33,7 +33,16 @@ final class PageSorter
             }
 
             $firstPagePosition = array_search($a->getRelativePathname(), $pageSorterContents);
+
+            if (false === $firstPagePosition) {
+                $firstPagePosition = array_search($a->getRelativePathname(), array_keys($pageSorterContents));
+            }
+
             $secondPagePosition = array_search($b->getRelativePathname(), $pageSorterContents);
+
+            if (false === $secondPagePosition) {
+                $secondPagePosition = array_search($b->getRelativePathname(), array_keys($pageSorterContents));
+            }
 
             // two files are on custom page position file
             if (false !== $firstPagePosition && false !== $secondPagePosition) {
