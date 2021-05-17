@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.10.0 (2021/05/17 09:55 +00:00)
+- [#83](https://github.com/mobizel/markdown-docs-bundle/pull/83) Sort by custom files (@loic425)
+
 ### v0.9.1 (2021/05/12 13:39 +00:00)
 - [#81](https://github.com/mobizel/markdown-docs-bundle/pull/81) Add a docs to configure localized routes (@loic425)
 - [#79](https://github.com/mobizel/markdown-docs-bundle/pull/79) Fix setup for Flex (@loic425)
