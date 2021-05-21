@@ -35,6 +35,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     {
         $docsDir = $this->getDocsDir();
         $finder = new Finder();
+        $pagesCustomData = $this->getPagesCustomData($docsDir);
 
         $finder
             ->files()
@@ -43,11 +44,12 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             //->notName('index.md')
             ->depth(0)
             ->append($this->createDirectoryIndexFinder($docsDir))
-            ->sort(PageSorter::sort($this->getPageSorterContents($docsDir)));
+            ->sort(PageSorter::sort($this->getPagesCustomData($docsDir)));
 
         $pages = [];
 
         foreach ($finder as $file) {
+            $customData = $pagesCustomData[$file->getRelativePathname()] ?? [];
             $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
 
             /** @var string $slug */
@@ -57,7 +59,8 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $pages[] = $this->createPage(
                 (string) $slug,
                 $pageInfo->getTitle(),
-                $pageInfo->getContentWithoutTitle()
+                $pageInfo->getContentWithoutTitle(),
+                $customData ?? []
             );
         }
 
@@ -68,6 +71,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
     {
         $docsDir = $this->getDocsDir();
         $finder = new Finder();
+        $pagesCustomData = $this->getPagesCustomData($docsDir.'/'.$parentSlug);
 
         try {
             $finder
@@ -77,7 +81,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
                 ->notName('index.md')
                 ->depth(0)
                 ->append($this->createDirectoryIndexFinder($docsDir.'/'.$parentSlug))
-                ->sort(PageSorter::sort($this->getPageSorterContents($docsDir.'/'.$parentSlug)));
+                ->sort(PageSorter::sort($this->getPagesCustomData($docsDir.'/'.$parentSlug)));
         } catch (DirectoryNotFoundException $exception) {
             return [];
         }
@@ -85,6 +89,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $pages = [];
 
         foreach ($finder as $file) {
+            $customData = $pagesCustomData[$file->getRelativePathname()] ?? [];
             $pageInfo = new PageInfo($file->getPathname(), $file->getRelativePath(), $file->getRelativePathname());
 
             $slug = $parentSlug.'/'.preg_replace('/\.md$/', '', $file->getRelativePathName());
@@ -93,7 +98,8 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $pages[] = $this->createPage(
                 (string) $slug,
                 $pageInfo->getTitle(),
-                $pageInfo->getContentWithoutTitle()
+                $pageInfo->getContentWithoutTitle(),
+                $customData ?? []
             );
         }
 
@@ -126,6 +132,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $tree[$page->slug] = [
                 'slug' => $page->slug,
                 'title' => $page->title,
+                'metadata' => $page->metadata,
                 'children' => $this->addChildrenOnTreeNode($page->slug),
             ];
         }
@@ -141,6 +148,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             $children[$page->slug] = [
                 'slug' => $page->slug,
                 'title' => $page->title,
+                'metadata' => $page->metadata,
                 'children' => $this->addChildrenOnTreeNode($page->slug),
             ];
         }
@@ -148,9 +156,9 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         return $children;
     }
 
-    private function createPage(string $slug, string $title, string $content): PageOutput
+    private function createPage(string $slug, string $title, string $content, array $metadata = []): PageOutput
     {
-        return new PageOutput($slug, $title, $content);
+        return new PageOutput($slug, $title, $content, null, $metadata);
     }
 
     private function getRootPagesMap(): array
@@ -165,7 +173,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             ->in($docsDir)
             ->depth(0)
             ->append($this->createDirectoryIndexFinder($docsDir))
-            ->sort(PageSorter::sort($this->getPageSorterContents($docsDir)))
+            ->sort(PageSorter::sort($this->getPagesCustomData($docsDir)))
         ;
 
         $pages = [];
@@ -197,7 +205,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
                 ->notName('index.md')
                 ->depth(0)
                 ->append($this->createDirectoryIndexFinder($docsDir.'/'.$parentSlug))
-                ->sort(PageSorter::sort($this->getPageSorterContents($docsDir.'/'.$parentSlug)))
+                ->sort(PageSorter::sort($this->getPagesCustomData($docsDir.'/'.$parentSlug)))
             ;
         } catch (DirectoryNotFoundException $exception) {
             return $pages;
@@ -238,7 +246,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             ->depth(1);
     }
 
-    private function getPageSorterContents(string $dir): array
+    private function getPagesCustomData(string $dir): array
     {
         $pageSorterFile = $dir.'/pages.php';
 

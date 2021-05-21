@@ -1,4 +1,4 @@
-# How to localize your documentation
+# Localizing your documentation
 
 You can configure your docs context for localization.
 
