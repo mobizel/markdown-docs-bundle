@@ -12,6 +12,10 @@
 declare(strict_types=1);
 
 return [
-    'man.md' => [],
-    'el.md' => [],
+    'man.md' => [
+        'icon' => ['data-feather' => 'user'],
+    ],
+    'el.md' => [
+        'icon' => ['data-feather' => 'shopping-cart'],
+    ],
 ];

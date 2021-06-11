@@ -1,4 +1,5 @@
 framework:
+    secret: 'Three can keep a secret, if two of them are dead.'
     test: true
     router:
         resource: "%kernel.project_dir%/tests/app/config/routes.yaml"

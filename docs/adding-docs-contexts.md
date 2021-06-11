@@ -1,4 +1,4 @@
-# How to add docs contexts
+# Adding docs contexts
 
 You can add several contexts of the documentation.
 

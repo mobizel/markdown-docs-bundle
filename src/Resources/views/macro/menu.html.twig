@@ -5,12 +5,28 @@
     <li class="nav-item">
         <a class="nav-link{% if currentRootMenu %} active{% endif %}"
            href="{{ markdown_docs_path_for_page(item.slug) }}">
+            {% if item.metadata.icon is defined %}
+               <span {{ _self.attributes(item.metadata.icon) }}></span>
+            {% endif %}
             {{ item.title }} {% if currentRootMenu %}<span class="sr-only">(current)</span>{% endif %}
         </a>
     {% if currentRootMenu and item.children|length > 0 %}
        {{ _self.sub_item(item, current_item) }}
     {% endif %}
     </li>
+{% endmacro %}
+
+{% macro attributes(attr) %}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) or attrvalue is null ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
 {% endmacro %}
 
 {% macro sub_item(item, current_item) %}
@@ -20,6 +36,9 @@
             <li class="nav-item">
                 <a class="nav-link{% if currentSubMenu %} active{% endif %}"
                    href="{{ markdown_docs_path_for_page(submenu_item.slug) }}">
+                    {% if submenu_item.metadata.icon is defined %}
+                        <span {{ _self.attributes(submenu_item.metadata.icon) }}></span>
+                    {% endif %}
                     {{ submenu_item.title }} {% if currentSubMenu %}<span class="sr-only">(current)</span>{% endif %}
                 </a>
 

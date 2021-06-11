@@ -1,8 +1,15 @@
 # Documentation
 
+## Getting started
 * [Setup](setup.md)
-* [How to use](how-to-use.md)
-* [How to add docs contexts](how-to-add-docs-contexts.md)
-* [How to add warning and notes](how-to-add-warning-and-notes.md)
-* [How to draw charts](how-to-draw-charts.md)
-* [How to localize your documentation](how-to-localize-your-documentation.md)
+* [Basic usage](basic-usage.md)
+* [Warning and notes](warning-and-notes.md)
+* [Drawing charts](drawing-charts.md)
+
+## Configuration
+* [Adding docs contexts](adding-docs-contexts.md)
+* [Localizing your documentation](localizing-your-documentation.md)
+
+## Customization
+* [Customizing templates](customizing-templates.md)
+* [Customizing menu](customizing-menu.md)

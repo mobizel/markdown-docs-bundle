@@ -81,8 +81,8 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
             'cookbook' => 'Cookbook',
             'cookbook/bdd' => 'BDD - Behaviour-driven development',
             'cookbook/bdd/phpspec' => 'Phpspec',
-            'empty' => 'Empty',
             'foo' => 'Foo fighters',
+            'empty' => 'Empty',
             'products' => 'Products',
             'products/books' => 'Book homepage',
             'products/books/nicolas-beuglet' => 'Nicolas Beuglet',
@@ -108,25 +108,32 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         $tree['index']->shouldReturn([
             'slug' => 'index',
             'title' => 'Documentation',
+            'metadata' => [],
             'children' => [],
         ]);
 
         $tree['products']->shouldReturn([
             'slug' => 'products',
             'title' => 'Products',
+            'metadata' => [
+                'icon' => ['data-feather' => 'box'],
+            ],
             'children' => [
                 'products/books' => [
                     'slug' => 'products/books',
                     'title' => 'Book homepage',
+                    'metadata' => [],
                     'children' => [
                         'products/books/nicolas-beuglet' => [
                             'slug' => 'products/books/nicolas-beuglet',
                             'title' => 'Nicolas Beuglet',
+                            'metadata' => [],
                             'children' => [],
                         ],
                         'products/books/stephen-king' => [
                             'slug' => 'products/books/stephen-king',
                             'title' => 'Stephen King Books',
+                            'metadata' => [],
                             'children' => [],
                         ],
                     ],
@@ -134,10 +141,12 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
                 'products/board-games' => [
                     'slug' => 'products/board-games',
                     'title' => 'Boardgames',
+                    'metadata' => [],
                     'children' => [
                         'products/board-games/puerto-rico' => [
                             'slug' => 'products/board-games/puerto-rico',
                             'title' => 'Puerto-rico',
+                            'metadata' => [],
                             'children' => [],
                         ],
                     ],
