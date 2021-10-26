@@ -1,6 +1,9 @@
 parameters:
     checkMissingIterableValueType: false
 
+    ignoreErrors:
+        - '/Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required\./'
+
     excludes_analyse:
         - %currentWorkingDirectory%/src/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/src/Bundle/spec/*

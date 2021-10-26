@@ -26,6 +26,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
+ * @psalm-suppress TooManyArguments
  */
 final class PageAction extends AbstractController
 {
