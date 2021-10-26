@@ -18,7 +18,7 @@ interface ContextRegistryInterface
     public function add(ContextInterface $docs): void;
 
     /**
-     * @var array<string, ContextInterface>
+     * @return ContextInterface[]
      */
     public function getAll(): array;
 }
