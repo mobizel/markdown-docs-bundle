@@ -2,9 +2,10 @@ name: Build
 
 env:
     PHPUNIT_FLAGS: "-v"
-    SYMFONY_LTS: 4.4.*
-    SYMFONY_LATEST: 5.2.*
-    SYMFONY_DEV: 5.3.*
+    SYMFONY_44: 4.4.*
+    SYMFONY_53: 5.3.*
+    SYMFONY_54: 5.4.*
+    SYMFONY_60: 6.0.*
 
 on:
     push: ~
@@ -26,13 +27,16 @@ jobs:
                 include:
                     -
                         php: 7.4
-                        symfony: ${SYMFONY_LTS}
+                        symfony: ${SYMFONY_44}
                     -
                         php: 7.4
-                        symfony: ${SYMFONY_LATEST}
+                        symfony: ${SYMFONY_53}
                     -
                         php: 8.0
-                        symfony: ${SYMFONY_LATEST}
+                        symfony: ${SYMFONY_54}
+                    -
+                        php: 8.0
+                        symfony: ${SYMFONY_60}
 
         steps:
             -   uses: actions/checkout@v2
