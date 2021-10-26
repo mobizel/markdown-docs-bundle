@@ -71,7 +71,7 @@ final class PageAction extends AbstractController
             throw new NotFoundHttpException(sprintf('Page "%s" was not found', $slug));
         }
 
-        $this->eventDispatcher->dispatch(new PageEvent($request, $page));
+        $this->eventDispatcher->dispatch(new PageEvent($request, $page, $context));
 
         return $this->render('@MobizelMarkdownDocs/page/show.html.twig', [
             'page' => $page,

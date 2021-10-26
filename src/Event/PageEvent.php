@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\Event;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Dto\PageOutput;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -21,11 +22,13 @@ final class PageEvent extends Event
 {
     private Request $request;
     private PageOutput $page;
+    private ContextInterface $context;
 
-    public function __construct(Request $request, PageOutput $page)
+    public function __construct(Request $request, PageOutput $page, ContextInterface $context)
     {
         $this->request = $request;
         $this->page = $page;
+        $this->context = $context;
     }
 
     public function getRequest(): Request
@@ -36,5 +39,10 @@ final class PageEvent extends Event
     public function getPage(): PageOutput
     {
         return $this->page;
+    }
+
+    public function getContext(): ContextInterface
+    {
+        return $this->context;
     }
 }
