@@ -17,6 +17,7 @@ use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageItemDataProvider;
 use Mobizel\Bundle\MarkdownDocsBundle\Event\PageEvent;
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface;
+use Mobizel\Bundle\MarkdownDocsBundle\PageEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,7 +72,7 @@ final class PageAction extends AbstractController
             throw new NotFoundHttpException(sprintf('Page "%s" was not found', $slug));
         }
 
-        $this->eventDispatcher->dispatch(new PageEvent($request, $page, $context));
+        $this->eventDispatcher->dispatch(new PageEvent($request, $page, $context), PageEvents::VIEW);
 
         return $this->render('@MobizelMarkdownDocs/page/show.html.twig', [
             'page' => $page,
