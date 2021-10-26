@@ -19,10 +19,10 @@ use Mobizel\Bundle\MarkdownDocsBundle\Event\PageEvent;
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\PageEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -32,13 +32,13 @@ final class PageAction extends AbstractController
     private PageItemDataProvider $pageItemDataProvider;
     private ReaderContextInterface $readerContext;
     private RouteHelperInterface $routeHelper;
-    private EventDispatcher $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         PageItemDataProvider $pageItemDataProvider,
         ReaderContextInterface $readerContext,
         RouteHelperInterface $routeHelper,
-        EventDispatcher $eventDispatcher
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->pageItemDataProvider = $pageItemDataProvider;
         $this->readerContext = $readerContext;
