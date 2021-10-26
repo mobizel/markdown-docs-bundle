@@ -30,6 +30,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
 img,
 iframe {
   max-width: 100%;
@@ -236,6 +242,11 @@ main .content blockquote {
   z-index: 100; /* Behind the navbar */
   padding: 3rem 0 0; /* Height of navbar */
   background-color: var(--primary-color);
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
 }
 
 @media (max-width: 767.98px) {

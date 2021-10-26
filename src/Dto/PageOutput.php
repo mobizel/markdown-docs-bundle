@@ -19,16 +19,19 @@ final class PageOutput
     public string $title;
     public string $content;
     public ?string $tableOfContents = null;
+    public array $metadata;
 
     public function __construct(
         string $slug,
         string $title,
         string $content,
-        ?string $tableOfContents = null
+        ?string $tableOfContents = null,
+        array $metadata = []
     ) {
         $this->slug = $slug;
         $this->title = $title;
         $this->content = $content;
         $this->tableOfContents = $tableOfContents;
+        $this->metadata = $metadata;
     }
 }

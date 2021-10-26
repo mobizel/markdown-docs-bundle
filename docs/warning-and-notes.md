@@ -1,4 +1,4 @@
-# How to add warning and notes
+# Warning and notes
 
 ## Warning
 ```html

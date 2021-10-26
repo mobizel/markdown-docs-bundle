@@ -1,4 +1,4 @@
-# How to draw charts
+# Drawing charts
 
 You can draw charts using [Mermaid.js](https://mermaid-js.github.io/)
 
