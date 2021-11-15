@@ -110,7 +110,9 @@ main .content > * + h5,
 main .content > * + h6 {
   margin-bottom: -1.25rem;
 }
-
+main .content strong {
+  font-weight: 700;
+}
 /*
  * Links
  */
@@ -181,16 +183,17 @@ main .content ul:not(.breadcrumb):not(.pagination) > li > ul {
  * Tables
  */
 table {
-  width: 100%;
   border-bottom: 1px solid #dee2e6;
   display: block;
   max-width: -moz-fit-content;
   max-width: fit-content;
   margin: 1rem 0;
   overflow-x: auto;
-  white-space: nowrap;
 }
 
+table tr {
+  vertical-align: baseline;
+}
 table td,
 table th {
   padding: 0.75rem;
@@ -200,8 +203,17 @@ table th {
 table thead th {
   background: var(--medium-gray);
   color: var(--black);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  padding: 1rem 0.75rem;
 }
-
+table tfoot {
+  background: var(--primary-color);
+}
+table tfoot td {
+  background: rgba(255, 255, 255, 0.9);
+}
 /*
  * Breadcrumb
  */
@@ -292,13 +304,13 @@ main .content blockquote {
 }
 
 .sidebar .nav-item ul {
-    list-style: none;
-    padding-left: 1rem;
+  list-style: none;
+  padding-left: 1rem;
 }
 .sidebar .nav-item ul .nav-link.active {
-    background: none;
-    color: var(--secondary-color);
-    font-weight: 800;
+  background: none;
+  color: var(--secondary-color);
+  font-weight: 800;
 }
 .sidebar-heading {
   font-size: 0.75rem;
@@ -355,9 +367,9 @@ main .content blockquote {
 }
 
 @media (max-width: 767.98px) {
-    .pagination {
-        font-size: 0.85rem;
-    }
+  .pagination {
+    font-size: 0.85rem;
+  }
 }
 
 /*
