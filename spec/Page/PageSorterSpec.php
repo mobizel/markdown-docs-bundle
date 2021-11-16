@@ -16,6 +16,7 @@ namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Page;
 use Mobizel\Bundle\MarkdownDocsBundle\Page\PageSorter;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Finder\SplFileInfo;
+use Webmozart\Assert\Assert;
 
 class PageSorterSpec extends ObjectBehavior
 {
@@ -49,8 +50,11 @@ class PageSorterSpec extends ObjectBehavior
         $b->getRelativePathname()->willReturn('foo.md');
         $b->getPathname()->willReturn($docsDir.'/foo.md');
 
-        $closure->call($this, $a, $b)->shouldReturn(-4);
-        $closure->call($this, $b, $a)->shouldReturn(4);
+        $value = $closure->call($this, $a, $b)->getWrappedObject();
+        Assert::lessThan($value, 0);
+
+        $value = $closure->call($this, $b, $a)->getWrappedObject();
+        Assert::greaterThan($value, 0);
     }
 
     function it_allows_to_customize_one_page_position(SplFileInfo $a, SplFileInfo $b): void
