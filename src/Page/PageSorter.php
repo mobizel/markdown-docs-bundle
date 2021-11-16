@@ -23,26 +23,26 @@ final class PageSorter
             $secondPageSlug = preg_replace('/\.md$/', '', $b->getRelativePathName());
             $firstPageSlug = preg_replace('/\.md$/', '', $a->getRelativePathName());
 
-            dump($secondPageSlug);
-            dump($firstPageSlug);
-            dump($pageSorterContents);
+            // dump($secondPageSlug);
+            // dump($firstPageSlug);
+            // dump($pageSorterContents);
 
             // Homepage is always the first page
             if ('index' === $secondPageSlug) {
-                dump('Homepage is always the first page');
+                // dump('Homepage is always the first page');
 
                 return 1;
             }
 
             if ('index' === $firstPageSlug) {
-                dump('Homepage is always the first page');
+                // dump('Homepage is always the first page');
 
                 return -1;
             }
 
             $firstPagePosition = array_search($a->getRelativePathname(), array_values($pageSorterContents));
 
-            dump($firstPagePosition);
+            // dump($firstPagePosition);
 
             if (false === $firstPagePosition) {
                 $firstPagePosition = array_search($a->getRelativePathname(), array_keys($pageSorterContents));
@@ -50,18 +50,18 @@ final class PageSorter
 
             $secondPagePosition = array_search($b->getRelativePathname(), array_values($pageSorterContents));
 
-            dump($secondPagePosition);
+            // dump($secondPagePosition);
 
             if (false === $secondPagePosition) {
                 $secondPagePosition = array_search($b->getRelativePathname(), array_keys($pageSorterContents));
             }
 
-            dump($firstPagePosition);
-            dump($secondPagePosition);
+            // dump($firstPagePosition);
+            // dump($secondPagePosition);
 
             // two files are on custom page position file
             if (false !== $firstPagePosition && false !== $secondPagePosition) {
-                dump('two files are on custom page position file');
+                // dump('two files are on custom page position file');
                 $order = $firstPagePosition > $secondPagePosition ? 1 : -1;
 
                 return 1 * $order;
@@ -70,7 +70,7 @@ final class PageSorter
             // only the first file to compare is on custom page position file
             // so place it before
             if (false !== $firstPagePosition) {
-                dump('only the first file to compare is on custom page position file');
+                // dump('only the first file to compare is on custom page position file');
 
                 return -1;
             }
@@ -78,7 +78,7 @@ final class PageSorter
             // only the second file to compare is on custom page position file
             // so place it after
             if (false !== $secondPagePosition) {
-                dump('only the second file to compare is on custom page position file');
+                // dump('only the second file to compare is on custom page position file');
 
                 return 1;
             }
