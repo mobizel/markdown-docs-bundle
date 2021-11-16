@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.11.1 (2021/11/16 15:38 +00:00)
+- [#102](https://github.com/mobizel/markdown-docs-bundle/pull/102) Fix page sorter (@loic425)
+
 ### v0.11.0 (2021/10/26 14:23 +00:00)
 - [#85](https://github.com/mobizel/markdown-docs-bundle/pull/85) Adding icons on menu (@loic425)
 - [#94](https://github.com/mobizel/markdown-docs-bundle/pull/94) Add event name on page action (@loic425)
