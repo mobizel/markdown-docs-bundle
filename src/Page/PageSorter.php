@@ -32,16 +32,16 @@ final class PageSorter
                 return -1;
             }
 
-            $firstPagePosition = array_search($a->getRelativePathname(), $pageSorterContents);
+            $firstPagePosition = array_search($a->getRelativePathname(), array_values($pageSorterContents), true);
 
             if (false === $firstPagePosition) {
-                $firstPagePosition = array_search($a->getRelativePathname(), array_keys($pageSorterContents));
+                $firstPagePosition = array_search($a->getRelativePathname(), array_keys($pageSorterContents), true);
             }
 
-            $secondPagePosition = array_search($b->getRelativePathname(), $pageSorterContents);
+            $secondPagePosition = array_search($b->getRelativePathname(), array_values($pageSorterContents), true);
 
             if (false === $secondPagePosition) {
-                $secondPagePosition = array_search($b->getRelativePathname(), array_keys($pageSorterContents));
+                $secondPagePosition = array_search($b->getRelativePathname(), array_keys($pageSorterContents), true);
             }
 
             // two files are on custom page position file
