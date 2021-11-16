@@ -40,13 +40,17 @@ final class PageSorter
                 return -1;
             }
 
-            $firstPagePosition = array_search($a->getRelativePathname(), $pageSorterContents);
+            $firstPagePosition = array_search($a->getRelativePathname(), array_values($pageSorterContents));
+
+            dump($firstPagePosition);
 
             if (false === $firstPagePosition) {
                 $firstPagePosition = array_search($a->getRelativePathname(), array_keys($pageSorterContents));
             }
 
-            $secondPagePosition = array_search($b->getRelativePathname(), $pageSorterContents);
+            $secondPagePosition = array_search($b->getRelativePathname(), array_values($pageSorterContents));
+
+            dump($secondPagePosition);
 
             if (false === $secondPagePosition) {
                 $secondPagePosition = array_search($b->getRelativePathname(), array_keys($pageSorterContents));
