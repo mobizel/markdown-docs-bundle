@@ -23,12 +23,18 @@ final class PageSorter
             $secondPageSlug = preg_replace('/\.md$/', '', $b->getRelativePathName());
             $firstPageSlug = preg_replace('/\.md$/', '', $a->getRelativePathName());
 
+            dump($secondPageSlug);
+            dump($firstPageSlug);
+            dump($pageSorterContents);
+
             // Homepage is always the first page
             if ('index' === $secondPageSlug) {
+                dump('Homepage is always the first page');
                 return 1;
             }
 
             if ('index' === $firstPageSlug) {
+                dump('Homepage is always the first page');
                 return -1;
             }
 
@@ -46,6 +52,7 @@ final class PageSorter
 
             // two files are on custom page position file
             if (false !== $firstPagePosition && false !== $secondPagePosition) {
+                dump('two files are on custom page position file');
                 $order = $firstPagePosition > $secondPagePosition ? 1 : -1;
 
                 return 1 * $order;
@@ -54,12 +61,14 @@ final class PageSorter
             // only the first file to compare is on custom page position file
             // so place it before
             if (false !== $firstPagePosition) {
+                dump('only the first file to compare is on custom page position file');
                 return -1;
             }
 
             // only the second file to compare is on custom page position file
             // so place it after
             if (false !== $secondPagePosition) {
+                dump('only the second file to compare is on custom page position file');
                 return 1;
             }
 

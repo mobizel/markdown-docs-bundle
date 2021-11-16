@@ -36,6 +36,8 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         ContextInterface $context,
         Request $request
     ): void {
+        dump(__FUNCTION__);
+
         $readerContext->getContext()->willReturn($context);
         $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
@@ -51,6 +53,8 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         ContextInterface $context,
         Request $request
     ): void {
+        dump(__FUNCTION__);
+
         $readerContext->getContext()->willReturn($context);
         $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
@@ -68,6 +72,8 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         ContextInterface $context,
         Request $request
     ): void {
+        dump(__FUNCTION__);
+
         $readerContext->getContext()->willReturn($context);
         $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
@@ -97,6 +103,8 @@ class PageCollectionDataProviderSpec extends ObjectBehavior
         ContextInterface $context,
         Request $request
     ): void {
+        dump(__FUNCTION__);
+
         $readerContext->getContext()->willReturn($context);
         $readerContext->getRequest()->willReturn($request);
         $context->getDocsDir($request)->willReturn(realpath(dirname(__FILE__).'/../../tests/docs'));
