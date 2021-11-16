@@ -52,6 +52,9 @@ final class PageSorter
                 $secondPagePosition = array_search($b->getRelativePathname(), array_keys($pageSorterContents));
             }
 
+            dump($firstPagePosition);
+            dump($secondPagePosition);
+
             // two files are on custom page position file
             if (false !== $firstPagePosition && false !== $secondPagePosition) {
                 dump('two files are on custom page position file');
