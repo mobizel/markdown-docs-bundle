@@ -15,6 +15,7 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Template;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Webmozart\Assert\Assert;
 
 final class TemplateResolver implements TemplateResolverInterface
 {
@@ -29,6 +30,8 @@ final class TemplateResolver implements TemplateResolverInterface
     public function resolve(Request $request): ?string
     {
         $slug = $request->get('slug');
+
+        Assert::string($slug, 'Slug must be a string. Got: %s');
 
         $context = $this->readerContext->getContext();
         $templatePath = sprintf('%s/%s.md', $context->getDocsDir($request), $slug);

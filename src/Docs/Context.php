@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Mobizel\Bundle\MarkdownDocsBundle\Docs;
 
 use Symfony\Component\HttpFoundation\Request;
+use Webmozart\Assert\Assert;
 
 final class Context implements ContextInterface
 {
@@ -49,7 +50,7 @@ final class Context implements ContextInterface
 
     public function getDocsDir(Request $request): string
     {
-        $routeParameters = $request->get('_route_params');
+        $routeParameters = $this->getRouteParameters($request);
 
         return $this->replaceMatchingParametersWithRouteParameters($this->docsDir, $routeParameters);
     }
@@ -78,7 +79,7 @@ final class Context implements ContextInterface
     {
         $metadata = $this->metadata;
 
-        $routeParameters = $request->get('_route_params');
+        $routeParameters = $this->getRouteParameters($request);
 
         foreach ($metadata as $key => $data) {
             if (!\is_string($data)) {
@@ -107,5 +108,14 @@ final class Context implements ContextInterface
         }
 
         return $data;
+    }
+
+    private function getRouteParameters(Request $request): array
+    {
+        $routeParameters = $request->get('_route_params');
+
+        Assert::isArray($routeParameters, 'Route params must be an array. Got: %s');
+
+        return $routeParameters;
     }
 }
