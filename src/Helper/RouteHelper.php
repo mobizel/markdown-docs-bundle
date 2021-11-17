@@ -17,6 +17,7 @@ use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
+use Webmozart\Assert\Assert;
 
 final class RouteHelper implements RouteHelperInterface
 {
@@ -53,7 +54,8 @@ final class RouteHelper implements RouteHelperInterface
     {
         $route = $this->getRouteForIndex($context);
 
-        $routeParameters = $this->request->get('_route_params');
+        $routeParameters = $this->getRouteParameters();
+
         unset($routeParameters['slug']);
 
         return $this->router->generate($route, $routeParameters);
@@ -63,7 +65,8 @@ final class RouteHelper implements RouteHelperInterface
     {
         $route = $this->getRouteForMenu($context);
 
-        $routeParameters = $this->request->get('_route_params');
+        $routeParameters = $this->getRouteParameters();
+
         $routeParameters['current_item'] = $routeParameters['slug'] ?? null;
         unset($routeParameters['slug']);
 
@@ -74,7 +77,8 @@ final class RouteHelper implements RouteHelperInterface
     {
         $route = $this->getRouteForPage($context);
 
-        $routeParameters = $this->request->get('_route_params');
+        $routeParameters = $this->getRouteParameters();
+
         $routeParameters['slug'] = $slug;
         unset($routeParameters['trailingSlash']);
 
@@ -85,9 +89,18 @@ final class RouteHelper implements RouteHelperInterface
     {
         $route = $this->getRouteForSearch($context);
 
-        $routeParameters = $this->request->get('_route_params');
+        $routeParameters = $this->getRouteParameters();
         unset($routeParameters['slug']);
 
         return $this->router->generate($route, $routeParameters);
+    }
+
+    private function getRouteParameters(): array
+    {
+        $routeParameters = $this->request->get('_route_params');
+
+        Assert::isArray($routeParameters, 'Route params must be an array. Got: %s');
+
+        return $routeParameters;
     }
 }

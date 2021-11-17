@@ -17,6 +17,7 @@ use Mobizel\Bundle\MarkdownDocsBundle\Dto\PageOutput;
 use Mobizel\Bundle\MarkdownDocsBundle\Page\PageInfo;
 use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Webmozart\Assert\Assert;
 
 final class PageItemDataProvider
 {
@@ -29,7 +30,10 @@ final class PageItemDataProvider
 
     public function getPage(Request $request): ?PageOutput
     {
-        $slug = $request->get('slug', '');
+        $slug = $request->attributes->get('slug', '');
+
+        Assert::string($slug, 'Slug must be a string. Got: %s');
+
         $templatePath = $this->templateResolver->resolve($request);
 
         if (null === $templatePath) {
