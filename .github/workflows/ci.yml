@@ -57,6 +57,10 @@ jobs:
                     composer config minimum-stability "dev"
                     composer config prefer-stable true
 
+            -   name: Remove Phpspec
+                if: matrix.symfony == '6.0.*'
+                run: composer remove --dev phpspec/phpspec
+
             -
                 name: Install dependencies
                 run: composer update
@@ -75,6 +79,7 @@ jobs:
 
             -
                 name: Run phpspec
+                if: matrix.symfony != '6.0.*'
                 run: phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
 
             -
