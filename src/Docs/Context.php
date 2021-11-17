@@ -112,7 +112,7 @@ final class Context implements ContextInterface
 
     private function getRouteParameters(Request $request): array
     {
-        $routeParameters = $request->get('_route_params');
+        $routeParameters = $request->attributes->get('_route_params');
 
         Assert::isArray($routeParameters, 'Route params must be an array. Got: %s');
 

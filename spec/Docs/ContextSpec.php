@@ -15,6 +15,7 @@ namespace spec\Mobizel\Bundle\MarkdownDocsBundle\Docs;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\Context;
 use PhpSpec\ObjectBehavior;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContextSpec extends ObjectBehavior
@@ -44,24 +45,43 @@ class ContextSpec extends ObjectBehavior
         $this->getPattern()->shouldReturn('/\/(\w+)\/(\d+).(\d+)/');
     }
 
-    public function it_can_get_docs_dir(Request $request): void
+    public function it_can_get_metadata(Request $request, ParameterBag $attributesBag): void
     {
-        $request->get('_route_params')->willReturn([]);
+        $attributesBag->get('_route_params')->willReturn([]);
+
+        $request->attributes = $attributesBag;
+
+        $this->beConstructedWith('legacy', '/{project}/{version}', './legacy_docs/{project}/{version}', [], [
+            'title' => '{package} documentation',
+        ]);
+
+        $this->getMetadata($request)->shouldReturn([
+            'title' => '{package} documentation',
+        ]);
+    }
+
+    public function it_can_get_docs_dir(Request $request, ParameterBag $attributesBag): void
+    {
+        $attributesBag->get('_route_params')->willReturn([]);
+
+        $request->attributes = $attributesBag;
 
         $this->getDocsDir($request)->shouldReturn('./docs');
     }
 
-    public function it_replaces_params_in_docs_dir(Request $request): void
+    public function it_replaces_params_in_docs_dir(Request $request, ParameterBag $attributesBag): void
     {
         $this->beConstructedWith('legacy', '/{project}/{version}', './docs/{project}/{version}', [
             'project' => '(\w+)',
             'version' => '(\d+).(\d+)',
         ]);
 
-        $request->get('_route_params')->willReturn([
+        $attributesBag->get('_route_params')->willReturn([
             'project' => 'my-project',
             'version' => '1.2',
         ]);
+
+        $request->attributes = $attributesBag;
 
         $this->getDocsDir($request)->shouldReturn('./docs/my-project/1.2');
     }
