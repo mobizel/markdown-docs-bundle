@@ -1,5 +1,10 @@
 ## Change Log
 
+### v0.11.2 (2021/11/17 10:30 +00:00)
+- [#103](https://github.com/mobizel/markdown-docs-bundle/pull/103) Remove usage of request get method (@loic425)
+- [#100](https://github.com/mobizel/markdown-docs-bundle/pull/100) Main style content (@jibograf)
+- [#99](https://github.com/mobizel/markdown-docs-bundle/pull/99) Update phpstan/phpstan requirement from ^0.12.42 to ^1.1.2 (@loic425, @dependabot[bot])
+
 ### v0.11.1 (2021/11/16 15:38 +00:00)
 - [#102](https://github.com/mobizel/markdown-docs-bundle/pull/102) Fix page sorter (@loic425)
 
