@@ -33,7 +33,7 @@ final class SearchAction extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $query = $request->get('query', '');
+        $query = $request->query->get('query', '');
 
         $finder = new Finder();
         $finder->files()->in($this->readerContext->getContext()->getDocsDir($request))->contains('/'.$query.'/i');

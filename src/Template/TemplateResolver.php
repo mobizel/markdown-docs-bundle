@@ -19,8 +19,7 @@ use Webmozart\Assert\Assert;
 
 final class TemplateResolver implements TemplateResolverInterface
 {
-    /** @var ReaderContextInterface */
-    private $readerContext;
+    private ReaderContextInterface $readerContext;
 
     public function __construct(ReaderContextInterface $readerContext)
     {
@@ -29,7 +28,7 @@ final class TemplateResolver implements TemplateResolverInterface
 
     public function resolve(Request $request): ?string
     {
-        $slug = $request->get('slug');
+        $slug = $request->attributes->get('slug');
 
         Assert::string($slug, 'Slug must be a string. Got: %s');
 

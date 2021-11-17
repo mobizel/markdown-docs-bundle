@@ -17,6 +17,7 @@ use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Docs\ContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\Template\TemplateResolver;
 use PhpSpec\ObjectBehavior;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class TemplateResolverSpec extends ObjectBehavior
@@ -33,24 +34,30 @@ class TemplateResolverSpec extends ObjectBehavior
 
     function it_resolves_the_context_to_use(
         Request $request,
+        ParameterBag $attributesBag,
         ReaderContextInterface $readerContext,
         ContextInterface $context
     ): void {
-        $request->get('slug')->willReturn('cookbook/bdd');
+        $attributesBag->get('slug')->willReturn('cookbook/bdd');
         $readerContext->getContext()->willReturn($context);
         $context->getDocsDir($request)->willReturn(dirname(__FILE__).'/../../tests/docs');
+
+        $request->attributes = $attributesBag;
 
         $this->resolve($request)->shouldNotBeNull();
     }
 
     function it_returns_null_when_template_was_not_found(
         Request $request,
+        ParameterBag $attributesBag,
         ReaderContextInterface $readerContext,
         ContextInterface $context
     ): void {
-        $request->get('slug')->willReturn('not-found');
+        $attributesBag->get('slug')->willReturn('not-found');
         $readerContext->getContext()->willReturn($context);
         $context->getDocsDir($request)->willReturn(dirname(__FILE__).'/../../tests/docs');
+
+        $request->attributes = $attributesBag;
 
         $this->resolve($request)->shouldBeNull();
     }
