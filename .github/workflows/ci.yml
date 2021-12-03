@@ -58,7 +58,7 @@ jobs:
                     composer config prefer-stable true
 
             -   name: Remove Phpspec
-                if: ${{ contains( matrix.symfony, '6.0.*' ) }}
+                if: ${{ contains( matrix.symfony, '6.0' ) }}
                 run: composer remove --dev phpspec/phpspec --no-update
 
             -
@@ -79,7 +79,7 @@ jobs:
 
             -
                 name: Run phpspec
-                if: ${{ true != contains( matrix.symfony, '6.0.*' ) }}
+                if: ${{ true != contains( matrix.symfony, '6.0' ) }}
                 run: phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
 
             -
