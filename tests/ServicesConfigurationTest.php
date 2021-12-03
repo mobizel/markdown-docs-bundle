@@ -44,11 +44,13 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class ServicesConfigurationTest extends KernelTestCase
 {
+    protected static $container;
+
     public function testMarkdownExtraWithConfiguration()
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $markdownExtra = $container->get('mobizel_markdown_docs.markdown_extra');
         $this->assertInstanceOf(MarkdownExtra::class, $markdownExtra);
@@ -58,7 +60,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $templateResolver = $container->get('mobizel_markdown_docs.template.template_resolver');
         $this->assertInstanceOf(TemplateResolver::class, $templateResolver);
@@ -69,7 +71,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $pageHelper = $container->get('mobizel_markdown_docs.helper.page_helper');
         $this->assertInstanceOf(PageHelper::class, $pageHelper);
@@ -80,7 +82,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $routeHelper = $container->get('mobizel_markdown_docs.helper.route_helper');
         $this->assertInstanceOf(RouteHelper::class, $routeHelper);
@@ -91,7 +93,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $readerContext = $container->get('mobizel_markdown_docs.context.reader');
         $this->assertInstanceOf(ReaderContext::class, $readerContext);
@@ -102,7 +104,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $contextRegistry = $container->get('mobizel_markdown_docs.docs.context_registry');
         $this->assertInstanceOf(ContextRegistry::class, $contextRegistry);
@@ -113,7 +115,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $contextResolver = $container->get('mobizel_markdown_docs.docs.context_resolver');
         $this->assertInstanceOf(ContextResolver::class, $contextResolver);
@@ -124,7 +126,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $pageCollectionDataProvider = $container->get('mobizel_markdown_docs.data_provider.page_collection');
         $this->assertInstanceOf(PageCollectionDataProvider::class, $pageCollectionDataProvider);
@@ -135,7 +137,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $pageItemDataProvider = $container->get('mobizel_markdown_docs.data_provider.page_item');
         $this->assertInstanceOf(PageItemDataProvider::class, $pageItemDataProvider);
@@ -146,7 +148,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $pageTitleExtension = $container->get('mobizel_markdown_docs.twig.extension.page_title');
         $this->assertInstanceOf(PageTitleExtension::class, $pageTitleExtension);
@@ -157,7 +159,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $paginationExtension = $container->get('mobizel_markdown_docs.twig.extension.pagination');
         $this->assertInstanceOf(PaginationExtension::class, $paginationExtension);
@@ -168,7 +170,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $readerExtension = $container->get('mobizel_markdown_docs.twig.extension.reader');
         $this->assertInstanceOf(ReaderExtension::class, $readerExtension);
@@ -179,7 +181,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $indexAction = $container->get('mobizel_markdown_docs.controller.index_action');
         $this->assertInstanceOf(IndexAction::class, $indexAction);
@@ -189,7 +191,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $pageAction = $container->get('mobizel_markdown_docs.controller.page_action');
         $this->assertInstanceOf(PageAction::class, $pageAction);
@@ -199,7 +201,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $searchAction = $container->get('mobizel_markdown_docs.controller.search_action');
         $this->assertInstanceOf(SearchAction::class, $searchAction);
@@ -209,7 +211,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $menuAction = $container->get('mobizel_markdown_docs.controller.menu_action');
         $this->assertInstanceOf(MenuAction::class, $menuAction);
@@ -219,7 +221,7 @@ final class ServicesConfigurationTest extends KernelTestCase
     {
         self::bootKernel();
 
-        $container = self::$container;
+        $container = null === self::$container ? self::getContainer() : self::$container;
 
         $indexAction = $container->get('mobizel_markdown_docs.routing.context_loader');
         $this->assertInstanceOf(ContextLoader::class, $indexAction);
