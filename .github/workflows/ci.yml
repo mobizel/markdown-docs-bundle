@@ -2,10 +2,6 @@ name: Build
 
 env:
     PHPUNIT_FLAGS: "-v"
-    SYMFONY_44: 4.4.*
-    SYMFONY_53: 5.3.*
-    SYMFONY_54: 5.4.*
-    SYMFONY_60: 6.0.*
 
 on:
     push: ~
@@ -27,16 +23,16 @@ jobs:
                 include:
                     -
                         php: 7.4
-                        symfony: ${SYMFONY_44}
+                        symfony: 4.4.*
                     -
                         php: 7.4
-                        symfony: ${SYMFONY_53}
+                        symfony: 5.3.*
                     -
                         php: 8.0
-                        symfony: ${SYMFONY_54}
+                        symfony: 5.4.*
                     -
                         php: 8.0
-                        symfony: ${SYMFONY_60}
+                        symfony: 6.0.*
 
         steps:
             -   uses: actions/checkout@v2
@@ -58,7 +54,7 @@ jobs:
                     composer config prefer-stable true
 
             -   name: Remove Phpspec
-                if: ${{ contains( matrix.symfony, '6.0' ) }}
+                if: ${{ contains( matrix.symfony, '6.0.*' ) }}
                 run: composer remove --dev phpspec/phpspec --no-update
 
             -
@@ -79,7 +75,7 @@ jobs:
 
             -
                 name: Run phpspec
-                if: ${{ true != contains( matrix.symfony, '6.0' ) }}
+                if: ${{ true != contains( matrix.symfony, '6.0.*' ) }}
                 run: phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
 
             -
