@@ -59,7 +59,7 @@ jobs:
 
             -   name: Remove Phpspec
                 if: ${{ contains( matrix.symfony, '6.0.*' ) }}
-                run: composer remove --dev phpspec/phpspec
+                run: composer remove --dev phpspec/phpspec --no-update
 
             -
                 name: Install dependencies

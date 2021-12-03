@@ -97,7 +97,7 @@ final class RouteHelper implements RouteHelperInterface
 
     private function getRouteParameters(): array
     {
-        $routeParameters = $this->request->get('_route_params');
+        $routeParameters = $this->request->attributes->get('_route_params');
 
         Assert::isArray($routeParameters, 'Route params must be an array. Got: %s');
 
