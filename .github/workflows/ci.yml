@@ -2,9 +2,6 @@ name: Build
 
 env:
     PHPUNIT_FLAGS: "-v"
-    SYMFONY_LTS: 4.4.*
-    SYMFONY_LATEST: 5.2.*
-    SYMFONY_DEV: 5.3.*
 
 on:
     push: ~
@@ -26,13 +23,16 @@ jobs:
                 include:
                     -
                         php: 7.4
-                        symfony: ${SYMFONY_LTS}
+                        symfony: 4.4.*
                     -
                         php: 7.4
-                        symfony: ${SYMFONY_LATEST}
+                        symfony: 5.3.*
                     -
                         php: 8.0
-                        symfony: ${SYMFONY_LATEST}
+                        symfony: 5.4.*
+                    -
+                        php: 8.0
+                        symfony: 6.0.*
 
         steps:
             -   uses: actions/checkout@v2
@@ -53,6 +53,10 @@ jobs:
                     composer config minimum-stability "dev"
                     composer config prefer-stable true
 
+            -   name: Remove Phpspec
+                if: ${{ contains( matrix.symfony, '6.0.*' ) }}
+                run: composer remove --dev phpspec/phpspec --no-update
+
             -
                 name: Install dependencies
                 run: composer update
@@ -71,6 +75,7 @@ jobs:
 
             -
                 name: Run phpspec
+                if: ${{ true != contains( matrix.symfony, '6.0.*' ) }}
                 run: phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
 
             -
@@ -79,6 +84,7 @@ jobs:
 
             -
                 name: Run Psalm
+                if: ${{ true != contains( matrix.symfony, '6.0.*' ) }}
                 run: vendor/bin/psalm
 
             -
