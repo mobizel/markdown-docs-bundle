@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.12.0 (2021/12/06 08:22 +00:00)
+- [#93](https://github.com/mobizel/markdown-docs-bundle/pull/93) Add support for Symfony 6 (@loic425)
+
 ### v0.11.2 (2021/11/17 10:30 +00:00)
 - [#103](https://github.com/mobizel/markdown-docs-bundle/pull/103) Remove usage of request get method (@loic425)
 - [#100](https://github.com/mobizel/markdown-docs-bundle/pull/100) Main style content (@jibograf)
