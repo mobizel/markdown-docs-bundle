@@ -20,19 +20,12 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                include:
+                php: ['7.4', '8.0', '8.1']
+                symfony: ['4.4.*', '5.4.*', '6.0.*']
+                exclude:
                     -
-                        php: 7.4
-                        symfony: 4.4.*
-                    -
-                        php: 7.4
-                        symfony: 5.3.*
-                    -
-                        php: 8.0
-                        symfony: 5.4.*
-                    -
-                        php: 8.0
-                        symfony: 6.0.*
+                        php: '7.4'
+                        symfony: '6.0.*'
 
         steps:
             -   uses: actions/checkout@v2
@@ -53,10 +46,6 @@ jobs:
                     composer config minimum-stability "dev"
                     composer config prefer-stable true
 
-            -   name: Remove Phpspec
-                if: ${{ contains( matrix.symfony, '6.0.*' ) }}
-                run: composer remove --dev phpspec/phpspec --no-update
-
             -
                 name: Install dependencies
                 run: composer update
@@ -75,7 +64,6 @@ jobs:
 
             -
                 name: Run phpspec
-                if: ${{ true != contains( matrix.symfony, '6.0.*' ) }}
                 run: phpdbg -qrr vendor/bin/phpspec run --no-interaction -f dot
 
             -
@@ -85,7 +73,7 @@ jobs:
             -
                 name: Run Psalm
                 if: ${{ true != contains( matrix.symfony, '6.0.*' ) }}
-                run: vendor/bin/psalm
+                run: vendor/bin/psalm --php-version="${{ matrix.php }}"
 
             -
                 name: Run PHPUnit
