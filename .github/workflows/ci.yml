@@ -77,7 +77,7 @@ jobs:
             -
                 name: Run Psalm
                 if: ${{ true != contains( matrix.symfony, '6.0.*' ) }}
-                run: vendor/bin/psalm --php-version="${{ matrix.symfony }}"
+                run: vendor/bin/psalm --php-version="${{ matrix.php }}"
 
             -
                 name: Run PHPUnit
