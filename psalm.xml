@@ -13,4 +13,12 @@
             <file name="src/DependencyInjection/Configuration.php"/>
         </ignoreFiles>
     </projectFiles>
+
+    <issueHandlers>
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <file name="src/DependencyInjection/Compiler/RegisterContextsPass.php" />
+            </errorLevel>
+        </UndefinedDocblockClass>
+    </issueHandlers>
 </psalm>
