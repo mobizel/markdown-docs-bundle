@@ -25,6 +25,8 @@ interface RouteHelperInterface
 
     public function getRouteForSearch(ContextInterface $context): string;
 
+    public function getRouteForPrint(ContextInterface $context): string;
+
     public function getPathForIndex(ContextInterface $context): string;
 
     public function getPathForMenu(ContextInterface $context): string;
@@ -33,3 +35,5 @@ interface RouteHelperInterface
 
     public function getPathForSearch(ContextInterface $context): string;
 }
+
+

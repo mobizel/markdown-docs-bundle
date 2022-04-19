@@ -120,6 +120,14 @@
             <argument key="$pageCollectionDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_collection"/>
         </service>
 
+        <service id="mobizel_markdown_docs.controller.print_action" class="Mobizel\Bundle\MarkdownDocsBundle\Controller\PrintAction">
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface"/>
+            </call>
+            <tag name="container.service_subscriber"/>
+            <argument key="$pageCollectionDataProvider" type="service" id="mobizel_markdown_docs.data_provider.page_collection"/>
+        </service>
+
         <!-- Routing -->
 
         <service id="mobizel_markdown_docs.routing.context_loader" class="Mobizel\Bundle\MarkdownDocsBundle\Routing\ContextLoader">

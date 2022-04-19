@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class PageActionTest extends WebTestCase
 {
-    public function testRedirection()
+    public function testRedirection(): void
     {
         $client = static::createClient();
 
@@ -27,7 +27,7 @@ final class PageActionTest extends WebTestCase
         $this->assertEquals('/current/bar', $client->getResponse()->getTargetUrl());
     }
 
-    public function testDirectoryIndexPageRedirection()
+    public function testDirectoryIndexPageRedirection(): void
     {
         $client = static::createClient();
 
@@ -37,7 +37,7 @@ final class PageActionTest extends WebTestCase
         $this->assertEquals('/current/products/books', $client->getResponse()->getTargetUrl());
     }
 
-    public function testShowPage()
+    public function testShowPage(): void
     {
         $client = static::createClient();
 
@@ -47,7 +47,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Documentation');
     }
 
-    public function testShowPageWithContextContainingOneRequirement()
+    public function testShowPageWithContextContainingOneRequirement(): void
     {
         $client = static::createClient();
 
@@ -57,7 +57,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Documentation for 1.2 release');
     }
 
-    public function testShowPageWithContextContainingTwoRequirements()
+    public function testShowPageWithContextContainingTwoRequirements(): void
     {
         $client = static::createClient();
 
@@ -67,7 +67,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Destroyer');
     }
 
-    public function testShowPageWithMetadata()
+    public function testShowPageWithMetadata(): void
     {
         $client = static::createClient();
 
@@ -77,7 +77,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('.navbar-brand', 'Documentation');
     }
 
-    public function testShowPageWithMetadataContainingOneRequirement()
+    public function testShowPageWithMetadataContainingOneRequirement(): void
     {
         $client = static::createClient();
 
@@ -87,7 +87,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('.navbar-brand', 'Destroyer');
     }
 
-    public function testDirectoryIndexPage()
+    public function testDirectoryIndexPage(): void
     {
         $client = static::createClient();
 
@@ -97,7 +97,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Book homepage');
     }
 
-    public function testShowPageWithTrailingSlash()
+    public function testShowPageWithTrailingSlash(): void
     {
         $client = static::createClient();
 
@@ -107,7 +107,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Book homepage');
     }
 
-    public function testSubDirectoryIndexPage()
+    public function testSubDirectoryIndexPage(): void
     {
         $client = static::createClient();
 
@@ -117,7 +117,7 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Stephen King Books');
     }
 
-    public function testNotFoundPage()
+    public function testNotFoundPage(): void
     {
         $client = static::createClient();
 
@@ -126,7 +126,7 @@ final class PageActionTest extends WebTestCase
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
-    public function testBreadcrumb()
+    public function testBreadcrumb(): void
     {
         $client = static::createClient();
 

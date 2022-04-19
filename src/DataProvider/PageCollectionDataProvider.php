@@ -31,6 +31,21 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
         $this->readerContext = $readerContext;
     }
 
+    public function getPages(): iterable
+    {
+        $pages = $this->getRootPages();
+
+        foreach ($pages as $page) {
+            yield $page;
+
+            $pages = $this->getChildrenPages($page->slug);
+        }
+
+        foreach ($pages as $page) {
+            yield $page;
+        }
+    }
+
     public function getRootPages(): iterable
     {
         $docsDir = $this->getDocsDir();

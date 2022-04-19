@@ -19,6 +19,8 @@ interface ReaderExtensionInterface
 
     public function getPathForMenu(): string;
 
+    public function getPathForPrint(): string;
+
     public function getPathForPage(string $slug): string;
 
     public function getPathForSearch(): string;
