@@ -35,5 +35,3 @@ interface RouteHelperInterface
 
     public function getPathForSearch(ContextInterface $context): string;
 }
-
-
