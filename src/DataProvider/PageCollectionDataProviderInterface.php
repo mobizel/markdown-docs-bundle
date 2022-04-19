@@ -26,7 +26,7 @@ interface PageCollectionDataProviderInterface
     /** @return iterable<int, PageOutput> */
     public function getChildrenPages(string $parentSlug): iterable;
 
-    /** @return array<string, string> */
+    /** @return string[] */
     public function getPagesMap(): array;
 
     public function getPagesAsTree(): array;

@@ -131,6 +131,7 @@ final class PageCollectionDataProvider implements PageCollectionDataProviderInte
             ++$currentPosition;
         }
 
+        /** @var array<string, string> $pagesMap */
         $pagesMap = [];
         foreach ($pages as $row) {
             $pagesMap[$row['slug']] = $row['title'];
