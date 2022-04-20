@@ -55,7 +55,7 @@ final class ReaderExtension extends AbstractExtension implements ReaderExtension
 
     public function getPathForPrint(): string
     {
-        return $this->routeHelper->getRouteForPrint($this->readerContext->getContext());
+        return $this->routeHelper->getPathForPrint($this->readerContext->getContext());
     }
 
     public function getPathForPage(string $slug): string

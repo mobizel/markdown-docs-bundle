@@ -34,4 +34,6 @@ interface RouteHelperInterface
     public function getPathForPage(ContextInterface $context, string $slug): string;
 
     public function getPathForSearch(ContextInterface $context): string;
+
+    public function getPathForPrint(ContextInterface $context): string;
 }
