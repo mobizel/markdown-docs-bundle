@@ -1,5 +1,14 @@
 ## Change Log
 
+### v0.13.0 (2022/04/20 09:06 +00:00)
+- [#115](https://github.com/mobizel/markdown-docs-bundle/pull/115) Comment testing contexts (@loic425)
+- [#114](https://github.com/mobizel/markdown-docs-bundle/pull/114) Remove yarn.lock (@loic425)
+- [#113](https://github.com/mobizel/markdown-docs-bundle/pull/113) Remove package.json (@loic425)
+- [#112](https://github.com/mobizel/markdown-docs-bundle/pull/112) Print action (@loic425)
+- [#111](https://github.com/mobizel/markdown-docs-bundle/pull/111) Fix Kernel on test app for Symfony 6 (@loic425)
+- [#110](https://github.com/mobizel/markdown-docs-bundle/pull/110) Remove Travis badge (@loic425)
+- [#107](https://github.com/mobizel/markdown-docs-bundle/pull/107) Add test with PHP 8.1 (@loic425)
+
 ### v0.12.0 (2021/12/06 08:22 +00:00)
 - [#93](https://github.com/mobizel/markdown-docs-bundle/pull/93) Add support for Symfony 6 (@loic425)
 
