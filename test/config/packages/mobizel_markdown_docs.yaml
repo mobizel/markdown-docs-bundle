@@ -1,5 +1,11 @@
 mobizel_markdown_docs:
     contexts:
+        sylius_resource_bundle:
+            path: /sylius-resource-bundle
+            docs_dir: '/Users/loicfremont/www/sylius/sylius_resource_bundle/docs'
+        monofony:
+            path: /monofony
+            docs_dir: '/Users/loicfremont/www/monofony/docs/current'
         current:
             path: /current
             docs_dir: '%kernel.project_dir%/../tests/docs'

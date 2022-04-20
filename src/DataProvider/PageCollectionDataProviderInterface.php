@@ -13,12 +13,20 @@ declare(strict_types=1);
 
 namespace Mobizel\Bundle\MarkdownDocsBundle\DataProvider;
 
+use Mobizel\Bundle\MarkdownDocsBundle\Dto\PageOutput;
+
 interface PageCollectionDataProviderInterface
 {
+    /** @return iterable<int, PageOutput> */
+    public function getPages(): iterable;
+
+    /** @return iterable<int, PageOutput> */
     public function getRootPages(): iterable;
 
+    /** @return iterable<int, PageOutput> */
     public function getChildrenPages(string $parentSlug): iterable;
 
+    /** @return string[] */
     public function getPagesMap(): array;
 
     public function getPagesAsTree(): array;

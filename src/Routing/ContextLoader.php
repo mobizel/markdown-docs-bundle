@@ -22,11 +22,9 @@ use Symfony\Component\Routing\RouteCollection;
 
 final class ContextLoader
 {
-    /** @var ContextRegistryInterface */
-    private $contextRegistry;
+    private ContextRegistryInterface $contextRegistry;
 
-    /** @var RouteHelperInterface */
-    private $routeHelper;
+    private RouteHelperInterface $routeHelper;
 
     public function __construct(ContextRegistryInterface $contextRegistry, RouteHelperInterface $routeHelper)
     {
@@ -38,9 +36,6 @@ final class ContextLoader
     {
         $routeCollection = new RouteCollection();
 
-        /**
-         * @var ContextInterface $context
-         */
         foreach ($this->contextRegistry->getAll() as $context) {
             $this->addRoutesForContext($routeCollection, $context);
         }
@@ -53,6 +48,7 @@ final class ContextLoader
         $this->addRouteForMenu($routeCollection, $context);
         $this->addRouteForSearch($routeCollection, $context);
         $this->addRouteForIndex($routeCollection, $context);
+        $this->addRouteForPrint($routeCollection, $context);
         $this->addRouteForPage($routeCollection, $context);
     }
 
@@ -77,7 +73,7 @@ final class ContextLoader
         $defaults = ['_controller' => 'mobizel_markdown_docs.controller.search_action'];
 
         $route = new Route(
-            $context->getPath().'/search',
+            $context->getPath().'/_search',
             $defaults,
             $this->buildRequirements($context),
             [],
@@ -86,6 +82,22 @@ final class ContextLoader
             [Request::METHOD_GET]
         );
         $routeCollection->add($this->routeHelper->getRouteForSearch($context), $route);
+    }
+
+    private function addRouteForPrint(RouteCollection $routeCollection, ContextInterface $context): void
+    {
+        $defaults = ['_controller' => 'mobizel_markdown_docs.controller.print_action'];
+
+        $route = new Route(
+            $context->getPath().'/_print',
+            $defaults,
+            $this->buildRequirements($context),
+            [],
+            null,
+            [],
+            [Request::METHOD_GET]
+        );
+        $routeCollection->add($this->routeHelper->getRouteForPrint($context), $route);
     }
 
     private function addRouteForIndex(RouteCollection $routeCollection, ContextInterface $context): void

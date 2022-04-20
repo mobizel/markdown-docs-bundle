@@ -16,9 +16,12 @@
                value="{{ app.request.get('query') }}"
         >
     </form>
-{#    <ul class="navbar-nav px-3">#}
-{#        <li class="nav-item text-nowrap">#}
-{#            <a class="nav-link" href="#">Sign out</a>#}
-{#        </li>#}
-{#    </ul>#}
+    <div class="navbar-nav d-none d-lg-block">
+        <div class="nav-item text-nowrap">
+            <a class="nav-link px-3 text-secondary" target="_blank" href="{{ markdown_docs_path_for_print() }}">
+                <span data-feather="printer"></span>
+                Print
+            </a>
+        </div>
+    </div>
 </nav>

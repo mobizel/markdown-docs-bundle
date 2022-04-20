@@ -15,16 +15,15 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class SearchActionTest extends WebTestCase
+final class MenuActionTest extends WebTestCase
 {
-    public function testSearchAction(): void
+    public function testMenuAction(): void
     {
         $client = static::createClient();
 
-        $client->request('GET', '/current/_search?query=foo+fighters');
+        $client->request('GET', '/current/_partials/menu');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertSelectorTextContains('html h1', 'foo fighters');
-        $this->assertSelectorTextContains('main ul', 'Foo fighters');
+        $this->assertSelectorTextSame('html ul li a', 'Bar');
     }
 }

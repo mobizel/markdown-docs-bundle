@@ -36,6 +36,7 @@ final class ReaderExtension extends AbstractExtension implements ReaderExtension
         return [
             new TwigFunction('markdown_docs_path_for_index', [$this, 'getPathForIndex']),
             new TwigFunction('markdown_docs_path_for_menu', [$this, 'getPathForMenu']),
+            new TwigFunction('markdown_docs_path_for_print', [$this, 'getPathForPrint']),
             new TwigFunction('markdown_docs_path_for_page', [$this, 'getPathForPage']),
             new TwigFunction('markdown_docs_path_for_search', [$this, 'getPathForSearch']),
             new TwigFunction('markdown_docs_metadata', [$this, 'getMetadata']),
@@ -50,6 +51,11 @@ final class ReaderExtension extends AbstractExtension implements ReaderExtension
     public function getPathForMenu(): string
     {
         return $this->routeHelper->getPathForMenu($this->readerContext->getContext());
+    }
+
+    public function getPathForPrint(): string
+    {
+        return $this->routeHelper->getPathForPrint($this->readerContext->getContext());
     }
 
     public function getPathForPage(string $slug): string
