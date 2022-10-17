@@ -47,6 +47,16 @@ final class PageActionTest extends WebTestCase
         $this->assertSelectorTextSame('html h1', 'Documentation');
     }
 
+    public function testImage():void
+    {
+        $client = static::createClient();
+
+        $client->request("GET","/current/products/books/stephen-king/img1.jpeg");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $client->request("GET","/current/products/../products/books/stephen-king/img1.jpeg");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
     public function testShowPageWithContextContainingOneRequirement(): void
     {
         $client = static::createClient();
