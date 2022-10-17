@@ -15,6 +15,7 @@ namespace Mobizel\Bundle\MarkdownDocsBundle\Controller;
 
 use Mobizel\Bundle\MarkdownDocsBundle\Context\ReaderContextInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\DataProvider\PageItemDataProvider;
+use Mobizel\Bundle\MarkdownDocsBundle\Dto\ImageResponse;
 use Mobizel\Bundle\MarkdownDocsBundle\Event\PageEvent;
 use Mobizel\Bundle\MarkdownDocsBundle\Helper\RouteHelperInterface;
 use Mobizel\Bundle\MarkdownDocsBundle\PageEvents;
@@ -51,6 +52,11 @@ final class PageAction extends AbstractController
     {
         $context = $this->readerContext->getContext();
 
+        /// send image response if page ends with .jpeg ("foo/page.jpg" should be send as image )
+        if( $this->isJpegImage($slug)){
+            $image = file_get_contents($context->getDocsDir($request).DIRECTORY_SEPARATOR.$slug);
+            return new ImageResponse($image,200);
+        }
         // redirect a suffixed page ("foo/bar.md" should be redirected to "foo/bar")
         if (false !== strpos($slug, '.md')) {
             /** @var string $slug */
@@ -68,7 +74,6 @@ final class PageAction extends AbstractController
         }
 
         $page = $this->pageItemDataProvider->getPage($request);
-
         if (null === $page) {
             throw new NotFoundHttpException(sprintf('Page "%s" was not found', $slug));
         }
@@ -78,5 +83,13 @@ final class PageAction extends AbstractController
         return $this->render('@MobizelMarkdownDocs/page/show.html.twig', [
             'page' => $page,
         ]);
+    }
+
+
+    private function isJpegImage(string $slug): bool
+    {
+        $chunks = explode(".",$slug);
+        $extension = end($chunks);
+        return "jpeg" === $extension;
     }
 }
