@@ -55,6 +55,8 @@ final class PageActionTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $client->request("GET","/current/products/../products/books/stephen-king/img1.jpeg");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $client->request("GET","/current/not-found.jpeg");
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
     public function testShowPageWithContextContainingOneRequirement(): void

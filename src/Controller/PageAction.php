@@ -53,7 +53,8 @@ final class PageAction extends AbstractController
         $context = $this->readerContext->getContext();
 
         /// send image response if page ends with .jpeg ("foo/page.jpg" should be send as image )
-        if( $this->isJpegImage($slug)){
+        if( $this->isJpegImage($slug)
+            && file_exists($context->getDocsDir($request).DIRECTORY_SEPARATOR.$slug)){
             $image = file_get_contents($context->getDocsDir($request).DIRECTORY_SEPARATOR.$slug);
             return new ImageResponse($image,200);
         }
