@@ -42,7 +42,7 @@
         "symfony/dotenv": "^4.4 || ^5.3 || ^6.0",
         "symfony/phpunit-bridge": "^4.4 || ^5.3 || ^6.0",
         "symplify/easy-coding-standard": "^9.0",
-        "vimeo/psalm": "^4.7"
+        "vimeo/psalm": "^5.2"
     },
     "config": {
         "preferred-install": "dist",
