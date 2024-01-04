@@ -27,7 +27,7 @@ final class PageTitleExtension extends AbstractExtension implements PageTitleExt
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getFunctions(): array
     {
