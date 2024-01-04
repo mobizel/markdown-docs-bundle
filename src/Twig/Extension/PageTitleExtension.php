@@ -26,6 +26,9 @@ final class PageTitleExtension extends AbstractExtension implements PageTitleExt
         $this->pageHelper = $pageHelper;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getFunctions(): array
     {
         return [
