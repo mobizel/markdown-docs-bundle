@@ -28,6 +28,7 @@ final class PageTitleExtension extends AbstractExtension implements PageTitleExt
 
     /**
      * @inheritDoc
+     * @return array
      */
     public function getFunctions(): array
     {
